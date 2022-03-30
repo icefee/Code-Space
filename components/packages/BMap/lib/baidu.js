@@ -23,7 +23,7 @@ const loadJs = (ak, callback) => {
     else {
         let script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = `//api.map.baidu.com/getscript?v=3.0&ak=${ak}`;
+        script.src = `//api.map.baidu.com/api?v=3.0&ak=${ak}`;
         document.head.appendChild(script);
         script.onload = callback;
     }
