@@ -21,9 +21,10 @@ const loadJs = (ak, callback) => {
         callback()
     }
     else {
-        let script = document.createElement('script');
+        window.BMAP_PROTOCOL = 'https';
+        const script = document.createElement('script');
         script.type = 'text/javascript';
-        script.src = `//api.map.baidu.com/api?v=3.0&ak=${ak}`;
+        script.src = `//api.map.baidu.com/getscript?v=3.0&ak=${ak}`;
         document.head.appendChild(script);
         script.onload = callback;
     }
