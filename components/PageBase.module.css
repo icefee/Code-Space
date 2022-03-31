@@ -1,0 +1,15 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.child {
+    display: flex;
+    height: 100%;
+}
+
+.childView {
+    width: 100%;
+    overflow-y: auto;
+}

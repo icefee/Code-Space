@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import PageBase, { PageProps } from "@components/PageBase";
 import { BMap, Marker, InfoWindow, ContextMenu, ContextMenuOption, Polyline } from "../components/packages/BMap";
 import type { Point } from "../components/packages/BMap";
-import css from './react_bmap.module.css';
+import css from "./react_bmap.module.css";
 
-const Home: React.FC = () => {
+const MapDemo: React.FC = () => {
 
     const [mapClick, setMapClick] = useState(false)
     const [markers, setMarkers] = useState<Array<Point & {id: number}>>([])
@@ -59,4 +60,12 @@ const Home: React.FC = () => {
     )
 }
 
-export default Home;
+class ReactBMap extends PageBase {
+    protected childRender(props: PageProps) {
+        return (
+            <MapDemo />
+        )
+    }
+}
+
+export default ReactBMap;

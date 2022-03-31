@@ -21,7 +21,7 @@ const loadJs = (ak, callback) => {
         callback()
     }
     else {
-        window.BMAP_PROTOCOL = 'https';
+        window.BMAP_PROTOCOL = document.location.protocol.slice(0, -1);
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = `//api.map.baidu.com/getscript?v=3.0&ak=${ak}`;

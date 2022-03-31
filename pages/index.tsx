@@ -1,20 +1,15 @@
-import Head from 'next/head'
-import Link from 'next/link'
+import PageBase, { PageProps } from '@components/PageBase'
 
-export default function Home(): JSX.Element {
-  return (
-    <div className="container">
-      <Head>
-        <title>Code Space</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <ul>
-          <li>
-            <Link href="/react_bmap">百度地图 React-BMap</Link>
-          </li>
-        </ul>
-      </main>
-    </div>
-  )
+class Index extends PageBase {
+  protected childRender(props: PageProps) {
+    return (
+      <ul>
+        <li>
+          Hello world.
+        </li>
+      </ul>
+    )
+  }
 }
+
+export default Index;
