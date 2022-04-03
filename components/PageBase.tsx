@@ -114,10 +114,10 @@ class PageBase<T = any> extends React.PureComponent<PageProps & T, PageState> {
         const { title, keywords, description } = this.props;
 
         return (
-            <SnackbarProvider>
-                <ThemeStorager>
-                    {
-                        ({ isDark, switchTheme }: ThemeMode) => (
+            <ThemeStorager>
+                {
+                    ({ isDark, switchTheme }: ThemeMode) => (
+                        <SnackbarProvider>
                             <div className={css.container}>
                                 <Head>
                                     <title>{title}</title>
@@ -134,10 +134,10 @@ class PageBase<T = any> extends React.PureComponent<PageProps & T, PageState> {
                                     </ThemedDiv>
                                 </div>
                             </div>
-                        )
-                    }
-                </ThemeStorager>
-            </SnackbarProvider>
+                        </SnackbarProvider>
+                    )
+                }
+            </ThemeStorager>
         )
     }
 }
