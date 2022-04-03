@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Header from './Header'
 import Menu from './Menu'
 import type { MenuOption } from "./Menu";
-import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles'
+import { ThemeProvider, createTheme, useTheme, styled } from '@mui/material/styles'
 import type { Theme } from '@mui/material/styles'
 import css from './PageBase.module.css'
 import { useLocalStorage } from "react-use";
@@ -89,6 +89,10 @@ const menuItems: MenuOption[] = [
     }
 ];
 
+const ThemedDiv = styled('div')(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#eee'
+}))
+
 class PageBase<T = any> extends React.PureComponent<PageProps & T, PageState> {
 
     public state: Readonly<PageState> = {
@@ -125,9 +129,9 @@ class PageBase<T = any> extends React.PureComponent<PageProps & T, PageState> {
                                 <Header onToggleMenu={this.onToggleMenu.bind(this)} isDark={isDark} onSwitchTheme={() => switchTheme(!isDark)} />
                                 <div className={css.child}>
                                     {this.state.showMenu && <Menu items={menuItems} />}
-                                    <div className={css.childView}>
+                                    <ThemedDiv className={css.childView}>
                                         {this.childRender(this.props)}
-                                    </div>
+                                    </ThemedDiv>
                                 </div>
                             </div>
                         )
