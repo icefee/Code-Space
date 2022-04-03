@@ -62,7 +62,6 @@ export default function SearchAppBar({ onToggleMenu, isDark, onSwitchTheme }) {
                         size="large"
                         edge="start"
                         color="inherit"
-                        aria-label="open drawer"
                         sx={{ mr: 2 }}
                         onClick={onToggleMenu}
                     >

@@ -100,7 +100,7 @@ export const getDistance = (start, end) => {
 
 const createCustomMarker = (lng, lat, icon, show = true) => {
     let point = createPoint(lng, lat);
-    let marker = new BMap.Marker(point, { icon });
+    let marker = new BMap.Marker(point, icon ? { icon } : null);
     marker.id = Date.now();
     if(!show) marker.hide();
     map.addOverlay(marker);
@@ -140,15 +140,14 @@ export const setLabel = (marker, content) => {
     return label;
 }
 
-export const createPileMarker = (lng, lat, label) => {
+export const createPileMarker = (lng, lat, icon, label) => {
     let isExist = isMarkerOnMap(lng, lat);
     if(isExist) {
         removeOverlay(isExist)
     }
-    let icon = createIcon(require('./icons/spotlight_pin_v2_accent-1-small.png').default.src, { width: 25, height: 44 }, {
+    let marker = createCustomMarker(lng, lat, icon ? createIcon(icon, { width: 25, height: 44 }, {
         anchor: createSize(13, 40)
-    });
-    let marker = createCustomMarker(lng, lat, icon);
+    }) : null);
     if (label) {
         setLabel(marker, label);
     }

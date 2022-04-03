@@ -3,6 +3,7 @@ import type { Point, MarkerIns, MapMouseEvent } from "../lib/baidu";
 
 export type MarkerProps = {
     point: Point;
+    icon?: string;
     label?: string;
     dragable?: boolean;
     onClick?(ev: MouseEvent): void;

@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef, useCallback, forwardRef, useImperativeHandle, useMemo } from "react";
+import { useEffect, useState, useCallback, forwardRef, useImperativeHandle, useMemo } from "react";
 import * as map from '../lib/baidu';
 
-function Marker({ point, label = '', dragable, onClick, eventStopPropagation, onDragStart, onDragging, onDragEnd, children }, ref) {
+function Marker({ point, icon, label = '', dragable, onClick, eventStopPropagation, onDragStart, onDragging, onDragEnd, children }, ref) {
     const [marker, setMarker] = useState(null);
     useEffect(() => {
         const { lng, lat } = point;
-        setMarker(map.createPileMarker(lng, lat, label))
+        setMarker(map.createPileMarker(lng, lat, icon, label))
     }, [])
 
     const handleClick = useCallback(ev => {

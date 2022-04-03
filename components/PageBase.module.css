@@ -7,9 +7,12 @@
 .child {
     display: flex;
     height: 100%;
+    overflow: hidden;
 }
 
 .childView {
     width: 100%;
+    padding: 15px;
+    background-color: #eee;
     overflow-y: auto;
 }
