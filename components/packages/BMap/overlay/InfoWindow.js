@@ -47,7 +47,7 @@ export default function InfoWindow({ title, defaultShow = true, content, width, 
     }, [infoWindow, defaultShow])
 
     const _showInfoWindow = (ev) => {
-        mapIns.openInfoWindow(infoWindow, point);
+        mapIns.openInfoWindow(infoWindow, ref.current.marker.point);
     }
 
     useEffect(() => {
