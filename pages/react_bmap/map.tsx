@@ -7,6 +7,7 @@ import { loadCode } from "../../util/code";
 import type { AppContext } from "next/app";
 import css from "./map.module.css";
 import Link from "next/link";
+import { MapConfig } from "util/config";
 
 const MapDemo: React.FC = () => {
 
@@ -38,7 +39,7 @@ const MapDemo: React.FC = () => {
             <BMap
                 center={{ lng: 116.413387, lat: 39.910924 }}
                 zoom={12}
-                ak="HtZHMbtfCjuk6XAzadTI6uB5X9ORdS4H"
+                ak={MapConfig.ak}
                 onClick={mapClick ? handleMapClick : undefined}
             >
                 {
@@ -72,7 +73,7 @@ class ReactBMap extends PageBase<{ code: string }> {
                     <BMap
                         center={{ lng: 116.413387, lat: 39.910924 }}
                         zoom={12}
-                        ak="HtZHMbtfCjuk6XAzadTI6uB5X9ORdS4H"
+                        ak={MapConfig.ak}
                     />
                 }
                 code={this.props.code}
