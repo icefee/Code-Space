@@ -38,7 +38,7 @@ const MapDemo: React.FC = () => {
             <BMap
                 center={{ lng: 116.413387, lat: 39.910924 }}
                 zoom={12}
-                ak="E4805d16520de693a3fe707cdc962045"
+                ak="HtZHMbtfCjuk6XAzadTI6uB5X9ORdS4H"
                 onClick={mapClick ? handleMapClick : undefined}
             >
                 {
@@ -72,7 +72,7 @@ class ReactBMap extends PageBase<{ code: string }> {
                     <BMap
                         center={{ lng: 116.413387, lat: 39.910924 }}
                         zoom={12}
-                        ak="E4805d16520de693a3fe707cdc962045"
+                        ak="HtZHMbtfCjuk6XAzadTI6uB5X9ORdS4H"
                     />
                 }
                 code={this.props.code}
