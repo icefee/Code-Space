@@ -36,7 +36,7 @@ export interface CollapsebleListProps {
     defaultCollapsed?: boolean;
 }
 
-const CollapsebleList: React.FC<CollapsebleListProps> = ({ label, icon, children, defaultCollapsed = false }) => {
+export const CollapsebleList: React.FC<CollapsebleListProps> = ({ label, icon, children, defaultCollapsed = false }) => {
     const [collapsed, setCollapsed] = useState<boolean>(defaultCollapsed);
     return (
         <>

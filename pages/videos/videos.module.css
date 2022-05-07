@@ -1,0 +1,6 @@
+.videos {
+    position: relative;
+    height: 100vh;
+    background-color: #eee;
+    display: flex;
+}
