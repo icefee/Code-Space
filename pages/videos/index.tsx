@@ -29,7 +29,7 @@ const VideoPlayer = dynamic(
 export type M3u8Video = {
     id: number;
     sign: string;
-}
+} | string
 
 type Video = {
     title: string;
@@ -45,11 +45,22 @@ interface VideoListProps {
 
 class VideoList extends React.Component<VideoListProps> {
 
-    private get activeM3u8Id(): number {
-        if (this.props.active) {
-            return this.props.active.id
+    private get activeM3u8Id(): number | string {
+        const { active } = this.props
+        if (active) {
+            if (typeof active === 'string') {
+                return active
+            }
+            return active.id
         }
         return -1
+    }
+
+    private getSelectedState(m3u8: M3u8Video): boolean {
+        if (typeof m3u8 === 'string') {
+            return this.activeM3u8Id === m3u8
+        }
+        return this.activeM3u8Id === m3u8.id
     }
 
     /**
@@ -84,7 +95,7 @@ class VideoList extends React.Component<VideoListProps> {
                                             { length: episodes }
                                         ).map(
                                             (_, j) => (
-                                                <StyledListItemButton key={j} sx={{ pl: 4 }} selected={this.activeM3u8Id === m3u8_list[j].id} onClick={_ => this.props.onPlay(m3u8_list[j])}>
+                                                <StyledListItemButton key={j} sx={{ pl: 4 }} selected={this.getSelectedState(m3u8_list[j])} onClick={_ => this.props.onPlay(m3u8_list[j])}>
                                                     <ListItemIcon>
                                                         <SlideshowOutlinedIcon />
                                                     </ListItemIcon>

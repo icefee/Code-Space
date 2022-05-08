@@ -5,7 +5,11 @@ import { Typography } from '@mui/material'
 import type { M3u8Video } from '../pages/videos'
 import { ThemedDiv } from './PageBase'
 
-const getM3u8Uri = ({ id, sign }: M3u8Video) => {
+const getM3u8Uri = (m3u8: M3u8Video) => {
+    if (typeof m3u8 === 'string') {
+        return m3u8
+    }
+    const { id, sign } = m3u8
     return `https://b.baobuzz.com/m3u8/${id}.m3u8?sign=${sign}`
 }
 
