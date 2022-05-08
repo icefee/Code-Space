@@ -11,7 +11,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 
-const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+export const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
     color: theme.palette.mode === 'dark' ? '#fff' : 'inherit'
 }))
 

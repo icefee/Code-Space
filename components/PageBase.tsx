@@ -25,7 +25,7 @@ export interface PageState {
     showMenu: boolean;
 }
 
-type ThemeMode = {
+export type ThemeMode = {
     isDark: boolean;
     switchTheme?(arg: boolean): void;
 };
@@ -49,7 +49,7 @@ const useDark: <T, >(arg: T) => [T, React.Dispatch<T>] = <T,>(initValue: T) => {
     return [isDark, setStorage]
 }
 
-const ThemeStorager: React.FC = ({ children }: ThemeStoragerProps) => {
+export const ThemeStorager: React.FC = ({ children }: ThemeStoragerProps) => {
     const theme = useTheme<Theme>();
     const [isDark, switchTheme] = useDark<boolean>(false);
     const displayTheme = useMemo<Theme>(() => {
@@ -89,7 +89,7 @@ const menuItems: MenuOption[] = [
     }
 ];
 
-const ThemedDiv = styled('div')(({ theme }) => ({
+export const ThemedDiv = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#eee'
 }))
 
@@ -126,7 +126,7 @@ class PageBase<T = any> extends React.PureComponent<PageProps & T, PageState> {
                                     <meta name="keywords" content={keywords} />
                                     <meta name="description" content={description} />
                                 </Head>
-                                <Header onToggleMenu={this.onToggleMenu.bind(this)} isDark={isDark} onSwitchTheme={() => switchTheme(!isDark)} />
+                                <Header title="Code Space" onToggleMenu={this.onToggleMenu.bind(this)} isDark={isDark} onSwitchTheme={() => switchTheme(!isDark)} />
                                 <div className={css.child}>
                                     {this.state.showMenu && <Menu items={menuItems} />}
                                     <ThemedDiv className={css.childView}>

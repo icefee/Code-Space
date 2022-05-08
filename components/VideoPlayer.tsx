@@ -1,6 +1,9 @@
 import React from 'react'
-import type { M3u8Video } from '../pages/videos'
 import DPlayer from 'dplayer'
+import { Box } from '@mui/system'
+import { Typography } from '@mui/material'
+import type { M3u8Video } from '../pages/videos'
+import { ThemedDiv } from './PageBase'
 
 const getM3u8Uri = ({ id, sign }: M3u8Video) => {
     return `https://b.baobuzz.com/m3u8/${id}.m3u8?sign=${sign}`
@@ -30,9 +33,26 @@ const VideoPlayer: React.FunctionComponent<{ playing?: M3u8Video }> = (props) =>
     }, [props.playing, ref])
 
     return (
-        <div style={{ width: '100%' }}>
-            <div id="player" ref={ref} style={{ height: '100%' }} />
-        </div>
+        <ThemedDiv style={{ width: '100%' }}>
+            {
+                props.playing ? (
+                    <div id="player" ref={ref} style={{ height: '100%' }} />
+                ) : (
+                    <Box sx={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        color: '#aaa'
+                    }}>
+                        <Typography variant="h4" gutterBottom component="div">
+                            选择一个视频播放
+                        </Typography>
+                    </Box>
+                )
+            }
+        </ThemedDiv>
     )
 }
 

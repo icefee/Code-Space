@@ -53,7 +53,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function SearchAppBar({ onToggleMenu, isDark, onSwitchTheme }) {
+type HeaderProps = {
+    title: string;
+    onToggleMenu: React.MouseEventHandler<HTMLButtonElement>;
+    onSearch?: React.ChangeEventHandler<HTMLInputElement>;
+    isDark: boolean;
+    onSwitchTheme: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export default function Header({ title, onToggleMenu, onSearch, isDark, onSwitchTheme }: HeaderProps) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -73,7 +81,7 @@ export default function SearchAppBar({ onToggleMenu, isDark, onSwitchTheme }) {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        Code Space
+                        {title}
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
@@ -81,6 +89,7 @@ export default function SearchAppBar({ onToggleMenu, isDark, onSwitchTheme }) {
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="搜索…"
+                            onChange={onSearch}
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
