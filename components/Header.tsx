@@ -65,7 +65,7 @@ export default function Header({ title, onToggleMenu, onSearch, isDark, onSwitch
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
-                <Toolbar variant="dense">
+                <Toolbar>
                     <IconButton
                         size="large"
                         edge="start"
