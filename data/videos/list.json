@@ -195,6 +195,53 @@
                 ["Wiu3cUDF"],
                 ["0ajxcpN8"]
             ]
+        },
+        {
+            "title": "少年包青天-2",
+            "episodes": 40,
+            "url_template": "https://v2.cdtlas.com/20211012/{0}/hls/index.m3u8",
+            "m3u8_list": [
+                ["QAGYXSUV"],
+                ["1vYwY0al"],
+                ["yWyfQG66"],
+                ["8h3iAttn"],
+                ["dKSyOaVx"],
+                ["V0fgfVTh"],
+                ["znKuJPeo"],
+                ["jio05rHy"],
+                ["akAmoDTV"],
+                ["LXjdIMNb"],
+                ["f9ZhzqOH"],
+                ["uHlrUOA1"],
+                ["VpWXAoS9"],
+                ["7ANtdAIP"],
+                ["n0JCrN1u"],
+                ["gSNZSwTo"],
+                ["FbKk6SIm"],
+                ["mlibpmPD"],
+                ["rxslSrnE"],
+                ["YqmvzxLS"],
+                ["6vZ8p89d"],
+                ["z5ou8CtJ"],
+                ["3sxXoGrG"],
+                ["lsx1FU0w"],
+                ["ZY3woyDT"],
+                ["5XUEpqo7"],
+                ["lX7GMyRp"],
+                ["peaAnQaL"],
+                ["nUldj3uY"],
+                ["sl8fB22e"],
+                ["XTSmwJSJ"],
+                ["oXpkCgvw"],
+                ["YHijtscY"],
+                ["9fWd1oJA/"],
+                ["FaxmYjEH"],
+                ["3bxLLWju"],
+                ["V90KqQxG"],
+                ["QHbgur62"],
+                ["doV8BK1D"],
+                ["214KOt8T"]
+            ]
         }
     ]
 }

@@ -17,7 +17,7 @@ import type { ThemeMode } from 'components/PageBase'
 import Header from 'components/Header'
 import { StyledListItemButton } from 'components/Menu'
 
-import { CollapsebleList } from 'components/Menu'
+import { StickyCollapsebleList } from 'components/Menu'
 import { readFileSync } from 'fs'
 import dynamic from 'next/dynamic'
 
@@ -93,24 +93,22 @@ class VideoList extends React.Component<VideoListProps> {
                 {
                     this.props.videos.length > 0 ? this.props.videos.map(
                         ({ title, episodes, m3u8_list, url_template }, i) => (
-                            <CollapsebleList label={title} icon={<MovieFilterOutlinedIcon />} key={i}>
-                                <List component="div" disablePadding>
-                                    {
-                                        Array.from(
-                                            { length: episodes }
-                                        ).map(
-                                            (_, j) => (
-                                                <StyledListItemButton key={j} sx={{ pl: 4 }} selected={this.getSelectedState(url_template, m3u8_list[j])} onClick={_ => this.props.onPlay(getM3u8Uri(url_template, m3u8_list[j]))}>
-                                                    <ListItemIcon>
-                                                        <SlideshowOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={`第${j + 1}集`} />
-                                                </StyledListItemButton>
-                                            )
+                            <StickyCollapsebleList label={title} icon={<MovieFilterOutlinedIcon />} key={i}>
+                                {
+                                    Array.from(
+                                        { length: episodes }
+                                    ).map(
+                                        (_, j) => (
+                                            <StyledListItemButton key={j} sx={{ pl: 4 }} selected={this.getSelectedState(url_template, m3u8_list[j])} onClick={_ => this.props.onPlay(getM3u8Uri(url_template, m3u8_list[j]))}>
+                                                <ListItemIcon>
+                                                    <SlideshowOutlinedIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={`第${j + 1}集`} />
+                                            </StyledListItemButton>
                                         )
-                                    }
-                                </List>
-                            </CollapsebleList>
+                                    )
+                                }
+                            </StickyCollapsebleList>
                         )
                     ) : (
                         <Box sx={{

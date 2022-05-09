@@ -54,6 +54,27 @@ export const CollapsebleList: React.FC<CollapsebleListProps> = ({ label, icon, c
     )
 }
 
+export const StickyCollapsebleList: React.FC<CollapsebleListProps> = ({ label, icon, children, defaultCollapsed = false }) => {
+    const [collapsed, setCollapsed] = useState<boolean>(defaultCollapsed);
+    return (
+        <List subheader={
+            <ListSubheader component="div" disableGutters>
+                <StyledListItemButton onClick={() => setCollapsed(!collapsed)}>
+                    <ListItemIcon>
+                        {icon}
+                    </ListItemIcon>
+                    <ListItemText primary={label} />
+                    {collapsed ? <ExpandLess /> : <ExpandMore />}
+                </StyledListItemButton>
+            </ListSubheader>
+        } disablePadding>
+            <Collapse in={collapsed} timeout="auto" unmountOnExit>
+                {children}
+            </Collapse>
+        </List>
+    )
+}
+
 export interface MenuOption {
     label: string;
     href?: string;
