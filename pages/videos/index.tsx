@@ -11,6 +11,8 @@ import MovieFilterOutlinedIcon from '@mui/icons-material/MovieFilterOutlined';
 import SlideshowOutlinedIcon from '@mui/icons-material/SlideshowOutlined';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { ThemeStorager } from 'components/PageBase'
 import type { ThemeMode } from 'components/PageBase'
@@ -140,6 +142,35 @@ export async function getStaticProps(context: AppContext) {
     }
 }
 
+interface ResponsiveVideoListProps extends VideoListProps {
+    show: boolean;
+    onUpdateShow: (arg: boolean) => void;
+}
+
+const ResponsiveVideoList: React.FunctionComponent<ResponsiveVideoListProps> = ({ show, onUpdateShow, ...rest }) => {
+    const matches = useMediaQuery('(min-width:600px)');
+    if (matches) {
+        return show && (
+            <VideoList {...rest} />
+        )
+    }
+    else {
+        return (
+            <SwipeableDrawer
+                anchor="left"
+                open={show}
+                onClose={_ => onUpdateShow(false)}
+                onOpen={_ => onUpdateShow(true)}
+                ModalProps={{
+                    keepMounted: true
+                }}
+            >
+                <VideoList {...rest} />
+            </SwipeableDrawer>
+        )
+    }
+}
+
 export default class Videos extends React.PureComponent<{ videos: Video[]; active?: string; showMenu: boolean; keyword: string; }> {
 
     state = {
@@ -193,11 +224,13 @@ export default class Videos extends React.PureComponent<{ videos: Video[]; activ
                                 onSwitchTheme={() => switchTheme(!isDark)}
                             />
                             <div className={css.videos}>
-                                {
-                                    this.state.showMenu && (
-                                        <VideoList videos={this.searchedVideos} active={this.state.active} onPlay={active => this.setState({ active })} />
-                                    )
-                                }
+                                <ResponsiveVideoList
+                                    show={this.state.showMenu}
+                                    onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
+                                    videos={this.searchedVideos}
+                                    active={this.state.active}
+                                    onPlay={active => this.setState({ active })}
+                                />
                                 <VideoPlayer playing={this.state.active} />
                             </div>
                         </div>

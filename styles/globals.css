@@ -22,7 +22,7 @@ html, body, #__next {
 
 
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
   height: 12px;
 }
 
@@ -33,7 +33,7 @@ html, body, #__next {
 ::-webkit-scrollbar-thumb {
   border: none;
   background-color: #999;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
