@@ -2,7 +2,7 @@ import React from 'react'
 import DPlayer from 'dplayer'
 import { Box } from '@mui/system'
 import { Typography } from '@mui/material'
-import type { M3u8Video } from '../pages/videos'
+import type { M3u8Video } from 'pages/videos'
 import { ThemedDiv } from './PageBase'
 
 const getM3u8Uri = (m3u8: M3u8Video) => {

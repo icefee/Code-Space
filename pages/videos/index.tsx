@@ -1,5 +1,5 @@
 import React from "react";
-import { AppContext } from "next/app";
+import type { AppContext } from "next/app";
 import Head from "next/head";
 import css from './videos.module.css'
 
@@ -31,7 +31,7 @@ export type M3u8Video = {
     sign: string;
 } | string
 
-type Video = {
+export type Video = {
     title: string;
     episodes: number;
     m3u8_list: M3u8Video[]
