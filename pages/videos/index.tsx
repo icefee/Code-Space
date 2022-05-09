@@ -26,41 +26,46 @@ const VideoPlayer = dynamic(
     { ssr: false }
 )
 
-export type M3u8Video = {
-    id: number;
-    sign: string;
-} | string
+export type M3u8Video = Array<number | string> | string
 
 export type Video = {
     title: string;
     episodes: number;
-    m3u8_list: M3u8Video[]
+    url_template?: string;
+    m3u8_list: M3u8Video[];
 }
 
 interface VideoListProps {
     videos: Video[];
-    onPlay: (arg: M3u8Video) => void;
-    active?: M3u8Video;
+    onPlay: (m3u8_url: string) => void;
+    active?: string;
+}
+
+const getM3u8Uri: (url_template: string, m3u8: M3u8Video) => string = (url_template, m3u8) => {
+    if (typeof m3u8 === 'string') {
+        return m3u8
+    }
+    else {
+        return m3u8.reduce(
+            (prev, current, i) => {
+                return String(prev).replace(new RegExp('\\{' + i + '\\}', 'g'), String(current))
+            },
+            url_template
+        ) as string
+    }
 }
 
 class VideoList extends React.Component<VideoListProps> {
 
-    private get activeM3u8Id(): number | string {
-        const { active } = this.props
-        if (active) {
-            if (typeof active === 'string') {
-                return active
-            }
-            return active.id
-        }
-        return -1
+    private get activeM3u8Id(): string {
+        return this.props.active ?? ''
     }
 
-    private getSelectedState(m3u8: M3u8Video): boolean {
+    private getSelectedState(url_template: string, m3u8: M3u8Video): boolean {
         if (typeof m3u8 === 'string') {
             return this.activeM3u8Id === m3u8
         }
-        return this.activeM3u8Id === m3u8.id
+        return this.activeM3u8Id === getM3u8Uri(url_template, m3u8)
     }
 
     /**
@@ -87,7 +92,7 @@ class VideoList extends React.Component<VideoListProps> {
             >
                 {
                     this.props.videos.length > 0 ? this.props.videos.map(
-                        ({ title, episodes, m3u8_list }, i) => (
+                        ({ title, episodes, m3u8_list, url_template }, i) => (
                             <CollapsebleList label={title} icon={<MovieFilterOutlinedIcon />} key={i} defaultCollapsed>
                                 <List component="div" disablePadding>
                                     {
@@ -95,7 +100,7 @@ class VideoList extends React.Component<VideoListProps> {
                                             { length: episodes }
                                         ).map(
                                             (_, j) => (
-                                                <StyledListItemButton key={j} sx={{ pl: 4 }} selected={this.getSelectedState(m3u8_list[j])} onClick={_ => this.props.onPlay(m3u8_list[j])}>
+                                                <StyledListItemButton key={j} sx={{ pl: 4 }} selected={this.getSelectedState(url_template, m3u8_list[j])} onClick={_ => this.props.onPlay(getM3u8Uri(url_template, m3u8_list[j]))}>
                                                     <ListItemIcon>
                                                         <SlideshowOutlinedIcon />
                                                     </ListItemIcon>
@@ -137,7 +142,7 @@ export async function getStaticProps(context: AppContext) {
     }
 }
 
-export default class Videos extends React.PureComponent<{ videos: Video[]; active?: M3u8Video; showMenu: boolean; keyword: string; }> {
+export default class Videos extends React.PureComponent<{ videos: Video[]; active?: string; showMenu: boolean; keyword: string; }> {
 
     state = {
         active: undefined,
