@@ -22,6 +22,7 @@ import Zoom from '@mui/material/Zoom'
 import { ThemeStorager } from 'components/PageBase'
 import type { ThemeMode } from 'components/PageBase'
 import Header from 'components/Header'
+import type { HeaderProps } from 'components/Header'
 import { StyledListItemButton } from 'components/Menu'
 
 import { StickyCollapsebleList } from 'components/Menu'
@@ -176,6 +177,38 @@ const ResponsiveVideoList: React.FunctionComponent<ResponsiveVideoListProps> = (
     }
 }
 
+interface ResponsiveHeaderProps extends HeaderProps {
+    show: boolean;
+}
+
+const ResponsiveHeader: React.FunctionComponent<ResponsiveHeaderProps> = ({ show, ...rest }) => {
+    const matches = useMediaQuery('(max-width:600px)');
+    if (matches) {
+        return (
+            <Header {...rest} />
+        )
+    }
+    return (
+        <>
+            {
+                show && (
+                    <Header {...rest} />
+                )
+            }
+            <Zoom in={!show}>
+                <IconButton color="primary" onClick={rest.onToggleMenu} sx={{
+                    position: 'absolute',
+                    left: 16,
+                    top: 12,
+                    zIndex: 20
+                }}>
+                    <MenuIcon />
+                </IconButton>
+            </Zoom>
+        </>
+    )
+}
+
 export default class Videos extends React.PureComponent<{ videos: Video[]; active?: string; showMenu: boolean; keyword: string; }> {
 
     state = {
@@ -221,27 +254,13 @@ export default class Videos extends React.PureComponent<{ videos: Video[]; activ
                                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                                 <script src="/hls.min.js"></script>
                             </Head>
-                            {
-                                this.state.showMenu && (
-                                    <Header
-                                        title="视频文件夹"
-                                        onToggleMenu={this.onToggleMenu.bind(this)}
-                                        onSearch={this.onSearch.bind(this)}
-                                        isDark={isDark}
-                                        onSwitchTheme={() => switchTheme(!isDark)}
-                                    />
-                                )
-                            }
-                            <Zoom in={!this.state.showMenu}>
-                                <IconButton color="primary" onClick={this.onToggleMenu.bind(this)} sx={{
-                                    position: 'absolute',
-                                    left: 16,
-                                    top: 12,
-                                    zIndex: 20
-                                }}>
-                                    <MenuIcon />
-                                </IconButton>
-                            </Zoom>
+                            <ResponsiveHeader
+                                show={this.state.showMenu}
+                                title="视频文件夹"
+                                onToggleMenu={this.onToggleMenu.bind(this)}
+                                onSearch={this.onSearch.bind(this)}
+                                isDark={isDark}
+                                onSwitchTheme={() => switchTheme(!isDark)} />
                             <div className={css.videos}>
                                 <ResponsiveVideoList
                                     show={this.state.showMenu}

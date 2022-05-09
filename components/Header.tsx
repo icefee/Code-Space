@@ -53,7 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-type HeaderProps = {
+export type HeaderProps = {
     title: string;
     onToggleMenu: React.MouseEventHandler<HTMLButtonElement>;
     onSearch?: React.ChangeEventHandler<HTMLInputElement>;
