@@ -1,18 +1,23 @@
 import React from "react";
-import type { AppContext } from "next/app";
-import Head from "next/head";
+import type { AppContext } from "next/app"
+import Head from "next/head"
 import css from './videos.module.css'
 
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MovieFilterOutlinedIcon from '@mui/icons-material/MovieFilterOutlined';
-import SlideshowOutlinedIcon from '@mui/icons-material/SlideshowOutlined';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import ListSubheader from '@mui/material/ListSubheader'
+import List from '@mui/material/List'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import { IconButton } from "@mui/material";
+import {
+    MovieFilterOutlined as MovieFilterOutlinedIcon,
+    SlideshowOutlined as SlideshowOutlinedIcon,
+    Menu as MenuIcon
+} from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Zoom from '@mui/material/Zoom'
 
 import { ThemeStorager } from 'components/PageBase'
 import type { ThemeMode } from 'components/PageBase'
@@ -216,13 +221,27 @@ export default class Videos extends React.PureComponent<{ videos: Video[]; activ
                                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                                 <script src="/hls.min.js"></script>
                             </Head>
-                            <Header
-                                title="视频文件夹"
-                                onToggleMenu={this.onToggleMenu.bind(this)}
-                                onSearch={this.onSearch.bind(this)}
-                                isDark={isDark}
-                                onSwitchTheme={() => switchTheme(!isDark)}
-                            />
+                            {
+                                this.state.showMenu && (
+                                    <Header
+                                        title="视频文件夹"
+                                        onToggleMenu={this.onToggleMenu.bind(this)}
+                                        onSearch={this.onSearch.bind(this)}
+                                        isDark={isDark}
+                                        onSwitchTheme={() => switchTheme(!isDark)}
+                                    />
+                                )
+                            }
+                            <Zoom in={!this.state.showMenu}>
+                                <IconButton color="primary" onClick={this.onToggleMenu.bind(this)} sx={{
+                                    position: 'absolute',
+                                    left: 16,
+                                    top: 12,
+                                    zIndex: 20
+                                }}>
+                                    <MenuIcon />
+                                </IconButton>
+                            </Zoom>
                             <div className={css.videos}>
                                 <ResponsiveVideoList
                                     show={this.state.showMenu}
