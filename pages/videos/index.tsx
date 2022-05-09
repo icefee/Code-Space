@@ -93,7 +93,7 @@ class VideoList extends React.Component<VideoListProps> {
                 {
                     this.props.videos.length > 0 ? this.props.videos.map(
                         ({ title, episodes, m3u8_list, url_template }, i) => (
-                            <CollapsebleList label={title} icon={<MovieFilterOutlinedIcon />} key={i} defaultCollapsed>
+                            <CollapsebleList label={title} icon={<MovieFilterOutlinedIcon />} key={i}>
                                 <List component="div" disablePadding>
                                     {
                                         Array.from(
