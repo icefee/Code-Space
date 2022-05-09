@@ -516,7 +516,7 @@
             "title": "少年包青天-1",
             "episodes": 40,
             "m3u8_list": [
-                "/m3u8/sn_1/index.m3u8",
+                "https://cdn6.shzbgyl.com:65/20210512/eOp0SUr2/1500kb/hls/index.m3u8",
                 "https://cdn6.shzbgyl.com:65/20210512/I4AS2ZG9/1500kb/hls/index.m3u8",
                 "https://cdn6.shzbgyl.com:65/20210512/6kZ2ZGTr/1500kb/hls/index.m3u8",
                 "https://cdn6.shzbgyl.com:65/20210512/NnVyjCZX/1500kb/hls/index.m3u8",
