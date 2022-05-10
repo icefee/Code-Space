@@ -2,25 +2,38 @@ import React from 'react'
 import DPlayer from 'dplayer'
 import { Box } from '@mui/system'
 import { Typography } from '@mui/material'
-import type { M3u8Video } from 'pages/videos'
+import { playingStorageKey } from 'pages/videos'
+import type { PlayingVideo, PlayingStorageProps } from 'pages/videos'
 import { ThemedDiv } from './PageBase'
+import { useLocalStorage } from "react-use"
 
-type VideoPlayerProps = { playing?: string }
+type VideoPlayerProps = { playing?: PlayingVideo }
 
 const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
 
     const ref = React.useRef<HTMLDivElement>()
 
+    const [storage, setStorage] = useLocalStorage<PlayingStorageProps>(playingStorageKey);
+
     React.useEffect(() => {
-        var player = null;
+        var player: DPlayer = null;
         if (ref.current && props.playing) {
             player = new DPlayer({
                 container: ref.current,
                 autoplay: true,
                 video: {
-                    url: props.playing,
+                    url: props.playing.url,
                     type: 'hls',
                 },
+            })
+            if (storage && storage.url === props.playing.url) {
+                player.seek(storage.time)
+            }
+            player.on('timeupdate', () => {
+                setStorage({
+                    ...props.playing,
+                    time: player.video.currentTime
+                })
             })
         }
         return () => {
@@ -32,7 +45,20 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
         <ThemedDiv style={{ width: '100%' }}>
             {
                 props.playing ? (
-                    <div id="player" ref={ref} style={{ height: '100%' }} />
+                    <Box sx={{ position: 'relative', height: '100%' }}>
+                        <Typography
+                            variant="caption"
+                            component="div"
+                            sx={{
+                                position: 'absolute',
+                                top: 5,
+                                left: 5,
+                                color: '#ccc',
+                                zIndex: 1
+                            }}
+                        >当前播放: {props.playing.title} - 第{props.playing.episode}集</Typography>
+                        <div id="player" ref={ref} style={{ height: '100%' }} />
+                    </Box>
                 ) : (
                     <Box sx={{
                         width: '100%',
@@ -42,7 +68,7 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
                         alignItems: 'center',
                         color: '#aaa'
                     }}>
-                        <Typography variant="h4" gutterBottom component="div">
+                        <Typography variant="h5" component="div">
                             选择一个视频播放
                         </Typography>
                     </Box>

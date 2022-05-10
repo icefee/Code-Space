@@ -7,7 +7,18 @@ declare module 'dplayer' {
             type: string;
         }
     }
+    // interface DPlayer {
+    //     seek: (arg: number) => void;
+    // }
+    interface Video {
+        currentTime: number;
+    }
     export default class DPlayer {
-        constructor(options: DPlayerOptions) {}
+        video: Video;
+        // new(options: DPlayerOptions): DPlayer;
+        constructor(options: DPlayerOptions): DPlayer;
+        seek: (arg: number) => void;
+        on: (event: string, eventHandler: (ev?: Event) => void) => void;
+        destroy: () => void;
     }
 }

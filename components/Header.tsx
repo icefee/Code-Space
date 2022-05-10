@@ -6,10 +6,12 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import Brightness2 from '@mui/icons-material/Brightness2';
-import Brightness5 from '@mui/icons-material/Brightness5';
+import {
+    Menu as MenuIcon,
+    Search as SearchIcon,
+    Brightness2 as Brightness2Icon,
+    Brightness5 as Brightness5Icon
+} from '@mui/icons-material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,15 +55,31 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
+export function SearchBar({ onSearch }: { onSearch: React.ChangeEventHandler<HTMLInputElement> }) {
+    return (
+        <Search>
+            <SearchIconWrapper>
+                <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+                placeholder="搜索…"
+                onChange={onSearch}
+                inputProps={{ 'aria-label': 'search' }}
+            />
+        </Search>
+    )
+}
+
 export type HeaderProps = {
     title: string;
     onToggleMenu: React.MouseEventHandler<HTMLButtonElement>;
+    showSearch?: boolean;
     onSearch?: React.ChangeEventHandler<HTMLInputElement>;
     isDark: boolean;
     onSwitchTheme: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function Header({ title, onToggleMenu, onSearch, isDark, onSwitchTheme }: HeaderProps) {
+export default function Header({ title, onToggleMenu, showSearch = true, onSearch, isDark, onSwitchTheme }: HeaderProps) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -79,20 +97,15 @@ export default function Header({ title, onToggleMenu, onSearch, isDark, onSwitch
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+                        sx={{ flexGrow: 1, display: { xs: showSearch ? 'none' : 'block', sm: 'block' } }}
                     >
                         {title}
                     </Typography>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="搜索…"
-                            onChange={onSearch}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
+                    {
+                        showSearch && (
+                            <SearchBar onSearch={onSearch} />
+                        )
+                    }
                     <Box>
                         <IconButton
                             size="large"
@@ -101,7 +114,7 @@ export default function Header({ title, onToggleMenu, onSearch, isDark, onSwitch
                             color="inherit"
                         >
                             {
-                                isDark ? <Brightness2 /> : <Brightness5 />
+                                isDark ? <Brightness2Icon /> : <Brightness5Icon />
                             }
                         </IconButton>
                     </Box>

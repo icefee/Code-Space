@@ -30,10 +30,13 @@ html, body, #__next {
   background-color: #ddd;
 }
 
+::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+}
+
 ::-webkit-scrollbar-thumb {
   border: none;
   background-color: #999;
-  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -21,13 +21,14 @@ import Zoom from '@mui/material/Zoom'
 
 import { ThemeStorager } from 'components/PageBase'
 import type { ThemeMode } from 'components/PageBase'
-import Header from 'components/Header'
+import Header, { SearchBar } from 'components/Header'
 import type { HeaderProps } from 'components/Header'
 import { StyledListItemButton } from 'components/Menu'
 
 import { StickyCollapsebleList } from 'components/Menu'
 import { readFileSync } from 'fs'
 import dynamic from 'next/dynamic'
+import { useLocalStorage } from "react-use"
 
 const VideoPlayer = dynamic(
     () => import('components/VideoPlayer'),
@@ -43,10 +44,16 @@ export type Video = {
     m3u8_list: M3u8Video[];
 }
 
+export interface PlayingVideo {
+    title: string;
+    episode: number;
+    url: string;
+}
+
 interface VideoListProps {
     videos: Video[];
-    onPlay: (m3u8_url: string) => void;
-    active?: string;
+    onPlay: (arg: PlayingVideo) => void;
+    active?: PlayingVideo;
 }
 
 const getM3u8Uri: (url_template: string, m3u8: M3u8Video) => string = (url_template, m3u8) => {
@@ -66,7 +73,7 @@ const getM3u8Uri: (url_template: string, m3u8: M3u8Video) => string = (url_templ
 class VideoList extends React.Component<VideoListProps> {
 
     private get activeM3u8Id(): string {
-        return this.props.active ?? ''
+        return this.props.active ? this.props.active.url : ''
     }
 
     private getSelectedState(url_template: string, m3u8: M3u8Video): boolean {
@@ -86,7 +93,7 @@ class VideoList extends React.Component<VideoListProps> {
                     width: '100%',
                     height: '100%',
                     overflowY: 'auto',
-                    maxWidth: 240,
+                    maxWidth: 250,
                     bgcolor: 'background.paper',
                     ...(this.props.videos.length === 0 && {
                         display: 'flex',
@@ -101,13 +108,26 @@ class VideoList extends React.Component<VideoListProps> {
                 {
                     this.props.videos.length > 0 ? this.props.videos.map(
                         ({ title, episodes, m3u8_list, url_template }, i) => (
-                            <StickyCollapsebleList label={title} icon={<MovieFilterOutlinedIcon />} key={i}>
+                            <StickyCollapsebleList
+                                label={title}
+                                icon={<MovieFilterOutlinedIcon />}
+                                key={i}
+                                defaultCollapsed={this.props.active && this.props.active.title === title}>
                                 {
                                     Array.from(
                                         { length: episodes }
                                     ).map(
                                         (_, j) => (
-                                            <StyledListItemButton key={j} sx={{ pl: 4 }} selected={this.getSelectedState(url_template, m3u8_list[j])} onClick={_ => this.props.onPlay(getM3u8Uri(url_template, m3u8_list[j]))}>
+                                            <StyledListItemButton
+                                                key={j}
+                                                sx={{ pl: 4 }}
+                                                selected={this.getSelectedState(url_template, m3u8_list[j])}
+                                                onClick={_ => this.props.onPlay({
+                                                    url: getM3u8Uri(url_template, m3u8_list[j]),
+                                                    title,
+                                                    episode: j + 1
+                                                })}
+                                            >
                                                 <ListItemIcon>
                                                     <SlideshowOutlinedIcon />
                                                 </ListItemIcon>
@@ -127,7 +147,7 @@ class VideoList extends React.Component<VideoListProps> {
                             alignItems: 'center',
                             color: '#aaa'
                         }}>
-                            <Typography variant="caption" component="div">
+                            <Typography variant="caption" component="div" sx={{ fontSize: '1em' }}>
                                 暂无满足条件的视频
                             </Typography>
                         </Box>
@@ -151,14 +171,16 @@ export async function getStaticProps(context: AppContext) {
 interface ResponsiveVideoListProps extends VideoListProps {
     show: boolean;
     onUpdateShow: (arg: boolean) => void;
+    onSearch: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const ResponsiveVideoList: React.FunctionComponent<ResponsiveVideoListProps> = ({ show, onUpdateShow, ...rest }) => {
+const ResponsiveVideoList: React.FunctionComponent<ResponsiveVideoListProps> = ({ show, onUpdateShow, onSearch, ...rest }) => {
     const matches = useMediaQuery('(min-width:600px)');
+    const videoList = React.useMemo<React.ReactElement>(() => (
+        <VideoList {...rest} />
+    ), [rest.videos, rest.active])
     if (matches) {
-        return show && (
-            <VideoList {...rest} />
-        )
+        return show && videoList
     }
     else {
         return (
@@ -171,7 +193,13 @@ const ResponsiveVideoList: React.FunctionComponent<ResponsiveVideoListProps> = (
                     keepMounted: true
                 }}
             >
-                <VideoList {...rest} />
+                <Box sx={{
+                    maxWidth: 240,
+                    margin: '5px'
+                }}>
+                    <SearchBar onSearch={onSearch} />
+                </Box>
+                {videoList}
             </SwipeableDrawer>
         )
     }
@@ -192,7 +220,7 @@ const ResponsiveHeader: React.FunctionComponent<ResponsiveHeaderProps> = ({ show
         <>
             {
                 show && (
-                    <Header {...rest} />
+                    <Header {...rest} showSearch />
                 )
             }
             <Zoom in={!show}>
@@ -209,7 +237,24 @@ const ResponsiveHeader: React.FunctionComponent<ResponsiveHeaderProps> = ({ show
     )
 }
 
-export default class Videos extends React.PureComponent<{ videos: Video[]; active?: string; showMenu: boolean; keyword: string; }> {
+export interface PlayingStorageProps extends PlayingVideo {
+    time: number;
+}
+
+export const playingStorageKey = '__video_playing'
+
+function PlayingStorage({ setPlaying }: { setPlaying: (arg: PlayingVideo) => void; }) {
+    const [storage] = useLocalStorage<PlayingStorageProps>(playingStorageKey);
+    React.useEffect(() => {
+        if (storage) {
+            const { time, ...rest } = storage
+            setPlaying(rest as PlayingVideo)
+        }
+    }, [storage])
+    return null
+}
+
+export default class Videos extends React.PureComponent<{ videos: Video[]; }, { active?: PlayingVideo; showMenu: boolean; keyword: string; }> {
 
     state = {
         active: undefined,
@@ -258,19 +303,26 @@ export default class Videos extends React.PureComponent<{ videos: Video[]; activ
                                 show={this.state.showMenu}
                                 title="视频文件夹"
                                 onToggleMenu={this.onToggleMenu.bind(this)}
+                                showSearch={false}
                                 onSearch={this.onSearch.bind(this)}
                                 isDark={isDark}
                                 onSwitchTheme={() => switchTheme(!isDark)} />
                             <div className={css.videos}>
                                 <ResponsiveVideoList
                                     show={this.state.showMenu}
+                                    onSearch={this.onSearch.bind(this)}
                                     onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
                                     videos={this.searchedVideos}
                                     active={this.state.active}
-                                    onPlay={active => this.setState({ active })}
+                                    onPlay={(active: PlayingVideo) => {
+                                        this.setState({
+                                            active
+                                        })
+                                    }}
                                 />
                                 <VideoPlayer playing={this.state.active} />
                             </div>
+                            <PlayingStorage setPlaying={url => this.setState({ active: url })} />
                         </div>
                     )
                 }
