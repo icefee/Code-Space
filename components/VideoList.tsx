@@ -33,6 +33,13 @@ const getM3u8Uri: (url_template: string, m3u8: M3u8Video) => string = (url_templ
 
 class VideoList extends React.Component<VideoListProps> {
 
+    ref: React.RefObject<HTMLDivElement>
+
+    constructor(props: VideoListProps) {
+        super(props)
+        this.ref = React.createRef()
+    }
+
     private get activeM3u8Id(): string {
         return this.props.active ? this.props.active.url : ''
     }
@@ -42,6 +49,10 @@ class VideoList extends React.Component<VideoListProps> {
             return this.activeM3u8Id === m3u8
         }
         return this.activeM3u8Id === getM3u8Uri(url_template, m3u8)
+    }
+
+    componentDidMount() {
+        this.ref.current?.scrollIntoView()
     }
 
     /**
@@ -78,23 +89,27 @@ class VideoList extends React.Component<VideoListProps> {
                                     Array.from(
                                         { length: episodes }
                                     ).map(
-                                        (_, j) => (
-                                            <StyledListItemButton
-                                                key={j}
-                                                sx={{ pl: 4 }}
-                                                selected={this.getSelectedState(url_template, m3u8_list[j])}
-                                                onClick={_ => this.props.onPlay({
-                                                    url: getM3u8Uri(url_template, m3u8_list[j]),
-                                                    title,
-                                                    episode: j + 1
-                                                })}
-                                            >
-                                                <ListItemIcon>
-                                                    <SlideshowOutlinedIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={`第${j + 1}集`} />
-                                            </StyledListItemButton>
-                                        )
+                                        (_, j) => {
+                                            const selected = this.getSelectedState(url_template, m3u8_list[j]);
+                                            return (
+                                                <StyledListItemButton
+                                                    key={j}
+                                                    sx={{ pl: 4 }}
+                                                    selected={selected}
+                                                    ref={selected ? this.ref : null}
+                                                    onClick={_ => this.props.onPlay({
+                                                        url: getM3u8Uri(url_template, m3u8_list[j]),
+                                                        title,
+                                                        episode: j + 1
+                                                    })}
+                                                >
+                                                    <ListItemIcon>
+                                                        <SlideshowOutlinedIcon />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={`第${j + 1}集`} />
+                                                </StyledListItemButton>
+                                            )
+                                        }
                                     )
                                 }
                             </StickyCollapsebleList>

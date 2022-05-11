@@ -1,17 +1,25 @@
-import React, { useState } from "react";
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import type { ListItemButtonBaseProps } from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import { styled } from '@mui/material/styles';
-import { useRouter } from 'next/router';
+import React, { useState } from 'react'
+import ListSubheader from '@mui/material/ListSubheader'
+import List from '@mui/material/List'
+import ListItemButton from '@mui/material/ListItemButton'
+import type { ListItemButtonBaseProps, ListItemButtonTypeMap } from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import Collapse from '@mui/material/Collapse'
+import {
+    ExpandLess as ExpandLessIcon,
+    ExpandMore as ExpandMoreIcon
+} from '@mui/icons-material'
+import { styled } from '@mui/material/styles'
+import { useRouter } from 'next/router'
+import RefContext from './RefContext'
+import { OverrideProps } from '@mui/material/OverridableComponent'
 
-export const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+const ForwardRefListItemButton = React.forwardRef<HTMLDivElement, ListItemButtonBaseProps & OverrideProps<ListItemButtonTypeMap, "div">>((props, ref) => (
+    <ListItemButton {...props} ref={ref} />
+))
+
+export const StyledListItemButton = styled(ForwardRefListItemButton)(({ theme }) => ({
     color: theme.palette.mode === 'dark' ? '#fff' : 'inherit'
 }))
 
@@ -23,9 +31,15 @@ export interface ListLinkButtonProps extends ListItemButtonBaseProps {
 const ListLinkButton: React.FC<ListLinkButtonProps> = ({ href, children, ...rest }) => {
     const router = useRouter();
     return (
-        <StyledListItemButton selected={router.route === href} onClick={() => router.push(href)} {...rest}>
-            {children}
-        </StyledListItemButton>
+        <RefContext.Consumer>
+            {
+                ref => (
+                    <StyledListItemButton ref={ref} selected={router.route === href} onClick={() => router.push(href)} {...rest}>
+                        {children}
+                    </StyledListItemButton>
+                )
+            }
+        </RefContext.Consumer>
     )
 }
 
@@ -36,6 +50,8 @@ export interface CollapsebleListProps {
     defaultCollapsed?: boolean;
 }
 
+const ToggleExpandIcon: React.FC<{ collapsed: boolean; }> = ({ collapsed }) => collapsed ? <ExpandLessIcon /> : <ExpandMoreIcon />
+
 export const CollapsebleList: React.FC<CollapsebleListProps> = ({ label, icon, children, defaultCollapsed = false }) => {
     const [collapsed, setCollapsed] = useState<boolean>(defaultCollapsed);
     return (
@@ -45,7 +61,7 @@ export const CollapsebleList: React.FC<CollapsebleListProps> = ({ label, icon, c
                     {icon}
                 </ListItemIcon>
                 <ListItemText primary={label} />
-                {collapsed ? <ExpandLess /> : <ExpandMore />}
+                <ToggleExpandIcon collapsed={collapsed} />
             </StyledListItemButton>
             <Collapse in={collapsed} timeout="auto" unmountOnExit>
                 {children}
@@ -64,7 +80,7 @@ export const StickyCollapsebleList: React.FC<CollapsebleListProps> = ({ label, i
                         {icon}
                     </ListItemIcon>
                     <ListItemText primary={label} />
-                    {collapsed ? <ExpandLess /> : <ExpandMore />}
+                    <ToggleExpandIcon collapsed={collapsed} />
                 </StyledListItemButton>
             </ListSubheader>
         } disablePadding>
@@ -109,7 +125,7 @@ const NestedList: React.FC<{ menu: MenuOption } & ListItemButtonBaseProps> = ({ 
 const Menu: React.FC<{ items: MenuOption[] }> = ({ items }) => {
     return (
         <List
-            sx={{ width: '100%', maxWidth: 240, bgcolor: 'background.paper' }}
+            sx={{ width: '100%', maxWidth: 240, bgcolor: 'background.paper', overflowY: 'auto' }}
             component="nav"
             subheader={
                 <ListSubheader component="div">组件列表</ListSubheader>
