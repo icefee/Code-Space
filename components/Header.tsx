@@ -23,7 +23,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
+        // marginLeft: theme.spacing(1),
         width: 'auto',
     },
 }));
@@ -55,13 +55,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export function SearchBar({ onSearch }: { onSearch: React.ChangeEventHandler<HTMLInputElement> }) {
+export function SearchBar({ onSearch, fill = false }: { onSearch: React.ChangeEventHandler<HTMLInputElement>, fill?: boolean }) {
     return (
         <Search>
             <SearchIconWrapper>
                 <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+                sx={{ width: fill ? '100%' : 'inherit' }}
                 placeholder="搜索…"
                 onChange={onSearch}
                 inputProps={{ 'aria-label': 'search' }}

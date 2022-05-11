@@ -3,11 +3,11 @@ import DPlayer from 'dplayer'
 import { Box } from '@mui/system'
 import { Typography } from '@mui/material'
 import { playingStorageKey } from 'pages/videos'
-import type { PlayingVideo, PlayingStorageProps } from 'pages/videos'
+import type { PlayingStorageProps } from 'pages/videos'
 import { ThemedDiv } from './PageBase'
 import { useLocalStorage } from "react-use"
 
-type VideoPlayerProps = { playing?: PlayingVideo }
+export type VideoPlayerProps = { playing?: PlayingVideo }
 
 const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
 
