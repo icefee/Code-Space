@@ -52,7 +52,7 @@ class VideoList extends React.Component<VideoListProps> {
     }
 
     componentDidMount() {
-        this.ref.current?.scrollIntoView()
+        this.ref.current?.scrollIntoViewIfNeeded()
     }
 
     /**
