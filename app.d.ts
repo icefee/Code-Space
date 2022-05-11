@@ -1,3 +1,7 @@
+declare interface HTMLElement {
+    scrollIntoViewIfNeeded(): void;
+}
+
 declare type M3u8Video = Array<number | string> | string
 
 declare interface Video {
