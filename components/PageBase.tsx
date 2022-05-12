@@ -49,7 +49,7 @@ const useDark: <T, >(arg: T) => [T, React.Dispatch<T>] = <T,>(initValue: T) => {
     return [isDark, setStorage]
 }
 
-export const ThemeStorager: React.FC = ({ children }: ThemeStoragerProps) => {
+export const ThemeStorager: React.FC<ThemeStoragerProps> = ({ children }) => {
     const theme = useTheme<Theme>();
     const [isDark, switchTheme] = useDark<boolean>(false);
     const displayTheme = useMemo<Theme>(() => {

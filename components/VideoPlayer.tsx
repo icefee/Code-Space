@@ -41,6 +41,18 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
         }
     }, [props.playing, ref])
 
+    const playStatus = React.useMemo<string>(() => {
+        if (!props.playing) {
+            return ''
+        }
+        const { title, episode } = props.playing
+        let status = `当前播放: ${title}`
+        if (episode) {
+            status += ` - 第${episode}集`
+        }
+        return status
+    }, [props.playing])
+
     return (
         <ThemedDiv style={{ width: '100%' }}>
             {
@@ -56,7 +68,7 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
                                 color: '#ccc',
                                 zIndex: 1
                             }}
-                        >当前播放: {props.playing.title} - 第{props.playing.episode}集</Typography>
+                        >{playStatus}</Typography>
                         <div id="player" ref={ref} style={{ height: '100%' }} />
                     </Box>
                 ) : (

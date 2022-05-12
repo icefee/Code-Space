@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import { StyledListItemButton, StickyCollapsebleList } from 'components/Menu'
 
 export interface VideoListProps {
-    videos: Video[];
+    videos: Section[];
     onPlay: (arg: PlayingVideo) => void;
     active?: PlayingVideo;
 }
@@ -72,47 +72,84 @@ class VideoList extends React.Component<VideoListProps> {
                         flexFlow: 'column nowrap'
                     })
                 }}
+                disablePadding
                 component="nav"
-                subheader={
-                    <ListSubheader component="div">视频文件夹</ListSubheader>
-                }
             >
                 {
                     this.props.videos.length > 0 ? this.props.videos.map(
-                        ({ title, episodes, m3u8_list, url_template }, i) => (
-                            <StickyCollapsebleList
-                                label={title}
-                                icon={<MovieFilterOutlinedIcon />}
-                                key={i}
-                                defaultCollapsed={this.props.active && this.props.active.title === title}>
+                        ({ section, series }, sectionIndex) => (
+                            <List component="div" disablePadding subheader={
+                                <ListSubheader component="div">{section}</ListSubheader>
+                            } key={sectionIndex}>
                                 {
-                                    Array.from(
-                                        { length: episodes }
-                                    ).map(
-                                        (_, j) => {
-                                            const selected = this.getSelectedState(url_template, m3u8_list[j]);
-                                            return (
-                                                <StyledListItemButton
-                                                    key={j}
-                                                    sx={{ pl: 4 }}
-                                                    selected={selected}
-                                                    ref={selected ? this.ref : null}
-                                                    onClick={_ => this.props.onPlay({
-                                                        url: getM3u8Uri(url_template, m3u8_list[j]),
-                                                        title,
-                                                        episode: j + 1
-                                                    })}
-                                                >
-                                                    <ListItemIcon>
-                                                        <SlideshowOutlinedIcon />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary={`第${j + 1}集`} />
-                                                </StyledListItemButton>
-                                            )
+                                    series.map(
+                                        (video, i) => {
+                                            if ('episodes' in video) {
+                                                const { title, episodes, url_template, m3u8_list } = video as Episode
+                                                return (
+                                                    <StickyCollapsebleList
+                                                        label={title}
+                                                        icon={<MovieFilterOutlinedIcon />}
+                                                        key={i}
+                                                        defaultCollapsed={this.props.active && this.props.active.title === title}>
+                                                        {
+                                                            Array.from(
+                                                                { length: episodes }
+                                                            ).map(
+                                                                (_, j) => {
+                                                                    const selected = this.getSelectedState(url_template, m3u8_list[j]);
+                                                                    return (
+                                                                        <StyledListItemButton
+                                                                            key={j}
+                                                                            sx={{ pl: 4 }}
+                                                                            selected={selected}
+                                                                            ref={selected ? this.ref : null}
+                                                                            onClick={_ => this.props.onPlay({
+                                                                                url: getM3u8Uri(url_template, m3u8_list[j]),
+                                                                                title,
+                                                                                episode: j + 1
+                                                                            })}
+                                                                        >
+                                                                            <ListItemIcon>
+                                                                                <SlideshowOutlinedIcon />
+                                                                            </ListItemIcon>
+                                                                            <ListItemText primary={`第${j + 1}集`} />
+                                                                        </StyledListItemButton>
+                                                                    )
+                                                                }
+                                                            )
+                                                        }
+                                                    </StickyCollapsebleList>
+                                                )
+                                            }
+                                            else if ('m3u8_url' in video) {
+                                                const { title, m3u8_url } = video as Film
+                                                const selected = m3u8_url === this.activeM3u8Id;
+                                                return (
+                                                    <StyledListItemButton
+                                                        key={sectionIndex + '-' + i}
+                                                        sx={{ pl: 4 }}
+                                                        selected={selected}
+                                                        ref={selected ? this.ref : null}
+                                                        onClick={_ => this.props.onPlay({
+                                                            url: m3u8_url,
+                                                            title
+                                                        })}
+                                                    >
+                                                        <ListItemIcon>
+                                                            <SlideshowOutlinedIcon />
+                                                        </ListItemIcon>
+                                                        <ListItemText primary={title} />
+                                                    </StyledListItemButton>
+                                                )
+                                            }
+                                            else {
+                                                return null
+                                            }
                                         }
                                     )
                                 }
-                            </StickyCollapsebleList>
+                            </List>
                         )
                     ) : (
                         <Box sx={{

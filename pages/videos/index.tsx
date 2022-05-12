@@ -52,7 +52,7 @@ function PlayingStorage({ setPlaying }: { setPlaying: (arg: PlayingVideo) => voi
     return null
 }
 
-export default class Videos extends React.PureComponent<{ videos: Video[]; }, { active?: PlayingVideo; showMenu: boolean; keyword: string; }> {
+export default class Videos extends React.PureComponent<{ videos: Section[]; }, { active?: PlayingVideo; showMenu: boolean; keyword: string; }> {
 
     state = {
         active: undefined,
@@ -73,15 +73,20 @@ export default class Videos extends React.PureComponent<{ videos: Video[]; }, { 
         })
     }
 
-    private get searchedVideos(): Video[] {
+    private get searchedVideos(): Section[] {
         const keyword = this.state.keyword.trim()
         if (keyword === '') {
             return this.props.videos
         }
         else {
-            return this.props.videos.filter(
-                ({ title }) => title.indexOf(keyword) !== -1
-            )
+            return this.props.videos.map(
+                ({ series, ...rest }) => ({
+                    series: series.filter(
+                        ({ title }) => title.indexOf(keyword) !== -1
+                    ),
+                    ...rest
+                })
+            ).filter(({ series }) => series.length > 0)
         }
     }
 
