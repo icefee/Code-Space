@@ -9,6 +9,7 @@ import type { ThemeMode } from 'components/PageBase'
 import { readFileSync } from 'fs'
 import dynamic from 'next/dynamic'
 import { useLocalStorage } from 'react-use'
+import { getM3u8Uri } from 'components/VideoList'
 
 const ResponsiveHeader = dynamic(
     () => import('components/ResponsiveHeader'),
@@ -52,9 +53,15 @@ function PlayingStorage({ setPlaying }: { setPlaying: (arg: PlayingVideo) => voi
     return null
 }
 
-export default class Videos extends React.PureComponent<{ videos: Section[]; }, { active?: PlayingVideo; showMenu: boolean; keyword: string; }> {
+interface VideosState {
+    active?: PlayingVideo;
+    showMenu: boolean;
+    keyword: string;
+}
 
-    state = {
+export default class Videos extends React.PureComponent<{ videos: Section[]; }, VideosState> {
+
+    state: VideosState = {
         active: undefined,
         showMenu: true,
         keyword: ''
@@ -87,6 +94,36 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                     ...rest
                 })
             ).filter(({ series }) => series.length > 0)
+        }
+    }
+
+    private onPlayEnd(): void {
+        if (this.state.active) {
+            const { title, episode } = this.state.active
+            if (episode !== undefined) {
+                const activeEpisode: Episode = this.props.videos.reduce(
+                    (pre, cur) => {
+                        return [
+                            ...pre,
+                            ...cur.series.filter(
+                                ep => 'episodes' in ep
+                            )
+                        ]
+                    },
+                    []
+                ).find(
+                    (ep: Episode) => ep.title === title
+                )
+                if (activeEpisode.episodes > episode) {
+                    this.setState({
+                        active: {
+                            title,
+                            episode: episode + 1,
+                            url: getM3u8Uri(activeEpisode.url_template, activeEpisode.m3u8_list[episode])
+                        }
+                    })
+                }
+            }
         }
     }
 
@@ -123,7 +160,7 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                         })
                                     }}
                                 />
-                                <VideoPlayer playing={this.state.active} />
+                                <VideoPlayer playing={this.state.active} onEnd={this.onPlayEnd.bind(this)} />
                             </div>
                             <PlayingStorage setPlaying={url => this.setState({ active: url })} />
                         </div>

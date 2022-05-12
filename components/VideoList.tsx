@@ -17,7 +17,7 @@ export interface VideoListProps {
     active?: PlayingVideo;
 }
 
-const getM3u8Uri: (url_template: string, m3u8: M3u8Video) => string = (url_template, m3u8) => {
+export const getM3u8Uri: (url_template: string, m3u8: M3u8Video) => string = (url_template, m3u8) => {
     if (typeof m3u8 === 'string') {
         return m3u8
     }

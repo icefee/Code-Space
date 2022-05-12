@@ -7,7 +7,10 @@ import type { PlayingStorageProps } from 'pages/videos'
 import { ThemedDiv } from './PageBase'
 import { useLocalStorage } from "react-use"
 
-export type VideoPlayerProps = { playing?: PlayingVideo }
+export interface VideoPlayerProps {
+    playing?: PlayingVideo;
+    onEnd?: () => void;
+}
 
 const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
 
@@ -35,6 +38,7 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
                     time: player.video.currentTime
                 })
             })
+            player.on('ended', props.onEnd)
         }
         return () => {
             player?.destroy()
