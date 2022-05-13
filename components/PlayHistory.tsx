@@ -58,7 +58,7 @@ const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryP
                         </List>
                     ) : (
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 100 }}>
-                            <Typography variant="overline" component="div" sx={{ fontSize: '1em' }}>
+                            <Typography variant="caption" component="div" sx={{ fontSize: '1em' }}>
                                 暂无播放记录
                             </Typography>
                         </Box>
@@ -78,7 +78,7 @@ const PlayHistoryDialog: React.FunctionComponent<PlayHistoryProps & DialogProps>
                 <PlayHistory {...props} ref={ref} />
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="error" onClick={() => {
+                <Button variant="outlined" color="error" onClick={() => {
                     if (ref.current) {
                         ref.current.clearHistory()
                     }
