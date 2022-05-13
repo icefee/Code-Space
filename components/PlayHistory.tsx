@@ -58,7 +58,7 @@ const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryP
                         </List>
                     ) : (
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 100 }}>
-                            <Typography variant="caption" component="div" sx={{ fontSize: '1em' }}>
+                            <Typography variant="overline" component="div" sx={{ fontSize: '1em' }}>
                                 暂无播放记录
                             </Typography>
                         </Box>
