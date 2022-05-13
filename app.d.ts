@@ -27,4 +27,5 @@ declare interface PlayingVideo {
     title: string;
     episode?: number;
     url: string;
+    played_time?: number;
 }

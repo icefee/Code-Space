@@ -11,6 +11,13 @@ import dynamic from 'next/dynamic'
 import { useLocalStorage } from 'react-use'
 import { getM3u8Uri } from 'components/VideoList'
 
+import { Box, IconButton, Menu, MenuItem } from '@mui/material'
+import { Settings as SettingsIcon } from '@mui/icons-material'
+
+import SectionEdit from 'components/SectionEdit'
+import PlayHistory from 'components/PlayHistory'
+import type { VideoPlayHistory } from 'components/PlayHistory'
+
 const ResponsiveHeader = dynamic(
     () => import('components/ResponsiveHeader'),
     { ssr: false }
@@ -54,23 +61,76 @@ function PlayingStorage({ setPlaying }: { setPlaying: (arg: PlayingVideo) => voi
 }
 
 interface VideosState {
-    active?: PlayingVideo;
+    activeVideo?: PlayingVideo;
     showMenu: boolean;
     keyword: string;
+    anchorEl: HTMLElement | null;
+    sectionEditOpen: boolean;
+    activeSectionsIndex: number[];
+    playHistoryOpen: boolean;
+}
+
+type ActiveSectionIndex = VideosState['activeSectionsIndex']
+
+const activeSectionsStorageKey = '__active_sections'
+
+function ActiveSectionsStorage({ activeSections, updateActiveSections }: { activeSections: ActiveSectionIndex; updateActiveSections: (arg: ActiveSectionIndex) => void }) {
+    const [storage, setStorage] = useLocalStorage<ActiveSectionIndex>(activeSectionsStorageKey);
+    React.useEffect(() => {
+        if (storage) {
+            updateActiveSections(storage)
+        }
+    }, [])
+    React.useEffect(() => {
+        setStorage(activeSections)
+    }, [activeSections])
+    return null
 }
 
 export default class Videos extends React.PureComponent<{ videos: Section[]; }, VideosState> {
 
     state: VideosState = {
-        active: undefined,
+        activeVideo: undefined,
         showMenu: true,
-        keyword: ''
+        keyword: '',
+        anchorEl: null,
+        sectionEditOpen: false,
+        activeSectionsIndex: [0, 1],
+        playHistoryOpen: false
     }
 
     private onToggleMenu(): void {
         this.setState({
             showMenu: !this.state.showMenu
         })
+    }
+
+    private get isMenuOpen(): boolean {
+        return Boolean(this.state.anchorEl)
+    }
+
+    private closeMenu(): void {
+        this.setState({ anchorEl: null })
+    }
+
+    private menuActionWithClose(callback: () => void): () => void {
+        return () => {
+            this.closeMenu()
+            callback()
+        }
+    }
+
+    private handleMenuAction(menuIndex: number): void {
+        if (menuIndex === 0) {
+            this.setState({
+                sectionEditOpen: true
+            })
+        }
+        else if (menuIndex === 1) {
+            this.setState({
+                playHistoryOpen: true
+            })
+        }
     }
 
     private onSearch(ev: React.FormEvent<HTMLInputElement>): void {
@@ -80,13 +140,19 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         })
     }
 
+    private get activeSections(): Section[] {
+        return this.props.videos.filter(
+            (_, sectionIndex) => this.state.activeSectionsIndex.includes(sectionIndex)
+        )
+    }
+
     private get searchedVideos(): Section[] {
         const keyword = this.state.keyword.trim()
         if (keyword === '') {
-            return this.props.videos
+            return this.activeSections
         }
         else {
-            return this.props.videos.map(
+            return this.activeSections.map(
                 ({ series, ...rest }) => ({
                     series: series.filter(
                         ({ title }) => title.indexOf(keyword) !== -1
@@ -97,9 +163,23 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         }
     }
 
+    private playFromHistory(history: VideoPlayHistory) {
+        const { activeVideo } = this.state
+        if (
+            !activeVideo ||
+            activeVideo && (
+                activeVideo.url !== history.url
+            )
+        ) {
+            this.setState({
+                activeVideo: history as PlayingVideo
+            })
+        }
+    }
+
     private onPlayEnd(): void {
-        if (this.state.active) {
-            const { title, episode } = this.state.active
+        if (this.state.activeVideo) {
+            const { title, episode } = this.state.activeVideo
             if (episode !== undefined) {
                 const activeEpisode: Episode = this.props.videos.reduce(
                     (pre, cur) => {
@@ -116,7 +196,7 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                 )
                 if (activeEpisode.episodes > episode) {
                     this.setState({
-                        active: {
+                        activeVideo: {
                             title,
                             episode: episode + 1,
                             url: getM3u8Uri(activeEpisode.url_template, activeEpisode.m3u8_list[episode])
@@ -146,23 +226,80 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                 showSearch={false}
                                 onSearch={this.onSearch.bind(this)}
                                 isDark={isDark}
+                                extendButtons={
+                                    <Box>
+                                        <IconButton
+                                            size="large"
+                                            onClick={(event: React.MouseEvent<HTMLElement>) => this.setState({ anchorEl: event.currentTarget })}
+                                            color="inherit"
+                                        >
+                                            <SettingsIcon />
+                                        </IconButton>
+                                    </Box>
+                                }
                                 onSwitchTheme={() => switchTheme(!isDark)} />
+                            <Menu
+                                anchorEl={this.state.anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={this.isMenuOpen}
+                                onClose={this.closeMenu.bind(this)}
+                            >
+                                {
+                                    ['编辑栏目', '历史记录'].map(
+                                        (label, menuIndex) => (
+                                            <MenuItem key={menuIndex} onClick={this.menuActionWithClose(() => this.handleMenuAction(menuIndex)).bind(this)}>{label}</MenuItem>
+                                        )
+                                    )
+                                }
+                            </Menu>
+                            <SectionEdit
+                                sections={this.props.videos}
+                                activeSections={this.state.activeSectionsIndex}
+                                activeSectionsChange={
+                                    (activeSectionsIndex) => this.setState({
+                                        activeSectionsIndex
+                                    })
+                                }
+                                open={this.state.sectionEditOpen}
+                                onClose={_ => this.setState({ sectionEditOpen: false })}
+                            />
+                            <PlayHistory
+                                open={this.state.playHistoryOpen}
+                                onClose={_ => this.setState({ playHistoryOpen: false })}
+                                onPlay={this.playFromHistory.bind(this)}
+                            />
                             <div className={css.videos}>
                                 <ResponsiveVideoList
                                     show={this.state.showMenu}
                                     onSearch={this.onSearch.bind(this)}
                                     onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
                                     videos={this.searchedVideos}
-                                    active={this.state.active}
-                                    onPlay={(active: PlayingVideo) => {
+                                    active={this.state.activeVideo}
+                                    onPlay={(activeVideo: PlayingVideo) => {
                                         this.setState({
-                                            active
+                                            activeVideo
                                         })
                                     }}
                                 />
-                                <VideoPlayer playing={this.state.active} onEnd={this.onPlayEnd.bind(this)} />
+                                <VideoPlayer playing={this.state.activeVideo} onEnd={this.onPlayEnd.bind(this)} />
                             </div>
-                            <PlayingStorage setPlaying={url => this.setState({ active: url })} />
+                            <PlayingStorage setPlaying={activeVideo => this.setState({ activeVideo })} />
+                            <ActiveSectionsStorage
+                                activeSections={this.state.activeSectionsIndex}
+                                updateActiveSections={
+                                    (activeSectionsIndex) => this.setState({
+                                        activeSectionsIndex
+                                    })
+                                }
+                            />
                         </div>
                     )
                 }

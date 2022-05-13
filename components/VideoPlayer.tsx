@@ -5,7 +5,9 @@ import { Typography } from '@mui/material'
 import { playingStorageKey } from 'pages/videos'
 import type { PlayingStorageProps } from 'pages/videos'
 import { ThemedDiv } from './PageBase'
-import { useLocalStorage } from "react-use"
+import { useLocalStorage } from 'react-use'
+import { playHistoryKey } from './PlayHistory'
+import type { VideoPlayHistory } from './PlayHistory'
 
 export interface VideoPlayerProps {
     playing?: PlayingVideo;
@@ -17,26 +19,44 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = (props) => {
     const ref = React.useRef<HTMLDivElement>()
 
     const [storage, setStorage] = useLocalStorage<PlayingStorageProps>(playingStorageKey);
+    const [history, setHistory] = useLocalStorage<VideoPlayHistory[]>(playHistoryKey, []);
 
     React.useEffect(() => {
         var player: DPlayer = null;
         if (ref.current && props.playing) {
+
+            const { url, played_time } = props.playing
+
             player = new DPlayer({
                 container: ref.current,
                 autoplay: true,
                 video: {
-                    url: props.playing.url,
+                    url,
                     type: 'hls',
                 },
             })
-            if (storage && storage.url === props.playing.url) {
+            if (storage && storage.url === url) {
                 player.seek(storage.time)
             }
-            player.on('timeupdate', () => {
+            if (played_time) {
+                player.seek(played_time)
+            }
+            player.on('progress', () => {
+                const time = player.video.currentTime
                 setStorage({
                     ...props.playing,
-                    time: player.video.currentTime
+                    time
                 })
+                setHistory([
+                    {
+                        ...props.playing,
+                        played_time: time,
+                        update_date: Date.now()
+                    },
+                    ...history.filter(
+                        rec => rec.url !== url
+                    )
+                ])
             })
             player.on('ended', props.onEnd)
         }

@@ -1,9 +1,7 @@
 {
-    "videos": [
-        {
+    "videos": [{
             "section": "国产剧",
-            "series": [
-                {
+            "series": [{
                     "title": "大明王朝1566",
                     "episodes": 46,
                     "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
@@ -1685,6 +1683,43 @@
                     ]
                 },
                 {
+                    "title": "士兵突击",
+                    "episodes": 30,
+                    "url_template": "https://m3u8.taopianplay.com/taopian/54fdb532-e89b-4567-bc07-aa93a0c6a79b/a891bf2e-a823-4ae0-ac07-107cdf1703d8/41165/{0}/SD/playlist.m3u8",
+                    "m3u8_list": [
+                        ["c5664c22-1a19-4659-8f18-fdae7dce6a46"],
+                        ["5cebe174-10c6-43f9-bbf5-f062a746f730"],
+                        ["3b3862a9-19cf-45aa-b45f-4a4b035530e3"],
+                        ["5895297e-fa25-4827-a4bf-e8f36cb93d7a"],
+                        ["33c5bffc-3f04-4e1c-a880-76e710d6f731"],
+                        ["765be9f6-5631-4e5d-9a12-35990b159d26"],
+                        ["ab048a5c-8328-495e-a684-b1ac3517b995"],
+                        ["3c370f4a-862b-4b65-a473-8862cb6e7005"],
+                        ["ef2cb25f-72ad-4dd1-8d7d-d512967fcaac"],
+                        ["e1b924d8-cb7d-4ca5-aca9-ff13a365f5cc"],
+                        ["4c556364-736f-4cac-af52-0ac35fd0e536"],
+                        ["9096d145-e703-4842-854f-31412d500e83"],
+                        ["1c69be07-bd63-4fc7-b2e2-a61f21bcd596"],
+                        ["fd63f246-6e6e-4fcb-bafd-c7ba25a53b00"],
+                        ["a616dc1f-52a0-4f0a-8b79-7f810af1f4e2"],
+                        ["bbdc0cf3-2de3-4f5a-8390-4a23ad5e1c12"],
+                        ["23c36345-85f6-49eb-9d0e-dc49d30ea8c7"],
+                        ["6bd83cb1-b386-402e-a4ab-1ac569aef788"],
+                        ["e03be317-6123-4541-8829-887085188e42"],
+                        ["1f3ca38d-f259-405a-830c-dd339138267f"],
+                        ["802382a6-d321-49da-8a66-313f6e335496"],
+                        ["d23c3b07-5156-42ec-a392-a48f39e1aed8"],
+                        ["515bdacb-b79a-4501-8d64-37c63fcfbfb3"],
+                        ["eb59d252-ceeb-40b2-a3b1-c8c2719c185f"],
+                        ["8e5e5ad2-6ddf-4f7f-a79f-62b90b8671a5"],
+                        ["be223f98-29f9-4302-baa2-223929fe3534"],
+                        ["6004f77f-3dcb-4421-824b-636c75e58f2d"],
+                        ["5e2ec19e-6544-4758-81ac-29ef46cca1b2"],
+                        ["03dec1c2-a506-4252-a85a-7f6a42f24e20"],
+                        ["9bf8aa0c-086d-4223-86e9-54dffdb1668c"]
+                    ]
+                },
+                {
                     "title": "父母爱情",
                     "episodes": 44,
                     "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
@@ -1871,8 +1906,7 @@
         },
         {
             "section": "美剧",
-            "series": [
-                {
+            "series": [{
                     "title": "行尸走肉-s1",
                     "episodes": 6,
                     "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
@@ -2629,8 +2663,7 @@
         },
         {
             "section": "韩国电影",
-            "series": [
-                {
+            "series": [{
                     "title": "年轻的阿姨3",
                     "m3u8_url": "https://cdn.hzlunli.com:65/20220116/ziLvNsxF/index.m3u8"
                 },

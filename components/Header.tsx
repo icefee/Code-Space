@@ -78,9 +78,10 @@ export type HeaderProps = {
     onSearch?: React.ChangeEventHandler<HTMLInputElement>;
     isDark: boolean;
     onSwitchTheme: React.MouseEventHandler<HTMLButtonElement>;
+    extendButtons?: React.ReactNode;
 }
 
-export default function Header({ title, onToggleMenu, showSearch = true, onSearch, isDark, onSwitchTheme }: HeaderProps) {
+export default function Header({ title, onToggleMenu, showSearch = true, onSearch, isDark, onSwitchTheme, extendButtons }: HeaderProps) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -119,6 +120,7 @@ export default function Header({ title, onToggleMenu, showSearch = true, onSearc
                             }
                         </IconButton>
                     </Box>
+                    {extendButtons}
                 </Toolbar>
             </AppBar>
         </Box>
