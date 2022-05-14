@@ -29,3 +29,8 @@ declare interface PlayingVideo {
     url: string;
     played_time?: number;
 }
+
+declare interface VideoPlayHistory extends PlayingVideo {
+    played_time: number;
+    update_date: number;
+}

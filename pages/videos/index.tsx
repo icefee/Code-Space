@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { AppContext } from 'next/app'
 import Head from 'next/head'
 import css from './videos.module.css'
@@ -16,7 +16,7 @@ import { Settings as SettingsIcon } from '@mui/icons-material'
 
 import SectionEdit from 'components/SectionEdit'
 import PlayHistory from 'components/PlayHistory'
-import type { VideoPlayHistory } from 'components/PlayHistory'
+import type { PlayHistoryBaseProps } from 'components/PlayHistory'
 
 const ResponsiveHeader = dynamic(
     () => import('components/ResponsiveHeader'),
@@ -47,16 +47,17 @@ export interface PlayingStorageProps extends PlayingVideo {
     time: number;
 }
 
-export const playingStorageKey = '__video_playing'
+interface PlayingStateProps extends PlayHistoryBaseProps {
+    onRestore(history: PlayingVideo): void;
+}
 
-function PlayingStorage({ setPlaying }: { setPlaying: (arg: PlayingVideo) => void; }) {
-    const [storage] = useLocalStorage<PlayingStorageProps>(playingStorageKey);
+const PlayingStateRestorer: React.FunctionComponent<PlayingStateProps> = ({ playHistory, onRestore }) => {
     React.useEffect(() => {
-        if (storage) {
-            const { time, ...rest } = storage
-            setPlaying(rest as PlayingVideo)
+        if (playHistory.length > 0) {
+            const [lastPlay] = playHistory
+            onRestore(lastPlay as PlayingVideo)
         }
-    }, [storage])
+    }, [])
     return null
 }
 
@@ -85,6 +86,19 @@ function ActiveSectionsStorage({ activeSections, updateActiveSections }: { activ
         setStorage(activeSections)
     }, [activeSections])
     return null
+}
+
+const playHistoryKey = '__playing_history'
+
+const HistoryStorage: React.FunctionComponent<{
+    children: (props: { playHistory: VideoPlayHistory[], setPlayHistory: React.Dispatch<React.SetStateAction<VideoPlayHistory[]>> }) => React.ReactElement;
+}> = ({ children }) => {
+    const [storage, setStorage] = useLocalStorage<VideoPlayHistory[]>(playHistoryKey, [])
+    const [playHistory, setPlayHistory] = useState<VideoPlayHistory[]>(storage)
+    React.useEffect(() => {
+        setStorage(playHistory)
+    }, [playHistory])
+    return children({ playHistory, setPlayHistory })
 }
 
 export default class Videos extends React.PureComponent<{ videos: Section[]; }, VideosState> {
@@ -212,95 +226,115 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
             <ThemeStorager>
                 {
                     ({ isDark, switchTheme }: ThemeMode) => (
-                        <div className={css.container}>
-                            <Head>
-                                <title>视频文件夹</title>
-                                <link rel="icon" href="/favicon.ico" />
-                                <meta name="viewport" content="initial-scale=1, width=device-width" />
-                                <script defer src="/hls.min.js"></script>
-                            </Head>
-                            <ResponsiveHeader
-                                show={this.state.showMenu}
-                                title="视频文件夹"
-                                onToggleMenu={this.onToggleMenu.bind(this)}
-                                showSearch={false}
-                                onSearch={this.onSearch.bind(this)}
-                                isDark={isDark}
-                                extendButtons={
-                                    <Box>
-                                        <IconButton
-                                            size="large"
-                                            onClick={(event: React.MouseEvent<HTMLElement>) => this.setState({ anchorEl: event.currentTarget })}
-                                            color="inherit"
+                        <HistoryStorage>
+                            {
+                                ({ playHistory, setPlayHistory }) => (
+                                    <div className={css.container}>
+                                        <Head>
+                                            <title>视频文件夹</title>
+                                            <link rel="icon" href="/favicon.ico" />
+                                            <meta name="viewport" content="initial-scale=1, width=device-width" />
+                                            <script defer src="/hls.min.js"></script>
+                                        </Head>
+                                        <ResponsiveHeader
+                                            show={this.state.showMenu}
+                                            title="视频文件夹"
+                                            onToggleMenu={this.onToggleMenu.bind(this)}
+                                            showSearch={false}
+                                            onSearch={this.onSearch.bind(this)}
+                                            isDark={isDark}
+                                            extendButtons={
+                                                <Box>
+                                                    <IconButton
+                                                        size="large"
+                                                        onClick={(event: React.MouseEvent<HTMLElement>) => this.setState({ anchorEl: event.currentTarget })}
+                                                        color="inherit"
+                                                    >
+                                                        <SettingsIcon />
+                                                    </IconButton>
+                                                </Box>
+                                            }
+                                            onSwitchTheme={() => switchTheme(!isDark)} />
+                                        <Menu
+                                            anchorEl={this.state.anchorEl}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={this.isMenuOpen}
+                                            onClose={this.closeMenu.bind(this)}
                                         >
-                                            <SettingsIcon />
-                                        </IconButton>
-                                    </Box>
-                                }
-                                onSwitchTheme={() => switchTheme(!isDark)} />
-                            <Menu
-                                anchorEl={this.state.anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={this.isMenuOpen}
-                                onClose={this.closeMenu.bind(this)}
-                            >
-                                {
-                                    ['编辑栏目', '历史记录'].map(
-                                        (label, menuIndex) => (
-                                            <MenuItem key={menuIndex} onClick={this.menuActionWithClose(() => this.handleMenuAction(menuIndex)).bind(this)}>{label}</MenuItem>
-                                        )
-                                    )
-                                }
-                            </Menu>
-                            <SectionEdit
-                                sections={this.props.videos}
-                                activeSections={this.state.activeSectionsIndex}
-                                activeSectionsChange={
-                                    (activeSectionsIndex) => this.setState({
-                                        activeSectionsIndex
-                                    })
-                                }
-                                open={this.state.sectionEditOpen}
-                                onClose={_ => this.setState({ sectionEditOpen: false })}
-                            />
-                            <PlayHistory
-                                open={this.state.playHistoryOpen}
-                                onClose={_ => this.setState({ playHistoryOpen: false })}
-                                onPlay={this.playFromHistory.bind(this)}
-                            />
-                            <div className={css.videos}>
-                                <ResponsiveVideoList
-                                    show={this.state.showMenu}
-                                    onSearch={this.onSearch.bind(this)}
-                                    onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
-                                    videos={this.searchedVideos}
-                                    active={this.state.activeVideo}
-                                    onPlay={(activeVideo: PlayingVideo) => {
-                                        this.setState({
-                                            activeVideo
-                                        })
-                                    }}
-                                />
-                                <VideoPlayer playing={this.state.activeVideo} onEnd={this.onPlayEnd.bind(this)} />
-                            </div>
-                            <PlayingStorage setPlaying={activeVideo => this.setState({ activeVideo })} />
-                            <ActiveSectionsStorage
-                                activeSections={this.state.activeSectionsIndex}
-                                updateActiveSections={
-                                    (activeSectionsIndex) => this.setState({
-                                        activeSectionsIndex
-                                    })
-                                }
-                            />
-                        </div>
+                                            {
+                                                ['编辑栏目', '历史记录'].map(
+                                                    (label, menuIndex) => (
+                                                        <MenuItem key={menuIndex} onClick={this.menuActionWithClose(() => this.handleMenuAction(menuIndex)).bind(this)}>{label}</MenuItem>
+                                                    )
+                                                )
+                                            }
+                                        </Menu>
+                                        <SectionEdit
+                                            sections={this.props.videos}
+                                            activeSections={this.state.activeSectionsIndex}
+                                            activeSectionsChange={
+                                                (activeSectionsIndex) => this.setState({
+                                                    activeSectionsIndex
+                                                })
+                                            }
+                                            open={this.state.sectionEditOpen}
+                                            onClose={_ => this.setState({ sectionEditOpen: false })}
+                                        />
+                                        <PlayHistory
+                                            playHistory={playHistory}
+                                            setPlayHistory={setPlayHistory}
+                                            open={this.state.playHistoryOpen}
+                                            onClose={_ => this.setState({ playHistoryOpen: false })}
+                                            onPlay={this.playFromHistory.bind(this)}
+                                        />
+                                        <div className={css.videos}>
+                                            <ResponsiveVideoList
+                                                show={this.state.showMenu}
+                                                onSearch={this.onSearch.bind(this)}
+                                                onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
+                                                videos={this.searchedVideos}
+                                                active={this.state.activeVideo}
+                                                onPlay={(activeVideo: PlayingVideo) => {
+                                                    this.setState({
+                                                        activeVideo
+                                                    })
+                                                }}
+                                            />
+                                            <VideoPlayer
+                                                playHistory={playHistory}
+                                                setPlayHistory={setPlayHistory}
+                                                playing={this.state.activeVideo}
+                                                onEnd={this.onPlayEnd.bind(this)}
+                                            />
+                                        </div>
+                                        <PlayingStateRestorer
+                                            playHistory={playHistory}
+                                            onRestore={(activeVideo: PlayingVideo) => {
+                                                this.setState({
+                                                    activeVideo
+                                                })
+                                            }}
+                                        />
+                                        <ActiveSectionsStorage
+                                            activeSections={this.state.activeSectionsIndex}
+                                            updateActiveSections={
+                                                (activeSectionsIndex) => this.setState({
+                                                    activeSectionsIndex
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                )
+                            }
+                        </HistoryStorage>
                     )
                 }
             </ThemeStorager>

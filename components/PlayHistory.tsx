@@ -1,7 +1,6 @@
 import React from 'react'
 import { Dialog, DialogContent, DialogActions, DialogTitle, Box, List, Typography, Avatar, ListItemText, ListItemAvatar, Button } from '@mui/material'
 import type { DialogProps } from '@mui/material'
-import { useLocalStorage } from 'react-use'
 import { StyledListItemButton } from 'components/Menu'
 import {
     SlowMotionVideo as SlowMotionVideoIcon
@@ -9,21 +8,18 @@ import {
 
 import { formatDate, timeFormatter } from 'util/date'
 
-export interface VideoPlayHistory extends PlayingVideo {
-    played_time: number;
-    update_date: number;
+export interface PlayHistoryBaseProps {
+    playHistory: VideoPlayHistory[];
+    setPlayHistory?: React.Dispatch<React.SetStateAction<VideoPlayHistory[]>>;
 }
 
-interface PlayHistoryProps {
+interface PlayHistoryProps extends PlayHistoryBaseProps {
     onPlay: (arg: VideoPlayHistory) => void;
 }
 
-export const playHistoryKey = '__playing_history'
-
 const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryProps & DialogProps>(
-    function PlayHistoryList({ onClose, onPlay }, ref) {
-        const [storage, setStorage] = useLocalStorage<VideoPlayHistory[]>(playHistoryKey, []);
-        const playHistory = (history: VideoPlayHistory) => {
+    function PlayHistoryList({ playHistory, onClose, onPlay }, ref) {
+        const playFromHistory = (history: VideoPlayHistory) => {
             onClose({}, 'escapeKeyDown')
             onPlay(history)
         }
@@ -31,20 +27,20 @@ const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryP
             return (episode ? `${title} - 第${episode}集` : title)
         }
         React.useImperativeHandle(ref, () => ({
-            clearHistory: () => setStorage([])
+            clearHistory: null// () => setStorage([])
         }));
         return (
             <>
                 {
-                    storage.length > 0 ? (
+                    playHistory.length > 0 ? (
                         <List disablePadding>
                             {
-                                storage.map(
+                                playHistory.map(
                                     (history: VideoPlayHistory, index: number) => (
                                         <StyledListItemButton
                                             key={index}
                                             dense
-                                            onClick={_ => playHistory(history)}
+                                            onClick={_ => playFromHistory(history)}
                                         >
                                             <ListItemAvatar>
                                                 <Avatar>
@@ -80,9 +76,7 @@ const PlayHistoryDialog: React.FunctionComponent<PlayHistoryProps & DialogProps>
             </DialogContent>
             <DialogActions>
                 <Button variant="outlined" color="error" onClick={() => {
-                    if (ref.current) {
-                        ref.current.clearHistory()
-                    }
+                    props.setPlayHistory([])
                 }}>清空历史记录</Button>
                 <Button onClick={_ => props.onClose({}, 'escapeKeyDown')}>关闭</Button>
             </DialogActions>
