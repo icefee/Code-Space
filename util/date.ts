@@ -12,3 +12,10 @@ export function formatDate(dateString: string | number, format = 'YYYY-MM-DD HH:
         (v, _w, x, y) => String(map.get(y[x])).padStart(v.length, '0')
     )
 }
+
+export function timeFormatter(s: number): string {
+    const [m, h] = [60, 60 * 60]
+    return [...(s < h ? [] : [Math.floor(s / h)]), Math.floor((s < h ? s : s % h) / m), s % m].map(
+        v => String(v).padStart(2, '0')
+    ).join(':')
+}

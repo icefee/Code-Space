@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, DialogContent, DialogActions, DialogTitle, Box, List, Typography, Avatar, ListItemText, ListItemAvatar, Divider, Button } from '@mui/material'
+import { Dialog, DialogContent, DialogActions, DialogTitle, Box, List, Typography, Avatar, ListItemText, ListItemAvatar, Button } from '@mui/material'
 import type { DialogProps } from '@mui/material'
 import { useLocalStorage } from 'react-use'
 import { StyledListItemButton } from 'components/Menu'
@@ -7,7 +7,7 @@ import {
     SlowMotionVideo as SlowMotionVideoIcon
 } from '@mui/icons-material'
 
-import { formatDate } from 'util/date'
+import { formatDate, timeFormatter } from 'util/date'
 
 export interface VideoPlayHistory extends PlayingVideo {
     played_time: number;
@@ -28,7 +28,7 @@ const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryP
             onPlay(history)
         }
         const historyTitle = ({ title, episode }: VideoPlayHistory) => {
-            return episode ? `${title} - 第${episode}集` : title
+            return (episode ? `${title} - 第${episode}集` : title)
         }
         React.useImperativeHandle(ref, () => ({
             clearHistory: () => setStorage([])
@@ -43,6 +43,7 @@ const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryP
                                     (history: VideoPlayHistory, index: number) => (
                                         <StyledListItemButton
                                             key={index}
+                                            dense
                                             onClick={_ => playHistory(history)}
                                         >
                                             <ListItemAvatar>
@@ -50,7 +51,7 @@ const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryP
                                                     <SlowMotionVideoIcon />
                                                 </Avatar>
                                             </ListItemAvatar>
-                                            <ListItemText primary={historyTitle(history)} secondary={formatDate(history.update_date)} />
+                                            <ListItemText primary={historyTitle(history)} secondary={timeFormatter(Math.round(history.played_time)) + ' · ' + formatDate(history.update_date, 'MM/DD HH:mm')} />
                                         </StyledListItemButton>
                                     )
                                 )
