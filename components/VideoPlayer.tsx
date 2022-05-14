@@ -31,7 +31,7 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playH
             if (played_time) {
                 player.seek(played_time)
             }
-            player.on('progress', () => setCurrentTime(player.video.currentTime))
+            player.on('timeupdate', () => setCurrentTime(player.video.currentTime))
             player.on('ended', onEnd)
         }
         return () => {
