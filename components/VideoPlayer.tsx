@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import DPlayer from 'dplayer'
 import { Box, Typography } from '@mui/material'
 import type { PlayHistoryBaseProps } from 'components/PlayHistory'
@@ -11,10 +11,11 @@ export interface VideoPlayerProps extends PlayHistoryBaseProps {
 
 const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playHistory, setPlayHistory, onEnd }) => {
 
-    const ref = React.useRef<HTMLDivElement>()
+    const ref = useRef<HTMLDivElement>()
     const [currentTime, setCurrentTime] = useState(0)
+    const timeRef = useRef<number>(currentTime);
 
-    React.useEffect(() => {
+    useEffect(() => {
         var player: DPlayer = null;
         if (ref.current && playing) {
 
@@ -31,12 +32,7 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playH
             if (played_time) {
                 player.seek(played_time)
             }
-            player.on('timeupdate', () => {
-                const videoPlayedTime = player.video.currentTime
-                if (videoPlayedTime > currentTime + 3) {
-                    setCurrentTime(videoPlayedTime)
-                }
-            })
+            player.on('timeupdate', () => setCurrentTime(player.video.currentTime))
             player.on('ended', onEnd)
         }
         return () => {
@@ -44,8 +40,8 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playH
         }
     }, [playing, ref])
 
-    React.useEffect(() => {
-        if (playing && currentTime > 0) {
+    useEffect(() => {
+        if (playing && currentTime > timeRef.current + 5) {
             setPlayHistory(history => [
                 {
                     ...playing,
@@ -56,10 +52,11 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playH
                     rec => rec.url !== playing.url
                 )
             ])
+            timeRef.current = currentTime
         }
     }, [currentTime, playing])
 
-    const playStatus = React.useMemo<string>(() => {
+    const playStatus = useMemo<string>(() => {
         if (!playing) {
             return ''
         }
