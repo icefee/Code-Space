@@ -68,6 +68,9 @@ const PlayHistory = React.forwardRef<{ clearHistory: () => void; }, PlayHistoryP
 
 const PlayHistoryDialog: React.FunctionComponent<PlayHistoryProps & DialogProps> = props => {
     const ref = React.useRef<{ clearHistory: () => void; } | null>(null)
+    const closeDialog = () => {
+        props.onClose({}, 'escapeKeyDown')
+    }
     return (
         <Dialog scroll="paper" open={props.open} onClose={props.onClose}>
             <DialogTitle>历史记录</DialogTitle>
@@ -75,10 +78,11 @@ const PlayHistoryDialog: React.FunctionComponent<PlayHistoryProps & DialogProps>
                 <PlayHistory {...props} ref={ref} />
             </DialogContent>
             <DialogActions>
-                <Button variant="outlined" color="error" onClick={() => {
+                <Button variant="outlined" disabled={props.playHistory.length === 0} color="error" onClick={() => {
                     props.setPlayHistory([])
+                    closeDialog()
                 }}>清空历史记录</Button>
-                <Button onClick={_ => props.onClose({}, 'escapeKeyDown')}>关闭</Button>
+                <Button onClick={_ => closeDialog()}>关闭</Button>
             </DialogActions>
         </Dialog>
     )

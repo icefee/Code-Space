@@ -2530,6 +2530,132 @@
             ]
         },
         {
+            "section": "国产电影",
+            "series": [
+                {
+                    "title": "我不是药神",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/561584.m3u8?sign=d703883849d03dbd2833f6a600463c6f"
+                },
+                {
+                    "title": "让子弹飞",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/539314.m3u8?sign=be17573f4547b6ce7f45493e82b26e55"
+                },
+                {
+                    "title": "钢的琴",
+                    "m3u8_url": "https://www.taopianplay.com/taopian/84e2601a-c8ef-41e9-815a-453247f2e518/a0ba49ba-87b8-41b4-8ad3-50b8fc26ffd8/37741/64be4fa2-5402-4c65-adca-053b137ca922/SD/playlist.m3u8"
+                },
+                {
+                    "title": "麦兜当当伴我心",
+                    "m3u8_url": "https://www.taopianplay.com/taopian/84e2601a-c8ef-41e9-815a-453247f2e518/feb7d963-714f-47a8-8094-714255671600/17016/ea133db5-e8bd-4ccb-8c84-e783b7392796/SD/playlist.m3u8"
+                },
+                {
+                    "title": "天书奇谭",
+                    "m3u8_url": "https://v4.cdtlas.com/20211115/Ypy8fWBX/1200kb/hls/index.m3u8"
+                },
+                {
+                    "title": "西游记之大圣归来",
+                    "m3u8_url": "https://b.baobuzz.com/m3u8/342968.m3u8?sign=b7552996f42b75eeb095209e4ddc351a"
+                },
+                {
+                    "title": "太阳照常升起",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/551011.m3u8?sign=2e9f30298d7c97f2cf8c753c8cd63145"
+                },
+                {
+                    "title": "百鸟朝凤",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/548156.m3u8?sign=d86c167cdde6b2e4722e0fa7f8c0723f"
+                },
+                {
+                    "title": "红海行动",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/555857.m3u8?sign=299898b77f9aaa12b5e4a968fd7a8c28"
+                },
+                {
+                    "title": "Hello! 树先生",
+                    "m3u8_url": "https://www.taopianplay.com/taopian/84e2601a-c8ef-41e9-815a-453247f2e518/a0ba49ba-87b8-41b4-8ad3-50b8fc26ffd8/12483/3f0d8487-800a-4a54-864d-afe78674d8bf/SD/playlist.m3u8"
+                },
+                {
+                    "title": "无间道3: 终极无间",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/549848.m3u8?sign=1fe35fc160a56897c81daae7e25916bf"
+                },
+                {
+                    "title": "天下无贼",
+                    "m3u8_url": "https://b.baobuzz.com/m3u8/482896.m3u8?sign=ff6c9182577b70ea001fff2925391e08"
+                },
+                {
+                    "title": "一代宗师",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/561915.m3u8?sign=9a2f65ae6cea85b6801299007ae71ff0"
+                },
+                {
+                    "title": "湄公河行动",
+                    "m3u8_url": "https://www.taopianplay.com/taopian/84e2601a-c8ef-41e9-815a-453247f2e518/a0ba49ba-87b8-41b4-8ad3-50b8fc26ffd8/3825/3ccd00f1-302d-4019-9016-f217204a9f00/SD/playlist.m3u8"
+                },
+                {
+                    "title": "荆轲刺秦王",
+                    "m3u8_url": "https://b.baobuzz.com/m3u8/534972.m3u8?sign=e304f79704260bb2ff943cd91fc60b1b"
+                },
+                {
+                    "title": "一九四二",
+                    "m3u8_url": "https://b.baobuzz.com/m3u8/482735.m3u8?sign=c82f00ee69d803187e2ef6dac1643b16"
+                },
+                {
+                    "title": "无双",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/562477.m3u8?sign=f4dd1a9cb4ef0e4d2ae1214c7df91da6"
+                },
+                {
+                    "title": "流浪地球",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/561924.m3u8?sign=b845486c6d0119cf6ab68569f041f20f"
+                },
+                {
+                    "title": "大闹天宫(动画)",
+                    "m3u8_url": "https://www.taopianplay.com/taopian/84e2601a-c8ef-41e9-815a-453247f2e518/80d95caa-3eb1-4099-af19-78c7f24ae1c3/12848/6217773e-28d2-492e-829b-029043ced702/SD/playlist.m3u8"
+                },
+                {
+                    "title": "唐山大地震",
+                    "m3u8_url": "https://www.taopianplay.com/taopian/84e2601a-c8ef-41e9-815a-453247f2e518/a0ba49ba-87b8-41b4-8ad3-50b8fc26ffd8/3099/061b7255-fb1c-4d9c-8716-3d6fcd050304/SD/playlist.m3u8"
+                },
+                {
+                    "title": "边境风云",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/545590.m3u8?sign=3222ee1c6b9ea4ddb513ff19c85fdf81"
+                },
+                {
+                    "title": "白蛇: 缘起",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/549077.m3u8?sign=d4fb4dfe7de5b9edb67ed95195f48a43"
+                }
+            ]
+        },
+        {
+            "section": "欧美电影",
+            "series": [
+                {
+                    "title": "肖申克的救赎",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/537490.m3u8?sign=b45fce8fc4ed2353a77a76b8566d95ee"
+                },
+                {
+                    "title": "阿甘正传",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/536673.m3u8?sign=5d3873c6e8f7a9b4f32ad258fd3987c2"
+                },
+                {
+                    "title": "泰坦尼克号",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/536723.m3u8?sign=89533a53c981ea3b9830bb8d2404f8bf"
+                },
+                {
+                    "title": "星际穿越",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/536683.m3u8?sign=5218992641411783c9af0c0e3ad889fc"
+                },
+                {
+                    "title": "盗梦空间",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/536682.m3u8?sign=128b87f802545a52b6b60bb2f09b6700"
+                },
+                {
+                    "title": "指环王3: 王者无敌",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/536668.m3u8?sign=26d347f5f3a74b35fe3476d1eac14b8c"
+                },
+                {
+                    "title": "楚门的世界",
+                    "m3u8_url": "https://b.baobuzz.com/ipfs/536705.m3u8?sign=5335ce6694cd4409a733d42f65a208c5"
+                }
+            ]
+        },
+        {
             "section": "美剧",
             "series": [
                 {

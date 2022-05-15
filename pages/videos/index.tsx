@@ -109,7 +109,7 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         keyword: '',
         anchorEl: null,
         sectionEditOpen: false,
-        activeSectionsIndex: [0, 1],
+        activeSectionsIndex: [0, 1, 2, 3],
         playHistoryOpen: false
     }
 
