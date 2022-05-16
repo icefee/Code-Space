@@ -74,7 +74,7 @@ const PlayHistoryDialog: React.FunctionComponent<PlayHistoryProps & DialogProps>
     return (
         <Dialog scroll="paper" open={props.open} onClose={props.onClose}>
             <DialogTitle>历史记录</DialogTitle>
-            <DialogContent>
+            <DialogContent dividers>
                 <PlayHistory {...props} ref={ref} />
             </DialogContent>
             <DialogActions>

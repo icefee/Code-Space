@@ -28,7 +28,7 @@ const SectionEdit: React.FunctionComponent<SelctionEditProps> = ({ sections, act
     return (
         <Dialog scroll="paper" open={open} onClose={onClose}>
             <DialogTitle>显示的栏目</DialogTitle>
-            <DialogContent>
+            <DialogContent dividers>
                 <Box>
                     <FormControlLabel
                         label="全部栏目"
