@@ -56,6 +56,7 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, setPl
     useEffect(() => {
         if (playing) {
             timeRef.current = 0
+            setCurrentTime(0)
         }
     }, [playing])
 
