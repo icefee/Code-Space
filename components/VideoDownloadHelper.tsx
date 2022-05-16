@@ -27,7 +27,7 @@ const VideoDownloadHelper: React.FunctionComponent<{} & DialogProps> = ({ open, 
                     1.将下载工具下载到本地后解压
                 </Typography>
                 <Typography gutterBottom>
-                    2.找到需要下载的视频, 右键点击 选择"生成下载脚本", 将下载的文件保存到解压的下载工具目录(包含文件N_m3u8DL-CLI_v2.9.9.exe)
+                    2.找到需要下载的视频, 右键点击 选择“生成下载脚本”, 将下载的文件保存到解压的下载工具目录(包含文件N_m3u8DL-CLI_v2.9.9.exe)
                 </Typography>
                 <Typography gutterBottom>
                     3.双击打开生成的下载脚本文件, 视频会开始下载, 并保存在同目录下的Downloads文件夹
