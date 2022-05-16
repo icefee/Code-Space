@@ -4,17 +4,7 @@ import type { DialogProps } from '@mui/material'
 
 const VideoDownloadHelper: React.FunctionComponent<{} & DialogProps> = ({ open, ...props }) => {
     return (
-        <Dialog
-            sx={{
-                '& .MuiDialog-paper': {
-                    width: '80%',
-                    maxHeight: 450
-                }
-            }}
-            maxWidth="xs"
-            open={open}
-            { ...props }
-        >
+        <Dialog open={open} { ...props }>
             <DialogTitle>下载说明</DialogTitle>
             <DialogContent dividers>
                 {/* <Typography component="h3" sx={{ mb: 2, fontSize: '1.2em' }}>如何将视频下载到本地</Typography> */}
