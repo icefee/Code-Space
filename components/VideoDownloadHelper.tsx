@@ -32,7 +32,7 @@ const VideoDownloadHelper: React.FunctionComponent<{} & DialogProps> = ({ open, 
                 <Typography gutterBottom>
                     3.双击打开生成的下载脚本文件, 视频会开始下载, 并保存在同目录下的Downloads文件夹
                 </Typography>
-                <Alert severity="warning" sx={{mb: 2}}>如果下载的脚本被系统阻止运行, 请选择仍要运行</Alert>
+                <Alert severity="warning">如果下载的脚本被系统阻止运行, 请选择仍要运行</Alert>
             </DialogContent>
             <DialogActions>
                 <Button autoFocus onClick={_ => props.onClose({}, 'backdropClick')}>关闭</Button>
