@@ -54,6 +54,12 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, setPl
     }, [playing, ref])
 
     useEffect(() => {
+        if (playing) {
+            timeRef.current = 0
+        }
+    }, [playing])
+
+    useEffect(() => {
         if (playing && currentTime > timeRef.current + 3) {
             setPlayHistory(history => [
                 {
