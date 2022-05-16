@@ -18,6 +18,8 @@ import SectionEdit from 'components/SectionEdit'
 import PlayHistory from 'components/PlayHistory'
 import type { PlayHistoryBaseProps } from 'components/PlayHistory'
 
+import VideoDownloadHelper from 'components/VideoDownloadHelper'
+
 const ResponsiveHeader = dynamic(
     () => import('components/ResponsiveHeader'),
     { ssr: false }
@@ -69,6 +71,7 @@ interface VideosState {
     sectionEditOpen: boolean;
     activeSectionsIndex: number[];
     playHistoryOpen: boolean;
+    downloadHelpderOpen: boolean;
 }
 
 type ActiveSectionIndex = VideosState['activeSectionsIndex']
@@ -110,7 +113,8 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         anchorEl: null,
         sectionEditOpen: false,
         activeSectionsIndex: [0, 1, 2, 3],
-        playHistoryOpen: false
+        playHistoryOpen: false,
+        downloadHelpderOpen: false
     }
 
     private onToggleMenu(): void {
@@ -143,6 +147,11 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         else if (menuIndex === 1) {
             this.setState({
                 playHistoryOpen: true
+            })
+        }
+        else if (menuIndex === 2) {
+            this.setState({
+                downloadHelpderOpen: true
             })
         }
     }
@@ -270,7 +279,7 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                             onClose={this.closeMenu.bind(this)}
                                         >
                                             {
-                                                ['编辑栏目', '历史记录'].map(
+                                                ['编辑栏目', '历史记录', '下载到本地'].map(
                                                     (label, menuIndex) => (
                                                         <MenuItem key={menuIndex} onClick={this.menuActionWithClose(() => this.handleMenuAction(menuIndex)).bind(this)}>{label}</MenuItem>
                                                     )
@@ -331,6 +340,7 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                 })
                                             }
                                         />
+                                        <VideoDownloadHelper open={this.state.downloadHelpderOpen} onClose={_ => this.setState({ downloadHelpderOpen: false })} />
                                     </div>
                                 )
                             }

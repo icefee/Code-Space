@@ -3,13 +3,14 @@ import DPlayer from 'dplayer'
 import { Box, Typography } from '@mui/material'
 import type { PlayHistoryBaseProps } from 'components/PlayHistory'
 import { ThemedDiv } from './PageBase'
+import { createDownloadBat } from 'util/m3u8'
 
 export interface VideoPlayerProps extends PlayHistoryBaseProps {
     playing?: PlayingVideo;
     onEnd?: () => void;
 }
 
-const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playHistory, setPlayHistory, onEnd }) => {
+const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, setPlayHistory, onEnd }) => {
 
     const ref = useRef<HTMLDivElement>()
     const [currentTime, setCurrentTime] = useState(0)
@@ -19,7 +20,7 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playH
         var player: DPlayer = null;
         if (ref.current && playing) {
 
-            const { url, played_time } = playing
+            const { url, title, episode, played_time } = playing
 
             player = new DPlayer({
                 container: ref.current,
@@ -28,6 +29,17 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, playH
                     url,
                     type: 'hls',
                 },
+                contextmenu: [
+                    {
+                        text: '生成下载脚本',
+                        click: (_player) => {
+                            createDownloadBat(
+                                url,
+                                episode ? `${title}_${episode}` : title
+                            )
+                        },
+                    }
+                ]
             })
             if (played_time) {
                 player.seek(played_time)
