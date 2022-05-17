@@ -24,7 +24,7 @@ const QuickAction: React.FunctionComponent<QuickActionProps> = (props = { hidden
     }
     return (
         <>
-            <Backdrop open={open} />
+            <Backdrop sx={{ zIndex: 2 }} open={open} />
             <SpeedDial
                 ariaLabel="快捷操作"
                 sx={{ position: 'absolute', bottom: 60, right: 16 }}
