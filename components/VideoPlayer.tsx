@@ -190,7 +190,6 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
         player.on('seeked', () => this.onSeeked())
         player.on('ended', () => this.onEnded())
         this.player = player
-        console.log('player created.')
     }
 
     /**
@@ -202,7 +201,6 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
 
     private onTimeupdate(): void {
         const currentTime = this.player.video.currentTime;
-        console.log('onTimeupdate:', currentTime, this.prevPlayTime)
         if (currentTime > this.prevPlayTime + 3) {
             const { playing, playHistory, setPlayHistory } = this.props
             setPlayHistory([
