@@ -9,13 +9,14 @@ import { SearchBar } from 'components/Header'
 export interface ResponsiveVideoListProps extends VideoListProps {
     show: boolean;
     onUpdateShow: (arg: boolean) => void;
+    onPlay: (arg: PlayingVideo, env?: { mobile: boolean }) => void;
     onSearch: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const ResponsiveVideoList: React.FunctionComponent<ResponsiveVideoListProps> = ({ show, onUpdateShow, onSearch, ...rest }) => {
+const ResponsiveVideoList: React.FunctionComponent<ResponsiveVideoListProps> = ({ show, onUpdateShow, onSearch, onPlay, ...rest }) => {
     const isMobile = useMobile();
     const videoList = React.useMemo<React.ReactElement>(() => (
-        <VideoList {...rest} />
+        <VideoList onPlay={video => onPlay(video, { mobile: isMobile })} {...rest} />
     ), [rest.videos, rest.active])
     if (isMobile) {
         return (

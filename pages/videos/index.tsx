@@ -345,9 +345,10 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                 onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
                                                 videos={this.searchedVideos}
                                                 active={this.state.activeVideo}
-                                                onPlay={(activeVideo: PlayingVideo) => {
+                                                onPlay={(activeVideo: PlayingVideo, env) => {
                                                     this.setState({
-                                                        activeVideo
+                                                        activeVideo,
+                                                        showMenu: !(env && env.mobile)
                                                     })
                                                 }}
                                             />
