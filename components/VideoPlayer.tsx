@@ -238,7 +238,7 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
      */
     public render() {
         return (
-            <ThemedDiv style={{ width: '100%' }}>
+            <ThemedDiv sx={{ width: '100%', height: '100%' }}>
                 {
                     this.props.playing ? (
                         <Box sx={{ position: 'relative', height: '100%' }}>

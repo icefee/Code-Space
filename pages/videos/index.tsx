@@ -19,6 +19,7 @@ import PlayHistory from 'components/PlayHistory'
 import type { PlayHistoryBaseProps } from 'components/PlayHistory'
 
 import VideoDownloadHelper from 'components/VideoDownloadHelper'
+import QuickAction from 'components/QuickAction'
 
 const ResponsiveHeader = dynamic(
     () => import('components/ResponsiveHeader'),
@@ -200,33 +201,66 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         }
     }
 
-    private onPlayEnd(): void {
+    private get activeEpisode(): Episode {
+        if (!this.state.activeVideo) {
+            return null
+        }
+        return this.props.videos.reduce(
+            (pre, cur) => {
+                return [
+                    ...pre,
+                    ...cur.series.filter(
+                        ep => 'episodes' in ep
+                    )
+                ]
+            },
+            []
+        ).find(
+            (ep: Episode) => ep.title === this.state.activeVideo.title
+        )
+    }
+
+    private playNext(key: 1 | -1) {
         if (this.state.activeVideo) {
             const { title, episode } = this.state.activeVideo
             if (episode !== undefined) {
-                const activeEpisode: Episode = this.props.videos.reduce(
-                    (pre, cur) => {
-                        return [
-                            ...pre,
-                            ...cur.series.filter(
-                                ep => 'episodes' in ep
-                            )
-                        ]
-                    },
-                    []
-                ).find(
-                    (ep: Episode) => ep.title === title
-                )
-                if (activeEpisode.episodes > episode) {
-                    this.setState({
-                        activeVideo: {
-                            title,
-                            episode: episode + 1,
-                            url: getM3u8Uri(activeEpisode.url_template, activeEpisode.m3u8_list[episode])
-                        }
-                    })
-                }
+                const { episodes, url_template, m3u8_list } = this.activeEpisode
+                this.setState({
+                    activeVideo: {
+                        title,
+                        episode: Math.max(Math.min(episode + key, episodes), 0),
+                        url: getM3u8Uri(url_template, m3u8_list[episode])
+                    }
+                })
             }
+        }
+    }
+
+    private handleQuickAction(key: string): void {
+        if (key === 'prev') {
+            this.playNext(-1)
+        }
+        else if (key === 'next') {
+            this.playNext(1)
+        }
+    }
+
+    private get quickAction() {
+        if (!this.state.activeVideo) {
+            return {
+                hidden: true
+            }
+        }
+        const { episode } = this.state.activeVideo
+        if (!episode) {
+            return {
+                hidden: true
+            }
+        }
+        const { episodes } = this.activeEpisode
+        return {
+            first: episode === 1,
+            last: episode === episodes
         }
     }
 
@@ -317,12 +351,15 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                     })
                                                 }}
                                             />
-                                            <VideoPlayer
-                                                playHistory={playHistory}
-                                                setPlayHistory={setPlayHistory}
-                                                playing={this.state.activeVideo}
-                                                onEnd={this.onPlayEnd.bind(this)}
-                                            />
+                                            <Box sx={{ position: 'relative', width: '100%' }}>
+                                                <VideoPlayer
+                                                    playHistory={playHistory}
+                                                    setPlayHistory={setPlayHistory}
+                                                    playing={this.state.activeVideo}
+                                                    onEnd={() => this.playNext(1)}
+                                                />
+                                                <QuickAction onAction={this.handleQuickAction.bind(this)} {...this.quickAction} />
+                                            </Box>
                                         </div>
                                         <PlayingStateRestorer
                                             playHistory={playHistory}
