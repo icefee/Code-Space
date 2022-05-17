@@ -148,18 +148,11 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
     public componentDidUpdate(prevProps: VideoPlayerProps): void {
 
         if (this.props.playing !== prevProps.playing) {
-            const { url } = this.props.playing
-
             if (this.player) {
-                this.player.switchVideo({
-                    url
-                })
                 this.prevPlayTime = 0
-                this.player.play()
+                this.destroyPlayer()
             }
-            else {
-                this.initPlayer(this.props.playing)
-            }
+            this.initPlayer(this.props.playing)
         }
     }
 
@@ -192,11 +185,15 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
         this.player = player
     }
 
+    private destroyPlayer(): void {
+        this.player?.destroy()
+    }
+
     /**
      * componentWillUnmount: void
     **/
     public componentWillUnmount(): void {
-        this.player?.destroy()
+        this.destroyPlayer()
     }
 
     private onTimeupdate(): void {
