@@ -23,8 +23,11 @@ declare module 'dplayer' {
         video: Video;
         // new(options: DPlayerOptions): DPlayer;
         constructor(options: DPlayerOptions): DPlayer;
+        play: () => void;
+        pause: () => void;
         seek: (arg: number) => void;
         on: (event: string, eventHandler: (ev?: Event) => void) => void;
+        switchVideo: (video: { url: string; pic?: string; thumbnails?: string; }) => void;
         destroy: () => void;
     }
 }

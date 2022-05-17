@@ -10,6 +10,7 @@ export interface VideoPlayerProps extends PlayHistoryBaseProps {
     onEnd?: () => void;
 }
 
+/*
 const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, setPlayHistory, onEnd }) => {
 
     const ref = useRef<HTMLDivElement>()
@@ -124,54 +125,159 @@ const VideoPlayer: React.FunctionComponent<VideoPlayerProps> = ({ playing, setPl
         </ThemedDiv>
     )
 }
+*/
 
-// class VideoPlayer extends React.Component<VideoPlayerProps> {
+class VideoPlayer extends React.Component<VideoPlayerProps> {
 
-//     ref: HTMLDivElement | null
-//     player: any;
+    private ref: React.RefObject<HTMLDivElement | null>
+    private player?: DPlayer
+    private prevPlayTime: number = 0
 
-//     constructor(props: VideoPlayerProps) {
-//         super(props);
-//     }
+    constructor(props: VideoPlayerProps) {
+        super(props)
 
-//     handleCanplay = () => {
-//         this.player.play()
-//     }
+        this.ref = React.createRef<HTMLDivElement | null>()
+    }
 
-//     componentDidMount() {
-//         this.player = new DPlayer({
-//             container: this.ref,
-//             video: {
-//                 url: '',
-//                 type: 'hls',
-//             },
-//         })
-//         this.player.on('canplay', this.handleCanplay)
-//     }
+    public componentDidMount(): void {
+        if (this.props.playing) {
+            this.initPlayer(this.props.playing)
+        }
+    }
 
-//     componentWillUnmount() {
-//         // this.player.off('canplay', this.handleCanplay)
-//     }
+    public componentDidUpdate(prevProps: VideoPlayerProps): void {
 
-//     componentDidUpdate(props: VideoPlayerProps) {
-//         if (this.props.playing) {
-//             this.player.switchVideo({
-//                 url: getM3u8Uri(this.props.playing)
-//             })
-//             this.player.play()
-//         }
-//     }
+        if (this.props.playing !== prevProps.playing) {
+            const { url } = this.props.playing
 
-//     /**
-//      * render
-//      */
-//     public render(): JSX.Element {
-//         return (
-//             <div style={{ width: '100%' }}>
-//                 <div id="player" ref={ref => this.ref = ref} style={{ height: '100%' }} />
-//             </div>
-//         )
-//     }
-// }
+            if (this.player) {
+                this.player.switchVideo({
+                    url
+                })
+                this.prevPlayTime = 0
+                this.player.play()
+            }
+            else {
+                this.initPlayer(this.props.playing)
+            }
+        }
+    }
+
+    private initPlayer({ url, title, episode, played_time }: PlayingVideo): void {
+        const player = new DPlayer({
+            container: this.ref.current,
+            autoplay: true,
+            video: {
+                url,
+                type: 'hls',
+            },
+            contextmenu: [
+                {
+                    text: '生成下载脚本',
+                    click: (_player) => {
+                        createDownloadBat(
+                            url,
+                            episode ? `${title}_${episode}` : title
+                        )
+                    },
+                }
+            ]
+        })
+        if (played_time) {
+            player.seek(played_time)
+        }
+        player.on('timeupdate', () => this.onTimeupdate())
+        player.on('seeked', () => this.onSeeked())
+        player.on('ended', () => this.onEnded())
+        this.player = player
+        console.log('player created.')
+    }
+
+    /**
+     * componentWillUnmount: void
+    **/
+    public componentWillUnmount(): void {
+        this.player?.destroy()
+    }
+
+    private onTimeupdate(): void {
+        const currentTime = this.player.video.currentTime;
+        console.log('onTimeupdate:', currentTime, this.prevPlayTime)
+        if (currentTime > this.prevPlayTime + 3) {
+            const { playing, playHistory, setPlayHistory } = this.props
+            setPlayHistory([
+                {
+                    ...playing,
+                    played_time: currentTime,
+                    update_date: Date.now()
+                },
+                ...playHistory.filter(
+                    rec => rec.url !== playing.url
+                )
+            ])
+            this.prevPlayTime = currentTime
+        }
+    }
+
+    private onSeeked(): void {
+        this.prevPlayTime = this.player.video.currentTime
+    }
+
+    private onEnded(): void {
+        this.props.onEnd?.()
+    }
+
+    private get playStatus() {
+        if (!this.props.playing) {
+            return ''
+        }
+        const { title, episode } = this.props.playing
+        let status = `当前播放: ${title}`
+        if (episode) {
+            status += ` - 第${episode}集`
+        }
+        return status
+    }
+    /**
+     * render
+     */
+    public render() {
+        return (
+            <ThemedDiv style={{ width: '100%' }}>
+                {
+                    this.props.playing ? (
+                        <Box sx={{ position: 'relative', height: '100%' }}>
+                            <Typography
+                                variant="caption"
+                                component="div"
+                                sx={{
+                                    position: 'absolute',
+                                    top: 5,
+                                    left: 5,
+                                    color: '#ccc',
+                                    zIndex: 1
+                                }}
+                            >{this.playStatus}</Typography>
+                            <div id="player" ref={this.ref} style={{ height: '100%' }} />
+                        </Box>
+                    ) : (
+                        <Box sx={{
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            color: '#aaa'
+                        }}>
+                            <Typography variant="h5" component="div">
+                                选择一个视频播放
+                            </Typography>
+                        </Box>
+                    )
+                }
+            </ThemedDiv>
+        )
+    }
+}
 
 export default VideoPlayer;
