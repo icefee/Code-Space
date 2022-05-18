@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
 import DPlayer from 'dplayer'
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, Alert } from '@mui/material'
 import type { PlayHistoryBaseProps } from 'components/PlayHistory'
 import { ThemedDiv } from './PageBase'
 import { createDownloadBat } from 'util/m3u8'
+import { SnackbarContext } from 'util/useSnackbar'
+import type { SnackbarContextProps } from 'util/useSnackbar'
 
 export interface VideoPlayerProps extends PlayHistoryBaseProps {
     playing?: PlayingVideo;
     onEnd?: () => void;
+    requestReload?: () => void;
 }
 
 /*
@@ -132,6 +135,10 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
     private ref: React.RefObject<HTMLDivElement | null>
     private player?: DPlayer
     private prevPlayTime: number = 0
+    // private reloadTimeout: NodeJS.Timeout | null = null
+    // private reloadingTimeout: boolean = false
+    // private playerDestroyed: boolean = false
+    private isAbort = false
 
     constructor(props: VideoPlayerProps) {
         super(props)
@@ -148,10 +155,12 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
     public componentDidUpdate(prevProps: VideoPlayerProps): void {
 
         if (this.props.playing !== prevProps.playing) {
+            this.isAbort = true
             if (this.player) {
                 this.prevPlayTime = 0
                 this.destroyPlayer()
             }
+            // this.destroyReloadTimeout()
             this.initPlayer(this.props.playing)
         }
     }
@@ -182,18 +191,64 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
         player.on('timeupdate', () => this.onTimeupdate())
         player.on('seeked', () => this.onSeeked())
         player.on('ended', () => this.onEnded())
+        player.on('error', (error) => {
+            /*
+            if (!this.reloadingTimeout && !this.playerDestroyed) {
+                this.reloadingTimeout = true;
+                (this.context as SnackbarContextProps).showSnackbar({
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'center'
+                    },
+                    message: '视频加载失败, 正在重新加载..',
+                    autoHideDuration: 2500
+                })
+                this.reloadTimeout = setTimeout(() => {
+                    this.props.requestReload?.()
+                }, 1e4);
+            }
+            */
+            if (!this.isAbort) {
+                (this.context as SnackbarContextProps).showSnackbar({
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left'
+                    },
+                    children: (
+                        <Alert severity="error">视频源连接失败, 请尝试观看其他的视频</Alert>
+                    ),
+                    // message: '视频加载失败, 正在重新加载..',
+                    autoHideDuration: 5000
+                })
+            }
+        })
         this.player = player
+        // this.playerDestroyed = false
+
+        requestIdleCallback(() => {
+            this.isAbort = false
+        })
     }
 
     private destroyPlayer(): void {
         this.player?.destroy()
+        // this.playerDestroyed = true
     }
+
+    /*
+    private destroyReloadTimeout() {
+        if (this.reloadTimeout) {
+            clearTimeout(this.reloadTimeout)
+        }
+    }
+    */
 
     /**
      * componentWillUnmount: void
     **/
     public componentWillUnmount(): void {
         this.destroyPlayer()
+        // this.destroyReloadTimeout()
     }
 
     private onTimeupdate(): void {
@@ -233,6 +288,9 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
         }
         return status
     }
+
+    static contextType: React.Context<SnackbarContextProps> = SnackbarContext
+
     /**
      * render
      */

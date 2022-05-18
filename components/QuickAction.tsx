@@ -33,6 +33,7 @@ const QuickAction: React.FunctionComponent<QuickActionProps> = (props = { hidden
                 onClose={handleClose}
                 onOpen={handleOpen}
                 open={open}
+                FabProps={{size: 'medium'}}
             >
                 {
                     !props.last && (

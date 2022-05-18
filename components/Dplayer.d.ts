@@ -16,11 +16,11 @@ declare module 'dplayer' {
     // interface DPlayer {
     //     seek: (arg: number) => void;
     // }
-    interface Video {
-        currentTime: number;
-    }
+    // interface Video {
+    //     currentTime: number;
+    // }
     export default class DPlayer {
-        video: Video;
+        video: HTMLVideoElement;
         // new(options: DPlayerOptions): DPlayer;
         constructor(options: DPlayerOptions): DPlayer;
         play: () => void;

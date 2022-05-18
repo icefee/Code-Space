@@ -3,12 +3,12 @@ import { Snackbar, SnackbarProps } from '@mui/material';
 
 export type SnackbarOption = Exclude<SnackbarProps, 'open' | 'onClose'>
 
-type SnackbarContextProps = {
+export type SnackbarContextProps = {
     // option: any;
     // setOption: React.Dispatch<SnackbarOption>;
     showSnackbar: (option: SnackbarOption) => void;
 }
-const SnackbarContext = createContext<SnackbarContextProps>(null)
+export const SnackbarContext = createContext<SnackbarContextProps>(null)
 
 export function SnackbarProvider({ children }) {
     const [snackbarOption, setSnackbarOption] = useState<SnackbarOption>(null)
@@ -26,7 +26,7 @@ export function SnackbarProvider({ children }) {
                 open={snackbarOpen}
                 onClose={() => setSnackbarOpen(false)}
                 {...snackbarOption}
-            />}
+            >{snackbarOption.children}</Snackbar>}
         </SnackbarContext.Provider>
     )
 }

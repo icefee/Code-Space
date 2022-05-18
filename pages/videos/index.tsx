@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import type { AppContext } from 'next/app'
 import Head from 'next/head'
 import css from './videos.module.css'
-
+import { SnackbarProvider } from 'util/useSnackbar'
 import { ThemeStorager } from 'components/PageBase'
 import type { ThemeMode } from 'components/PageBase'
 
@@ -246,12 +246,13 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
     }
 
     private get quickAction() {
-        if (!this.state.activeVideo) {
+        const { activeVideo, showMenu } = this.state
+        if (!activeVideo) {
             return {
                 hidden: true
             }
         }
-        const { episode } = this.state.activeVideo
+        const { episode } = activeVideo
         if (!episode) {
             return {
                 hidden: true
@@ -260,7 +261,8 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         const { episodes } = this.activeEpisode
         return {
             first: episode === 1,
-            last: episode === episodes
+            last: episode === episodes,
+            hidden: showMenu
         }
     }
 
@@ -272,114 +274,130 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                         <HistoryStorage>
                             {
                                 ({ playHistory, setPlayHistory }) => (
-                                    <div className={css.container}>
-                                        <Head>
-                                            <title>视频文件夹</title>
-                                            <link rel="icon" href="/favicon.ico" />
-                                            <meta name="viewport" content="initial-scale=1, width=device-width" />
-                                            <script defer src="/hls.min.js"></script>
-                                        </Head>
-                                        <ResponsiveHeader
-                                            show={this.state.showMenu}
-                                            title="视频文件夹"
-                                            onToggleMenu={this.onToggleMenu.bind(this)}
-                                            showSearch={false}
-                                            onSearch={this.onSearch.bind(this)}
-                                            isDark={isDark}
-                                            extendButtons={
-                                                <Box>
-                                                    <IconButton
-                                                        size="large"
-                                                        onClick={(event: React.MouseEvent<HTMLElement>) => this.setState({ anchorEl: event.currentTarget })}
-                                                        color="inherit"
-                                                    >
-                                                        <SettingsIcon />
-                                                    </IconButton>
-                                                </Box>
-                                            }
-                                            onSwitchTheme={() => switchTheme(!isDark)} />
-                                        <Menu
-                                            anchorEl={this.state.anchorEl}
-                                            anchorOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            keepMounted
-                                            transformOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            open={this.isMenuOpen}
-                                            onClose={this.closeMenu.bind(this)}
-                                        >
-                                            {
-                                                ['编辑栏目', '历史记录', '下载到本地'].map(
-                                                    (label, menuIndex) => (
-                                                        <MenuItem key={menuIndex} onClick={this.menuActionWithClose(() => this.handleMenuAction(menuIndex)).bind(this)}>{label}</MenuItem>
-                                                    )
-                                                )
-                                            }
-                                        </Menu>
-                                        <SectionEdit
-                                            sections={this.props.videos}
-                                            activeSections={this.state.activeSectionsIndex}
-                                            activeSectionsChange={
-                                                (activeSectionsIndex) => this.setState({
-                                                    activeSectionsIndex
-                                                })
-                                            }
-                                            open={this.state.sectionEditOpen}
-                                            onClose={_ => this.setState({ sectionEditOpen: false })}
-                                        />
-                                        <PlayHistory
-                                            playHistory={playHistory}
-                                            setPlayHistory={setPlayHistory}
-                                            open={this.state.playHistoryOpen}
-                                            onClose={_ => this.setState({ playHistoryOpen: false })}
-                                            onPlay={this.playFromHistory.bind(this)}
-                                        />
-                                        <div className={css.videos}>
-                                            <ResponsiveVideoList
+                                    <SnackbarProvider>
+                                        <div className={css.container}>
+                                            <Head>
+                                                <title>视频文件夹</title>
+                                                <link rel="icon" href="/favicon.ico" />
+                                                <meta name="viewport" content="initial-scale=1, width=device-width" />
+                                                <script defer src="/hls.min.js"></script>
+                                            </Head>
+                                            <ResponsiveHeader
                                                 show={this.state.showMenu}
+                                                title="视频文件夹"
+                                                onToggleMenu={this.onToggleMenu.bind(this)}
+                                                showSearch={false}
                                                 onSearch={this.onSearch.bind(this)}
-                                                onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
-                                                videos={this.searchedVideos}
-                                                active={this.state.activeVideo}
-                                                onPlay={(activeVideo: PlayingVideo, env) => {
+                                                isDark={isDark}
+                                                extendButtons={
+                                                    <Box>
+                                                        <IconButton
+                                                            size="large"
+                                                            onClick={(event: React.MouseEvent<HTMLElement>) => this.setState({ anchorEl: event.currentTarget })}
+                                                            color="inherit"
+                                                        >
+                                                            <SettingsIcon />
+                                                        </IconButton>
+                                                    </Box>
+                                                }
+                                                onSwitchTheme={() => switchTheme(!isDark)} />
+                                            <Menu
+                                                anchorEl={this.state.anchorEl}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={this.isMenuOpen}
+                                                onClose={this.closeMenu.bind(this)}
+                                            >
+                                                {
+                                                    ['编辑栏目', '历史记录', '下载到本地'].map(
+                                                        (label, menuIndex) => (
+                                                            <MenuItem key={menuIndex} onClick={this.menuActionWithClose(() => this.handleMenuAction(menuIndex)).bind(this)}>{label}</MenuItem>
+                                                        )
+                                                    )
+                                                }
+                                            </Menu>
+                                            <SectionEdit
+                                                sections={this.props.videos}
+                                                activeSections={this.state.activeSectionsIndex}
+                                                activeSectionsChange={
+                                                    (activeSectionsIndex) => this.setState({
+                                                        activeSectionsIndex
+                                                    })
+                                                }
+                                                open={this.state.sectionEditOpen}
+                                                onClose={_ => this.setState({ sectionEditOpen: false })}
+                                            />
+                                            <PlayHistory
+                                                playHistory={playHistory}
+                                                setPlayHistory={setPlayHistory}
+                                                open={this.state.playHistoryOpen}
+                                                onClose={_ => this.setState({ playHistoryOpen: false })}
+                                                onPlay={this.playFromHistory.bind(this)}
+                                            />
+                                            <div className={css.videos}>
+                                                <ResponsiveVideoList
+                                                    show={this.state.showMenu}
+                                                    onSearch={this.onSearch.bind(this)}
+                                                    onUpdateShow={(state: boolean) => this.setState({ showMenu: state })}
+                                                    videos={this.searchedVideos}
+                                                    active={this.state.activeVideo}
+                                                    onPlay={(activeVideo: PlayingVideo, env) => {
+                                                        this.setState({
+                                                            activeVideo,
+                                                            showMenu: !(env && env.mobile)
+                                                        })
+                                                    }}
+                                                />
+                                                <Box sx={{ position: 'relative', width: '100%' }}>
+                                                    <VideoPlayer
+                                                        playHistory={playHistory}
+                                                        setPlayHistory={setPlayHistory}
+                                                        playing={this.state.activeVideo}
+                                                        onEnd={() => this.playNext(1)}
+                                                        requestReload={
+                                                            () => this.setState(({ activeVideo }) => {
+                                                                const tr = /(?<=#)\d{13}$/
+                                                                const ts = String(Date.now())
+                                                                const url = activeVideo.url.match(tr) ? activeVideo.url.replace(tr, ts) : `${activeVideo.url}#${ts}`
+                                                                console.log(url)
+                                                                return {
+                                                                    activeVideo: {
+                                                                        ...activeVideo,
+                                                                        url
+                                                                    }
+                                                                }
+                                                            })
+                                                        }
+                                                    />
+                                                    <QuickAction onAction={this.handleQuickAction.bind(this)} {...this.quickAction} />
+                                                </Box>
+                                            </div>
+                                            <PlayingStateRestorer
+                                                playHistory={playHistory}
+                                                onRestore={(activeVideo: PlayingVideo) => {
                                                     this.setState({
-                                                        activeVideo,
-                                                        showMenu: !(env && env.mobile)
+                                                        activeVideo
                                                     })
                                                 }}
                                             />
-                                            <Box sx={{ position: 'relative', width: '100%' }}>
-                                                <VideoPlayer
-                                                    playHistory={playHistory}
-                                                    setPlayHistory={setPlayHistory}
-                                                    playing={this.state.activeVideo}
-                                                    onEnd={() => this.playNext(1)}
-                                                />
-                                                <QuickAction onAction={this.handleQuickAction.bind(this)} {...this.quickAction} />
-                                            </Box>
+                                            <ActiveSectionsStorage
+                                                activeSections={this.state.activeSectionsIndex}
+                                                updateActiveSections={
+                                                    (activeSectionsIndex) => this.setState({
+                                                        activeSectionsIndex
+                                                    })
+                                                }
+                                            />
+                                            <VideoDownloadHelper open={this.state.downloadHelpderOpen} onClose={_ => this.setState({ downloadHelpderOpen: false })} />
                                         </div>
-                                        <PlayingStateRestorer
-                                            playHistory={playHistory}
-                                            onRestore={(activeVideo: PlayingVideo) => {
-                                                this.setState({
-                                                    activeVideo
-                                                })
-                                            }}
-                                        />
-                                        <ActiveSectionsStorage
-                                            activeSections={this.state.activeSectionsIndex}
-                                            updateActiveSections={
-                                                (activeSectionsIndex) => this.setState({
-                                                    activeSectionsIndex
-                                                })
-                                            }
-                                        />
-                                        <VideoDownloadHelper open={this.state.downloadHelpderOpen} onClose={_ => this.setState({ downloadHelpderOpen: false })} />
-                                    </div>
+                                    </SnackbarProvider>
                                 )
                             }
                         </HistoryStorage>
