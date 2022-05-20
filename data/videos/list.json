@@ -1897,92 +1897,57 @@
                 {
                     "title": "鬼吹灯之精绝古城",
                     "episodes": 21,
-                    "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
+                    "url_template": "https://m3u8.taopianplay.com/taopian/54fdb532-e89b-4567-bc07-aa93a0c6a79b/a891bf2e-a823-4ae0-ac07-107cdf1703d8/42985/{0}/SD/playlist.m3u8",
                     "m3u8_list": [
-                        [
-                            529755,
-                            "d8940c77b57d8947f2b2d0409dd8b7c6"
-                        ],
-                        [
-                            529756,
-                            "fd4965314de8f5cc1d61d99057e132ef"
-                        ],
-                        [
-                            529757,
-                            "0a9de4b478af3f0e0014547118248ee6"
-                        ],
-                        [
-                            529758,
-                            "a1f54c73c3dd170eb264b508881b8f98"
-                        ],
-                        [
-                            529759,
-                            "60b883d251a4e4c7528d31f08f216407"
-                        ],
-                        [
-                            529760,
-                            "98d7263eadfc0f9cd3b93b0870d09d46"
-                        ],
-                        [
-                            529761,
-                            "747148c83f8385f53fd69f743b009aba"
-                        ],
-                        [
-                            529762,
-                            "39a3717c144ed7964187ad76cb4c42e3"
-                        ],
-                        [
-                            529763,
-                            "a9b93071410cbf0ef5421f76c3371935"
-                        ],
-                        [
-                            529764,
-                            "dd95cb64a1dee54a0e526130544aec55"
-                        ],
-                        [
-                            529765,
-                            "75857995b8a3095a954f3e4f1e4cfc34"
-                        ],
-                        [
-                            529766,
-                            "34c0034fc2eb8348475dc5281657612b"
-                        ],
-                        [
-                            529767,
-                            "d57964c864760034ba601f265baec781"
-                        ],
-                        [
-                            529768,
-                            "ff4e3437c3265879d34fb73e4fb161fe"
-                        ],
-                        [
-                            529769,
-                            "f723889f12987b6d2b75c599d6c9939a"
-                        ],
-                        [
-                            529770,
-                            "baed866f9fcf0385ffa83cdb76e83d7c"
-                        ],
-                        [
-                            529771,
-                            "a77ac9440f4d7fb55ff777e08df417db"
-                        ],
-                        [
-                            529772,
-                            "6b8c9160dbda2f6cf90533543dfbac7a"
-                        ],
-                        [
-                            529773,
-                            "0326d95a2b97e351b56c3effe59823b4"
-                        ],
-                        [
-                            529774,
-                            "56acff37a8073cb69274f2b6aea4c65f"
-                        ],
-                        [
-                            529775,
-                            "34e0a46df17ecb0bcd2402f796664482"
-                        ]
+                        ["00215d7f-04d8-40d7-9afc-058d8584acc1"],
+                        ["d4218154-2d61-46b2-ac40-3b1a8da8373e"],
+                        ["db7aeb3f-3531-4c27-a952-279bc306cca8"],
+                        ["cbb2fa39-bf0d-4edf-8f93-fd4b53c5e290"],
+                        ["577212d0-6a10-4687-9237-e4746b79c64e"],
+                        ["66eee3de-e9d6-4b21-a6b3-fb72b1eb1bfc"],
+                        ["f5d49a04-6eb1-4d23-936c-b6fe3a05571f"],
+                        ["b0838798-4f22-42f6-ae04-2fa44b31d0cd"],
+                        ["dcea48da-2a01-455a-8246-f270739103be"],
+                        ["8b287e06-befa-45a7-899c-f8a2b7d04b02"],
+                        ["e1aee21f-48c5-4b73-9c29-9231be7f5b32"],
+                        ["711ddd21-6850-4ccc-ab5f-60e26ca5ea5d"],
+                        ["9ae22ec3-b20b-4c44-bac8-4173b7c1cdfc"],
+                        ["d38d3fea-64b3-4672-94bc-ca5aa1f3fb6b"],
+                        ["2eff89ca-cd9b-48c7-9a29-cbd8d002fc69"],
+                        ["cda5f93c-c690-45c5-93f9-039cbbe29c3a"],
+                        ["7ead5d09-eee1-4534-a858-92f9096e44ec"],
+                        ["c9d6af6a-2470-4bd7-8a99-d59ea649a487"],
+                        ["5f2d925d-f465-4ad2-ada9-85edd4c8261c"],
+                        ["f89692fc-3abb-4c31-9325-7c0fe78de747"],
+                        ["70fa2cee-3450-4524-83fb-a5301ea155d8"]
+                    ]
+                },
+                {
+                    "title": "怒晴湘西",
+                    "episodes": 21,
+                    "url_template": "https://cdn.zoubuting.com/{0}/{1}/hls/index.m3u8",
+                    "m3u8_list": [
+                        ["20210719", "xsY9cdrd"],
+                        ["20210719", "4VyqUwVc"],
+                        ["20210719", "QzTL9Y99"],
+                        ["20210719", "SB5ZMnGP"],
+                        ["20210719", "cwZfWTrb"],
+                        ["20210719", "YzZ4sGIK"],
+                        ["20210719", "MrNq4dMo"],
+                        ["20210720", "oYNCE16w"],
+                        ["20210720", "C8af4T26"],
+                        ["20210720", "QTtMqCa7"],
+                        ["20210720", "KxucT45D"],
+                        ["20210720", "JVTe6IhD"],
+                        ["20210720", "jlOXDZ2X"],
+                        ["20210720", "MaH3QGod"],
+                        ["20210720", "BwTQ66Fj"],
+                        ["20210720", "VV1ag1UP"],
+                        ["20210720", "5F6h0zkL"],
+                        ["20210720", "8wF8pvvC"],
+                        ["20210720", "djZZgDHD"],
+                        ["20210720", "uukDBzly"],
+                        ["20210720", "VwzeiRqk"]
                     ]
                 },
                 {
@@ -2604,8 +2569,7 @@
         },
         {
             "section": "国产电影",
-            "series": [
-                {
+            "series": [{
                     "title": "我不是药神",
                     "m3u8_url": "https://b.baobuzz.com/ipfs/561584.m3u8?sign=d703883849d03dbd2833f6a600463c6f"
                 },
@@ -2697,8 +2661,7 @@
         },
         {
             "section": "欧美电影",
-            "series": [
-                {
+            "series": [{
                     "title": "肖申克的救赎",
                     "m3u8_url": "https://b.baobuzz.com/ipfs/537490.m3u8?sign=b45fce8fc4ed2353a77a76b8566d95ee"
                 },
@@ -2738,8 +2701,7 @@
         },
         {
             "section": "美剧",
-            "series": [
-                {
+            "series": [{
                     "title": "老友记-s1",
                     "episodes": 24,
                     "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
