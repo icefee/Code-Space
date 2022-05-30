@@ -4,192 +4,54 @@
             "series": [{
                     "title": "大明王朝1566",
                     "episodes": 46,
-                    "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
+                    "url_template": "https://v1.cdtlas.com/{0}/{1}/hls/index.m3u8",
                     "m3u8_list": [
-                        [
-                            23492,
-                            "984f9b8137eab4a620e1f37f883f9315"
-                        ],
-                        [
-                            23493,
-                            "b5a0de362a0b84879108b5e1f45e0c42"
-                        ],
-                        [
-                            23494,
-                            "4bef52bbed6ad351e0c028afc4933e70"
-                        ],
-                        [
-                            23495,
-                            "204eb1892eddf47088b79c6fa523e4f0"
-                        ],
-                        [
-                            23496,
-                            "48351201193404a169aa26d639c30dbe"
-                        ],
-                        [
-                            23497,
-                            "3038f5284903e59fcc5a2a6eeb18bc9d"
-                        ],
-                        [
-                            23498,
-                            "6a841ff3f0b0f666f08cbc4811ecb320"
-                        ],
-                        [
-                            23499,
-                            "6f8430e967fec3451b190f079688aaca"
-                        ],
-                        [
-                            23500,
-                            "495201e1ae92dcac2c23ced903c86737"
-                        ],
-                        [
-                            23501,
-                            "e21036600e5697c4a3c619a7d0b06dd9"
-                        ],
-                        [
-                            23502,
-                            "954f68aae24a8808d5c323deb2bd72ac"
-                        ],
-                        [
-                            23503,
-                            "e9cd45a0062a346b2d3553702a5d595c"
-                        ],
-                        [
-                            23504,
-                            "a811ae7ee0da7efea55fc166c7c66bee"
-                        ],
-                        [
-                            23505,
-                            "d3930019f450bdb2d0011f9ed44315ec"
-                        ],
-                        [
-                            23506,
-                            "21ac7fe4c8aee9950760e517b30da667"
-                        ],
-                        [
-                            23507,
-                            "644386afc4752fd96e7f70018148bae6"
-                        ],
-                        [
-                            23508,
-                            "4e42d58069018fdc85d37467b62bdf7e"
-                        ],
-                        [
-                            23509,
-                            "bc8b7c08136a18dd64a056cdbc995af9"
-                        ],
-                        [
-                            23510,
-                            "ba8e3188f69d884f65f09f577b3ee0c4"
-                        ],
-                        [
-                            23511,
-                            "6481b8368e066637946aa126894f78c0"
-                        ],
-                        [
-                            23512,
-                            "afbff3aac1616945137c78298e807368"
-                        ],
-                        [
-                            23513,
-                            "37c3b8212ce8c39206f18bd5ae7459f9"
-                        ],
-                        [
-                            23514,
-                            "f53ef54e6e9c58bcb44a20c266218f57"
-                        ],
-                        [
-                            23515,
-                            "9e787370e7db3797e7c7f9db900259f2"
-                        ],
-                        [
-                            23516,
-                            "e4a38d028e7190cc0e62c87f2369ae7b"
-                        ],
-                        [
-                            23517,
-                            "c57cb65d615b1d976f92ac706b8567da"
-                        ],
-                        [
-                            23518,
-                            "137f6b2f52c0bde167805612d399a728"
-                        ],
-                        [
-                            23519,
-                            "a8052d70c3c60667fe79b4e8ea656958"
-                        ],
-                        [
-                            23520,
-                            "8f0c8405cf87398ad29265496ca50e0e"
-                        ],
-                        [
-                            23521,
-                            "fdb1bf0504e7f744478ac781aa1475a3"
-                        ],
-                        [
-                            23522,
-                            "44fbd51299854f441dbb3d59cc8cd40a"
-                        ],
-                        [
-                            23523,
-                            "90d0b09c54f257c183c75b6dcbe5f8be"
-                        ],
-                        [
-                            23524,
-                            "3c332b35f3bb175dc689fddc3b891dfd"
-                        ],
-                        [
-                            23525,
-                            "0ae44438b463cd03e5f0a8c82eeb943f"
-                        ],
-                        [
-                            23526,
-                            "73966d8af7c675833b04a8515c9ea224"
-                        ],
-                        [
-                            23527,
-                            "4846e2ab047ac34fa4a36e9f7649fdbf"
-                        ],
-                        [
-                            23528,
-                            "df4486e98ef5190b420c163f300259ed"
-                        ],
-                        [
-                            23529,
-                            "f7863b9d4697f9e865c867373d66bc61"
-                        ],
-                        [
-                            23530,
-                            "0fe96d9868ca09bf7530cc1da0a673d7"
-                        ],
-                        [
-                            23531,
-                            "a3800b2a52e50dbdf5f430f2bf5d14b2"
-                        ],
-                        [
-                            23532,
-                            "265eccc3d46d277f3d9245cda8a94414"
-                        ],
-                        [
-                            23533,
-                            "63d8ee5f4545779068496221c928bcec"
-                        ],
-                        [
-                            23534,
-                            "a2967115c9ae58f5f9b6a6857ee59d6e"
-                        ],
-                        [
-                            23535,
-                            "030457da22c89541124fc459dd878c2b"
-                        ],
-                        [
-                            23536,
-                            "755fc2a9cc14b3ef9f1ae950c78565d8"
-                        ],
-                        [
-                            23537,
-                            "a09a77ec11486826bac6391ed335c637"
-                        ]
+                        [20210831, "9THNcBlJ"],
+                        [20210831, "8VBaw4fi"],
+                        [20210831, "RpkhpGTK"],
+                        [20210831, "xpMKnzIJ"],
+                        [20210831, "dWMS3AKZ"],
+                        [20210831, "Tfulahv0"],
+                        [20210831, "5z6ItchH"],
+                        [20210831, "3U1h6ndv"],
+                        [20210831, "XOAcxGI9"],
+                        [20210831, "EJAuQqoY"],
+                        [20210831, "EMGk8hFu"],
+                        [20210831, "fIpXvGYm"],
+                        [20210831, "gSoNdpIw"],
+                        [20210831, "3cCkUjDN"],
+                        [20210831, "ARX6Ommq"],
+                        [20210831, "WnQiIpiG"],
+                        [20210831, "WoGa3ObQ"],
+                        [20210831, "Od9LemFY"],
+                        [20210831, "RVOBzaU9"],
+                        [20210831, "cZhPGePB"],
+                        [20210831, "k5Oafacz"],
+                        [20210831, "kqz72JqQ"],
+                        [20210831, "p1nwpS8L"],
+                        [20210831, "FzuKPDmE"],
+                        [20210831, "yz2UfRxx"],
+                        [20210831, "OMcULMdC"],
+                        [20210831, "ghxreaHy"],
+                        [20210831, "QHo93D3S"],
+                        [20210831, "2Z1lp9Bc"],
+                        [20210831, "SSpHp19b"],
+                        [20210831, "0QKkseoZ"],
+                        [20210831, "GUQeVCnb"],
+                        [20210831, "r1vZY3wS"],
+                        [20210831, "NXnciojf"],
+                        [20210831, "AWnKtiiv"],
+                        [20210831, "vwmUSaqn"],
+                        [20210901, "J7l3xWVk"],
+                        [20210901, "LsG9Ox2P"],
+                        [20210901, "yfuUHibu"],
+                        [20210901, "JS5Cb42P"],
+                        [20210901, "dhrFTcWD"],
+                        [20210831, "cblS6Rpg"],
+                        [20210831, "9XhKG9Hc"],
+                        [20210831, "T7jq6YxB"],
+                        [20210831, "HNDx29jT"],
+                        [20210831, "oQK5zRWk"]
                     ]
                 },
                 {
@@ -362,88 +224,28 @@
                 {
                     "title": "征服",
                     "episodes": 20,
-                    "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
+                    "url_template": "https://hnzy3.hnzyww.com:65/20210806/{0}/{1}/hls/index.m3u8",
                     "m3u8_list": [
-                        [
-                            538713,
-                            "96611f83a634d31e62b924e3f01fc07f"
-                        ],
-                        [
-                            538714,
-                            "9c6d0c8d1a345cb319c84b698657fdc4"
-                        ],
-                        [
-                            538715,
-                            "b2e470c196c7498839b87bb154ea061e"
-                        ],
-                        [
-                            538716,
-                            "e20dfab398a075dbe55024f3edd87116"
-                        ],
-                        [
-                            538717,
-                            "b7596ec5ef523549ea507bcd31353888"
-                        ],
-                        [
-                            538718,
-                            "a8e26ca434ef019df4d8d0ba94c7bd20"
-                        ],
-                        [
-                            538719,
-                            "80deb7f33662e678c8755f99fa65d6eb"
-                        ],
-                        [
-                            538720,
-                            "0dbae0d47be0f694ea6dbee2b214ffdc"
-                        ],
-                        [
-                            538721,
-                            "326bfc11fce0977d6e93c8decbfb8fef"
-                        ],
-                        [
-                            538722,
-                            "3565d0e7f01a029c3a961815cd5616ed"
-                        ],
-                        [
-                            538723,
-                            "cb2802f49a90c1aa197df95c57ce14ef"
-                        ],
-                        [
-                            538724,
-                            "9b52187ee51c4a941202685fab52c866"
-                        ],
-                        [
-                            538725,
-                            "22dab774bf88ea4cda44395c699edfa6"
-                        ],
-                        [
-                            538726,
-                            "0643346079ae61f6d889ef457147ddea"
-                        ],
-                        [
-                            538727,
-                            "04490c496f039a1b3b3f164bfc0f7301"
-                        ],
-                        [
-                            538728,
-                            "094d2cd6788bf2e430ff62a7d6b40e65"
-                        ],
-                        [
-                            538729,
-                            "e9273de4aa8623910f321b637f29dd61"
-                        ],
-                        [
-                            538730,
-                            "2deeb5fe0e9417c2c4849459b0a28645"
-                        ],
-                        [
-                            538731,
-                            "b367b55bbb761ec11f26401c06f71ca2"
-                        ],
-                        [
-                            538732,
-                            "3467eb828927e754d2b3bf63c031edbc"
-                        ]
+                        ["PqYNdUdA", "", "321kb"],
+                        ["1KQm5QA5", "375kb"],
+                        ["WqhnyVUG", "366kb"],
+                        ["wg4cD53I", "356kb"],
+                        ["85VMkncb", "287kb"],
+                        ["3CkFf8nl", "366kb"],
+                        ["GEGAKUVs", "364kb"],
+                        ["mepTrhyn", "371kb"],
+                        ["6zaoj5Jw", "363kb"],
+                        ["cS9q3Mon", "448kb"],
+                        ["Qh5RCKNh", "352kb"],
+                        ["m9IPD3sK", "317kb"],
+                        ["EdcSCW2y", "357kb"],
+                        ["rhZtRENf", "443kb"],
+                        ["sEFVcavm", "346kb"],
+                        ["vTWvqX2k", "339kb"],
+                        ["7VH9vnVi", "297kb"],
+                        ["P23sjCCS", "333kb"],
+                        ["zFIzfSqs", "453kb"],
+                        ["pDpA53OV", "334kb"]
                     ]
                 },
                 {
@@ -2014,72 +1816,24 @@
                 {
                     "title": "云南虫谷",
                     "episodes": 16,
-                    "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
+                    "url_template": "https://www.taopianplay.com/taopian/54fdb532-e89b-4567-bc07-aa93a0c6a79b/a891bf2e-a823-4ae0-ac07-107cdf1703d8/24602/{0}/SD/playlist.m3u8",
                     "m3u8_list": [
-                        [
-                            529718,
-                            "1ab1c3069ffb91f9513a309a1af918f2"
-                        ],
-                        [
-                            529719,
-                            "836a0d1dadb95903716f47b0034aebd6"
-                        ],
-                        [
-                            529720,
-                            "0c155cec50d32628d179f7e008e3b3f0"
-                        ],
-                        [
-                            529721,
-                            "45695b4fbba05b526f7fe38aadfa8eac"
-                        ],
-                        [
-                            529722,
-                            "f8b17a58fa258c4fa01cc4f00f4a71b5"
-                        ],
-                        [
-                            529723,
-                            "df9459f20d242de38885284fb0a1c0ac"
-                        ],
-                        [
-                            529724,
-                            "aec61b5b068e92a4e42f42fbd8b3293e"
-                        ],
-                        [
-                            529725,
-                            "12cab8e54179242fe99aae7f4f05873a"
-                        ],
-                        [
-                            529726,
-                            "a6b1b45363b22a0af3c9be277cb282a1"
-                        ],
-                        [
-                            529727,
-                            "9eb0fc16940c97e8714552b5370849cd"
-                        ],
-                        [
-                            529728,
-                            "bb327a61864fa5319d49b3d0357635a1"
-                        ],
-                        [
-                            529729,
-                            "4ad43215624975d631fc3480e1b99bb8"
-                        ],
-                        [
-                            529730,
-                            "e457bce749adcc72db3f378333d37668"
-                        ],
-                        [
-                            529731,
-                            "17d75a66505a10589e7662aa260caea5"
-                        ],
-                        [
-                            529732,
-                            "feaa7d333b05a2f22a637c346349508b"
-                        ],
-                        [
-                            529733,
-                            "c0d0463cdf8ee3c6b2ec36e0c3206d2d"
-                        ]
+                        ["aca9a6cb-b97c-4789-82e5-0e32708dba12"],
+                        ["efc8af6b-1dde-4b67-a540-aa7a16df3aa8"],
+                        ["60f8b997-9046-4ffc-8df3-0da400859a24"],
+                        ["55338578-fa96-48e8-bbb5-cec6b98b8106"],
+                        ["207ff2bb-b13c-453e-8c65-6aedef087b06"],
+                        ["21314b3e-3c89-405e-8a89-8ad592f33bf1"],
+                        ["20d1f418-6fed-4783-bed9-c27be0f70f42"],
+                        ["14c9a8a4-63f2-44f3-bd94-299a60f1f288"],
+                        ["24124a19-d18d-4c2f-bdb2-affa9697873c"],
+                        ["01dba3b5-6461-49ff-b48d-661ffe9dfee6"],
+                        ["7f01c4c8-db60-4f39-beb2-29ce3d9b2dd7"],
+                        ["c71a3e5a-63e7-4671-8d50-cad2c80faa47"],
+                        ["a06cfe95-e9a9-491d-bc2c-24d8d9027570"],
+                        ["0977df00-c3e3-4fce-ad49-ea95ed12b732"],
+                        ["daf8e5a5-05db-44cf-9263-13067736557e"],
+                        ["bae78da7-8001-425b-abb6-52e53e805f38"]
                     ]
                 },
                 {
@@ -2563,6 +2317,45 @@
                             114907,
                             "a6b08e029ef4aa37a1736b9640e26a83"
                         ]
+                    ]
+                },
+                {
+                    "title": "历史的天空",
+                    "episodes": 32,
+                    "url_template": "https://v3.cdtlas.com/20220519/{0}/{1}/hls/index.m3u8",
+                    "m3u8_list": [
+                        ["nBKP41Zw", "1100kb"],
+                        ["L2RAp34F", "1100kb"],
+                        ["01Pa50wl", "1100kb"],
+                        ["4THIuYbG", "1100kb"],
+                        ["799fDegu", "1100kb"],
+                        ["oseWMXlQ", "1100kb"],
+                        ["ZVn5YPSw", "1100kb"],
+                        ["dhYHnnO8", "1100kb"],
+                        ["pmHVLMM4", "1100kb"],
+                        ["jNexuo1j", "1100kb"],
+                        ["jXpetNXL", "1100kb"],
+                        ["h80kBHqJ", "1100kb"],
+                        ["tlTQUluW", "1100kb"],
+                        ["itbON6Pz", "1100kb"],
+                        ["2Q1ocxRq", "1100kb"],
+                        ["15PWbwTs", "1100kb"],
+                        ["BAACZPRj", "1100kb"],
+                        ["5E7Hwq98", "1100kb"],
+                        ["j9WH19uC", "1100kb"],
+                        ["gRwOc91w", "1100kb"],
+                        ["7rSXOSzj", "1100kb"],
+                        ["afcCX6Ee", "1100kb"],
+                        ["tORNmqLe", "1100kb"],
+                        ["h12u3h5q", "1100kb"],
+                        ["prRrsDrq", "1100kb"],
+                        ["xBRKzRnH", "1100kb"],
+                        ["KNNgyTji", "1100kb"],
+                        ["BokqRp4l", "1100kb"],
+                        ["VmqeYUBk", "1100kb"],
+                        ["oswjy83Y", "1100kb"],
+                        ["T4saqXOa", "1100kb"],
+                        ["VxqzW6dv", "1100kb"]
                     ]
                 }
             ]
