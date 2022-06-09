@@ -212,7 +212,7 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
                 (this.context as SnackbarContextProps).showSnackbar({
                     anchorOrigin: {
                         vertical: 'bottom',
-                        horizontal: 'left'
+                        horizontal: 'center'
                     },
                     children: (
                         <Alert severity="error">视频源连接失败, 请尝试观看其他的视频</Alert>
