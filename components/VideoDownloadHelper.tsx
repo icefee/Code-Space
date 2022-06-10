@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Link, Alert, AlertTitle } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Link, Alert } from '@mui/material'
 import type { DialogProps } from '@mui/material'
 
 const VideoDownloadHelper: React.FunctionComponent<{} & DialogProps> = ({ open, ...props }) => {

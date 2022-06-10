@@ -8,6 +8,7 @@ import {
     HighlightAltOutlined as HighlightAltOutlinedIcon,
     SaveAltOutlined as SaveAltOutlinedIcon
 } from '@mui/icons-material';
+import { createTileBat } from 'util/tile'
 
 const loadDrawTool = () => {
     return new Promise(
@@ -24,7 +25,10 @@ const loadDrawTool = () => {
 const MapTile: React.FC = () => {
 
     const [drawing, setDrawing] = useState(false)
+    const mapIns = useRef<BMapIns>()
     const drawer = useRef<unknown>()
+    const [rectangel, setRectangel] = useState<any>(null)
+    const [tileIndex, setTileIndex] = useState(1)
 
     const onMapCreated = async (map: BMapIns) => {
         await loadDrawTool()
@@ -52,28 +56,40 @@ const MapTile: React.FC = () => {
         });
         drawingManager.addEventListener("rectanglecomplete", (overlay: unknown) => {
             /* @ts-ignore */
-            console.log(overlay.getBounds());
-        });
-        drawingManager.addEventListener("rectanglecomplete", (overlay: unknown) => {
-            /* @ts-ignore */
-            console.log(overlay.getBounds());
+            setRectangel(overlay);
         });
         drawer.current = drawingManager;
+
+        mapIns.current = map;
     }
 
     const toggleDrawing = () => {
-        console.log(drawer.current)
-        if (drawing) {
+        if (rectangel) {
+            /* @ts-ignore */
+            mapIns.current?.removeOverlay(rectangel)
+            setRectangel(null)
+        }
+        else if (drawing) {
+            setDrawing(false)
             /* @ts-ignore */
             drawer.current?.close()
         }
         else {
+            setDrawing(true)
             /* @ts-ignore */
             drawer.current?.open();
             /* @ts-ignore */
             drawer.current?.setDrawingMode(BMAP_DRAWING_RECTANGLE)
         }
-        setDrawing(!drawing)
+    }
+
+    const createScript = () => {
+        const bounds = rectangel.getBounds()
+        let lb = bounds.getSouthWest();
+        let rt = bounds.getNorthEast();
+        const range = '1,19';
+        createTileBat(`${lb.lng},${lb.lat} ${rt.lng},${rt.lat} ${range}`, `tile-${tileIndex}`)
+        setTileIndex(tileIndex + 1)
     }
 
     return (
@@ -90,8 +106,10 @@ const MapTile: React.FC = () => {
                     onReady={onMapCreated}
                 />
                 <div className={css.drawTool}>
-                    <Button variant="contained" color={drawing ? 'success' : 'primary'} onClick={toggleDrawing} startIcon={<HighlightAltOutlinedIcon />}>绘制</Button>
-                    <Button variant="contained" style={{marginLeft: 8}} endIcon={<SaveAltOutlinedIcon />}>生成</Button>
+                    <Button variant={rectangel ? 'contained' : 'outlined'} color={drawing ? 'error' : 'primary'} onClick={toggleDrawing} startIcon={<HighlightAltOutlinedIcon />}>
+                        {rectangel ? '重绘' : (drawing ? '取消' : '绘制')}
+                    </Button>
+                    <Button variant="contained" disabled={!rectangel} style={{marginLeft: 8}} onClick={createScript} endIcon={<SaveAltOutlinedIcon />}>生成</Button>
                 </div>
             </div>
         </>
