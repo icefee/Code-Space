@@ -6,6 +6,5 @@ export function createTileBat(args: string, title: string): void {
         type: 'text/plain;charset=ANSI',
         endings: 'native'
     })
-    console.log(blob, args)
     blobToFile(blob, title + '.bat')
 }
