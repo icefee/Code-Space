@@ -11,6 +11,6 @@ export type MarkerProps = {
     onDragStart?(ev: MapMouseEvent<MarkerIns>): void;
     onDragEnd?(ev: MapMouseEvent<MarkerIns>): void;
     eventStopPropagation?: boolean; /// stopPropagation on target
-    children?: ReactNode
+    children?: ReactNode;
 };
 export default Marker as FC<MarkerProps>;

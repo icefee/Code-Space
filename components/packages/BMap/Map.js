@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, createContext, useState } from "react";
+import React, { useEffect, createContext, useState } from "react";
 import css from './Map.module.css';
 import * as map from './lib/baidu';
 
@@ -12,17 +12,19 @@ const useSafeMapId = () => {
     return id
 }
 
-export default function Map({ ak, center, zoom, onClick, children }) {
+function Map({ ak, center, zoom, onClick, children, onReady }) {
 
     const [mapIns, setMapIns] = useState(null)
     const mapId = useSafeMapId();
 
     const initMap = async id => {
-        setMapIns(await map.init(id, {
+        const mapIns = await map.init(id, {
             ak,
             ...center,
             zoom
-        }))
+        });
+        setMapIns(mapIns)
+        onReady && onReady(mapIns)
     }
 
     useEffect(() => {
@@ -53,3 +55,5 @@ export default function Map({ ak, center, zoom, onClick, children }) {
         </MapContext.Provider>
     )
 }
+
+export default Map
