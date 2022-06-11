@@ -92,7 +92,7 @@ const MapTile: React.FC = () => {
         let lb = bounds.getSouthWest();
         let rt = bounds.getNorthEast();
         const range = '1,19';
-        createTileBat(`${lb.lng},${lb.lat} ${rt.lng},${rt.lat} ${range}`, `tile-${tileIndex}`)
+        createTileBat(`${lb.lng},${lb.lat} ${rt.lng},${rt.lat} ${range} ${mapTypes.join()}`, `tile-${tileIndex}`)
         setTileIndex(tileIndex + 1)
     }
 
