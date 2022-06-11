@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { BMap, BMapIns } from "../../components/packages/BMap";
 import css from "./style.module.css";
 import { MapConfig } from "util/config";
-import { Button } from "@mui/material";
+import { Button, ToggleButtonGroup, ToggleButton } from "@mui/material";
 import {
     HighlightAltOutlined as HighlightAltOutlinedIcon,
     SaveAltOutlined as SaveAltOutlinedIcon
@@ -29,6 +29,7 @@ const MapTile: React.FC = () => {
     const drawer = useRef<unknown>()
     const [rectangel, setRectangel] = useState<any>(null)
     const [tileIndex, setTileIndex] = useState(1)
+    const [mapTypes, setMapTypes] = useState<string[]>(['normal', 'sate', 'mix'])
 
     const onMapCreated = async (map: BMapIns) => {
         await loadDrawTool()
@@ -56,6 +57,7 @@ const MapTile: React.FC = () => {
         });
         drawingManager.addEventListener("rectanglecomplete", (overlay: unknown) => {
             /* @ts-ignore */
+            drawer.current?.close()
             setRectangel(overlay);
         });
         drawer.current = drawingManager;
@@ -67,6 +69,8 @@ const MapTile: React.FC = () => {
         if (rectangel) {
             /* @ts-ignore */
             mapIns.current?.removeOverlay(rectangel)
+            /* @ts-ignore */
+            drawer.current?.open();
             setRectangel(null)
         }
         else if (drawing) {
@@ -92,6 +96,13 @@ const MapTile: React.FC = () => {
         setTileIndex(tileIndex + 1)
     }
 
+    const handleSetTypes = (
+        _event: React.MouseEvent<HTMLElement>,
+        types: string[],
+    ) => {
+        setMapTypes(types);
+    }
+
     return (
         <>
             <Head>
@@ -106,10 +117,40 @@ const MapTile: React.FC = () => {
                     onReady={onMapCreated}
                 />
                 <div className={css.drawTool}>
-                    <Button variant={rectangel ? 'contained' : 'outlined'} color={drawing ? 'error' : 'primary'} onClick={toggleDrawing} startIcon={<HighlightAltOutlinedIcon />}>
-                        {rectangel ? '重绘' : (drawing ? '取消' : '绘制')}
-                    </Button>
-                    <Button variant="contained" disabled={!rectangel} style={{marginLeft: 8}} onClick={createScript} endIcon={<SaveAltOutlinedIcon />}>生成</Button>
+                    <div className={css.operate}>
+                        <Button
+                            variant={rectangel ? 'contained' : 'outlined'}
+                            size="small"
+                            color={drawing ? 'error' : 'primary'}
+                            onClick={toggleDrawing}
+                            startIcon={<HighlightAltOutlinedIcon />}>
+                            {rectangel ? '重绘' : (drawing ? '取消' : '绘制')}
+                        </Button>
+                        <Button
+                            variant="contained"
+                            size="small"
+                            disabled={!rectangel || mapTypes.length === 0}
+                            style={{ marginLeft: 8 }}
+                            onClick={createScript}
+                            endIcon={<SaveAltOutlinedIcon />}>生成</Button>
+                    </div>
+                    {
+                        rectangel && (
+                            <ToggleButtonGroup
+                                value={mapTypes}
+                                onChange={handleSetTypes}
+                                color="primary"
+                                sx={{
+                                    marginTop: 'var(--gap-space)'
+                                }}
+                                fullWidth
+                            >
+                                <ToggleButton size="small" value="normal">常规</ToggleButton>
+                                <ToggleButton size="small" value="sate">卫星</ToggleButton>
+                                <ToggleButton size="small" value="mix">混合</ToggleButton>
+                            </ToggleButtonGroup>
+                        )
+                    }
                 </div>
             </div>
         </>

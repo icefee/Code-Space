@@ -1,14 +1,18 @@
 .container {
     height: 100%;
+    --gap-space: 8px;
 }
 
 .drawTool {
     position: absolute;
     top: 45px;
-    right: 8px;
-    padding: 8px;
+    right: var(--gap-space);
+    padding: var(--gap-space);
     background-color: #fff;
     border-radius: 5px;
     z-index: 5;
     box-shadow: #00000060 2px 2px 8px;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
 }
