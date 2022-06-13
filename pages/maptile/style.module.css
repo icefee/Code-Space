@@ -12,7 +12,14 @@
     border-radius: 5px;
     z-index: 5;
     box-shadow: #00000060 2px 2px 8px;
+}
+
+.operate {
     display: flex;
-    flex-flow: column wrap;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { BMap, BMapIns } from "../../components/packages/BMap";
 import css from "./style.module.css";
 import { MapConfig } from "util/config";
-import { Button, ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { Button, Link, ToggleButtonGroup, ToggleButton, Divider, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import {
     HighlightAltOutlined as HighlightAltOutlinedIcon,
     SaveAltOutlined as SaveAltOutlinedIcon
@@ -30,6 +30,7 @@ const MapTile: React.FC = () => {
     const [rectangel, setRectangel] = useState<any>(null)
     const [tileIndex, setTileIndex] = useState(1)
     const [mapTypes, setMapTypes] = useState<string[]>(['normal', 'sate', 'mix'])
+    const [thread, setThread] = useState(1)
 
     const onMapCreated = async (map: BMapIns) => {
         await loadDrawTool()
@@ -92,7 +93,13 @@ const MapTile: React.FC = () => {
         let lb = bounds.getSouthWest();
         let rt = bounds.getNorthEast();
         const range = '1,19';
-        createTileBat(`${lb.lng},${lb.lat} ${rt.lng},${rt.lat} ${range} ${mapTypes.join()}`, `tile-${tileIndex}`)
+        createTileBat([
+            `${lb.lng},${lb.lat}`,
+            `${rt.lng},${rt.lat}`,
+            range,
+            mapTypes.join(),
+            `--thread=${thread}`
+        ].join(' '), `tile-${tileIndex}`)
         setTileIndex(tileIndex + 1)
     }
 
@@ -130,25 +137,43 @@ const MapTile: React.FC = () => {
                             variant="contained"
                             size="small"
                             disabled={!rectangel || mapTypes.length === 0}
-                            style={{ marginLeft: 8 }}
+                            sx={{ margin: '0 var(--gap-space)' }}
                             onClick={createScript}
                             endIcon={<SaveAltOutlinedIcon />}>生成</Button>
+                        <Divider orientation="vertical" variant="middle" flexItem />
+                        <Button sx={{ marginLeft: 1 }} size="small" component={Link} href="/bin/tile.exe">下载器</Button>
                     </div>
                     {
                         rectangel && (
-                            <ToggleButtonGroup
-                                value={mapTypes}
-                                onChange={handleSetTypes}
-                                color="primary"
-                                sx={{
-                                    marginTop: 'var(--gap-space)'
-                                }}
-                                fullWidth
-                            >
-                                <ToggleButton size="small" value="normal">常规</ToggleButton>
-                                <ToggleButton size="small" value="sate">卫星</ToggleButton>
-                                <ToggleButton size="small" value="mix">混合</ToggleButton>
-                            </ToggleButtonGroup>
+                            <>
+                                <Divider variant="middle" sx={{ margin: 'var(--gap-space) 0' }} flexItem />
+                                <div className={css.option}>
+                                    <ToggleButtonGroup
+                                        value={mapTypes}
+                                        onChange={handleSetTypes}
+                                        color="primary"
+                                        size="small"
+                                    >
+                                        <ToggleButton value="normal">常规</ToggleButton>
+                                        <ToggleButton value="sate">卫星</ToggleButton>
+                                        <ToggleButton value="mix">混合</ToggleButton>
+                                    </ToggleButtonGroup>
+                                    <FormControl>
+                                        <InputLabel>线程</InputLabel>
+                                        <Select
+                                            value={thread}
+                                            label="线程"
+                                            size="small"
+                                            onChange={event => setThread(event.target.value as number)}
+                                        >
+                                            <MenuItem value={1}>1</MenuItem>
+                                            <MenuItem value={5}>5</MenuItem>
+                                            <MenuItem value={10}>10</MenuItem>
+                                            <MenuItem value={20}>20</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                            </>
                         )
                     }
                 </div>
