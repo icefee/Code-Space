@@ -1,7 +1,7 @@
 import { blobToFile } from './blobToFile'
 
 export function createTileBat(args: string, title: string): void {
-    const cmd = `@echo off\ntile.exe ${args}`
+    const cmd = `@echo off\ntile.exe ${args}\npause`
     const blob = new Blob([cmd], {
         type: 'text/plain;charset=ANSI',
         endings: 'native'
