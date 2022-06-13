@@ -30,7 +30,7 @@ const MapTile: React.FC = () => {
     const [rectangel, setRectangel] = useState<any>(null)
     const [tileIndex, setTileIndex] = useState(1)
     const [mapTypes, setMapTypes] = useState<string[]>(['normal', 'sate', 'mix'])
-    const [thread, setThread] = useState(1)
+    const [thread, setThread] = useState(20)
 
     const onMapCreated = async (map: BMapIns) => {
         await loadDrawTool()
@@ -98,7 +98,7 @@ const MapTile: React.FC = () => {
             `${rt.lng},${rt.lat}`,
             range,
             mapTypes.join(),
-            `--thread=${thread}`
+            `-thread=${thread}`
         ].join(' '), `tile-${tileIndex}`)
         setTileIndex(tileIndex + 1)
     }
