@@ -1,12 +1,14 @@
 import React, { useState, useRef } from "react";
 import Head from 'next/head';
 import { BMap, BMapIns } from "../../components/packages/BMap";
+import { createPoint } from '../../components/packages/BMap/lib/baidu';
 import css from "./style.module.css";
 import { MapConfig } from "util/config";
-import { Button, Link, ToggleButtonGroup, ToggleButton, Divider, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { Button, Link, ToggleButtonGroup, ToggleButton, Divider, Select, MenuItem, FormControl, Input, InputAdornment, InputLabel } from "@mui/material";
 import {
     HighlightAltOutlined as HighlightAltOutlinedIcon,
-    SaveAltOutlined as SaveAltOutlinedIcon
+    SaveAltOutlined as SaveAltOutlinedIcon,
+    LocationOnOutlined as LocationOnOutlinedIcon
 } from '@mui/icons-material';
 import { createTileBat } from 'util/tile'
 
@@ -31,6 +33,8 @@ const MapTile: React.FC = () => {
     const [tileIndex, setTileIndex] = useState(1)
     const [mapTypes, setMapTypes] = useState<string[]>(['normal', 'sate', 'mix'])
     const [thread, setThread] = useState(20)
+
+    const [locateString, setLocateString] = useState('')
 
     const onMapCreated = async (map: BMapIns) => {
         await loadDrawTool()
@@ -110,6 +114,20 @@ const MapTile: React.FC = () => {
         setMapTypes(types);
     }
 
+    const onLocate = () => {
+        try {
+            const locate = locateString.split(',')
+            if (locate.length > 1) {
+                const [lng, lat] = locate.map(Number);
+                /* @ts-ignore */
+                mapIns.current.centerAndZoom(createPoint(lng, lat), 15);
+            }
+        }
+        catch(err) {
+            console.warn(err)
+        }
+    }
+
     return (
         <>
             <Head>
@@ -123,6 +141,29 @@ const MapTile: React.FC = () => {
                     ak={MapConfig.ak}
                     onReady={onMapCreated}
                 />
+                <div className={css.quickLocate}>
+                    <Input
+                        placeholder="格式:116.4133,39.9109"
+                        onChange={
+                            (ev: React.ChangeEvent<HTMLInputElement>) => setLocateString(ev.target.value)
+                        }
+                        onKeyUp={
+                            (ev: React.KeyboardEvent<HTMLInputElement>) => ev.key === 'Enter' && onLocate()
+                        }
+                        color="primary"
+                        startAdornment={
+                            <InputAdornment position="start">
+                                <LocationOnOutlinedIcon />
+                            </InputAdornment>
+                        }
+                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={onLocate}
+                        sx={{ marginLeft: 1 }}>定位</Button>
+                </div>
                 <div className={css.drawTool}>
                     <div className={css.operate}>
                         <Button

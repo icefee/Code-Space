@@ -3,6 +3,16 @@
     --gap-space: 8px;
 }
 
+.quickLocate {
+    position: absolute;
+    top: 45px;
+    right: 270px;
+    padding: var(--gap-space);
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: #00000060 2px 2px 8px;
+}
+
 .drawTool {
     position: absolute;
     top: 45px;
