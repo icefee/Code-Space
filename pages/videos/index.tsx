@@ -225,11 +225,12 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
             const { title, episode } = this.state.activeVideo
             if (episode !== undefined) {
                 const { episodes, url_template, m3u8_list } = this.activeEpisode
+                const nextEpisode = Math.max(Math.min(episode + key, episodes), 0)
                 this.setState({
                     activeVideo: {
                         title,
-                        episode: Math.max(Math.min(episode + key, episodes), 0),
-                        url: getM3u8Uri(url_template, m3u8_list[episode])
+                        episode: nextEpisode,
+                        url: getM3u8Uri(url_template, m3u8_list[nextEpisode])
                     }
                 })
             }
