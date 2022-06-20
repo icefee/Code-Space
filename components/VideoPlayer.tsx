@@ -225,7 +225,7 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
         this.player = player
         // this.playerDestroyed = false
 
-        requestIdleCallback(() => {
+        requestAnimationFrame(() => {
             this.isAbort = false
         })
     }
