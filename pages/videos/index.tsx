@@ -364,10 +364,9 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                         onEnd={() => this.playNext(1)}
                                                         requestReload={
                                                             () => this.setState(({ activeVideo }) => {
-                                                                const tr = /(?<=#)\d{13}$/
+                                                                const tr = new Reg(`(?<=#)\d{13}$`)
                                                                 const ts = String(Date.now())
                                                                 const url = activeVideo.url.match(tr) ? activeVideo.url.replace(tr, ts) : `${activeVideo.url}#${ts}`
-                                                                console.log(url)
                                                                 return {
                                                                     activeVideo: {
                                                                         ...activeVideo,
