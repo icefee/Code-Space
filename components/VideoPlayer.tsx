@@ -212,7 +212,7 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
                 (this.context as SnackbarContextProps).showSnackbar({
                     anchorOrigin: {
                         vertical: 'bottom',
-                        horizontal: 'center'
+                        horizontal: 'left'
                     },
                     children: (
                         <Alert severity="error">视频源连接失败, 请尝试观看其他的视频</Alert>
@@ -222,12 +222,11 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
                 })
             }
         })
+        player.video.oncanplay = () => {
+            this.isAbort = false
+        }
         this.player = player
         // this.playerDestroyed = false
-
-        requestAnimationFrame(() => {
-            this.isAbort = false
-        })
     }
 
     private destroyPlayer(): void {
