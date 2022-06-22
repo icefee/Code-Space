@@ -1,8 +1,7 @@
 {
     "videos": [{
             "section": "国产剧",
-            "series": [
-                {
+            "series": [{
                     "title": "少年包青天-1",
                     "episodes": 40,
                     "url_template": "https://cdn6.shzbgyl.com:65/20210512/{0}/1500kb/hls/index.m3u8",
@@ -1893,8 +1892,7 @@
         },
         {
             "section": "国产电影",
-            "series": [
-                {
+            "series": [{
                     "title": "钢的琴",
                     "m3u8_url": "https://www.taopianplay.com/taopian/84e2601a-c8ef-41e9-815a-453247f2e518/a0ba49ba-87b8-41b4-8ad3-50b8fc26ffd8/37741/64be4fa2-5402-4c65-adca-053b137ca922/SD/playlist.m3u8"
                 },
@@ -1922,8 +1920,7 @@
         },
         {
             "section": "美剧",
-            "series": [
-                {
+            "series": [{
                     "title": "权力的游戏-s1",
                     "episodes": 10,
                     "url_template": "https://cdn2.bzjupinhang.com:65/20210909/{0}/{1}/hls/index.m3u8",
@@ -2092,18 +2089,76 @@
                     "episodes": 3,
                     "url_template": "https://v1.cdtlas.com/20210912/{0}/hls/index.m3u8",
                     "m3u8_list": [
-                        [
-                            "tdPjCqRH"
-                        ],
-                        [
-                            "EvN0Fu7S"
-                        ],
-                        [
-                            "hZARJA9Q"
-                        ]
+                        ["tdPjCqRH"],
+                        ["EvN0Fu7S"],
+                        ["hZARJA9Q"]
                     ]
                 }
             ]
+        },
+        {
+            "section": "韩剧",
+            "series": [{
+                "title": "大长今(国语)",
+                "episodes": 54,
+                "url_template": "https://v3.cdtlas.com/20210906/{0}/1200kb/hls/index.m3u8",
+                "m3u8_list": [
+                    ["vzlBI24F"],
+                    ["JT7J02xh"],
+                    ["jozmXl7P"],
+                    ["AA2lYgc7"],
+                    ["iKEeXSME"],
+                    ["obSpjs5G"],
+                    ["gC4IMFLi"],
+                    ["mjrrHvVk"],
+                    ["yH2IXx0i"],
+                    ["0iIrFD4C"],
+                    ["5OF2fQZ5"],
+                    ["XamahGS1"],
+                    ["v3yEYXeB"],
+                    ["eIvzSENU"],
+                    ["3ktWfZKo"],
+                    ["d1mhutef"],
+                    ["7xR49I38"],
+                    ["Tf1odOeC"],
+                    ["IjWFugVP"],
+                    ["slrZY9PN"],
+                    ["JLvR6EfF"],
+                    ["4TWJeEmR"],
+                    ["6slnoMDL"],
+                    ["yCppSwDT"],
+                    ["WLKnNfa4"],
+                    ["qsqML0fM"],
+                    ["fx49txaV"],
+                    ["or7L3jRp"],
+                    ["dQxTj0XK"],
+                    ["R6eEGfVA/"],
+                    ["XVWEwhvI"],
+                    ["GY0Kjq2e"],
+                    ["bQ7tqzOT"],
+                    ["0h73JHzh"],
+                    ["gll8G8C4"],
+                    ["BX3v0eCI"],
+                    ["xpGXCzqk"],
+                    ["Nd11mGDw"],
+                    ["IJKvGu2B"],
+                    ["QUcvyTvE"],
+                    ["xts1mgEi"],
+                    ["LbYy13V8"],
+                    ["eD1xrrVO"],
+                    ["ywBRhyoK"],
+                    ["mv8Q5nG6"],
+                    ["t8wKn9lB"],
+                    ["GXlW6QT2"],
+                    ["oqsPNxkA/"],
+                    ["Aa1zdE3u"],
+                    ["HXgMNq7p"],
+                    ["CBWwhuEK"],
+                    ["TUQwTxqO"],
+                    ["CO2m4a9M"],
+                    ["yuYHHgjc"]
+                ]
+            }]
         },
         {
             "section": "韩国电影",
