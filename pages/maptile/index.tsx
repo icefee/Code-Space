@@ -156,6 +156,9 @@ const MapTile: React.FC = () => {
                                 <LocationOnOutlinedIcon />
                             </InputAdornment>
                         }
+                        sx={{
+                            fontSize: 13
+                        }}
                     />
                     <Button
                         variant="contained"
