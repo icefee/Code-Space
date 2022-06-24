@@ -1892,7 +1892,12 @@
         },
         {
             "section": "国产电影",
-            "series": [{
+            "series": [
+                {
+                    "title": "新封神姜子牙",
+                    "m3u8_url": "https://cdn.oss-cn-hangzhou-shanghai.myqcloud.com.zhegeyuming.top/video/1647193706454.m3u8"
+                },
+                {
                     "title": "鬼吹灯之九层妖塔",
                     "m3u8_url": "https://cdn.zoubuting.com/20210709/eqKQnnXR/hls/index.m3u8"
                 },
@@ -2130,6 +2135,27 @@
                         ["EvN0Fu7S"],
                         ["hZARJA9Q"]
                     ]
+                }
+            ]
+        },
+        {
+            "section": "欧美电影",
+            "series": [
+                {
+                    "title": "侏罗纪世界3-TC",
+                    "m3u8_url": "https://cdn2.bzjupinhang.com:65/20220613/p7pwYQUi/2342kb/hls/index.m3u8"
+                },
+                {
+                    "title": "变形金刚3",
+                    "m3u8_url": "https://cdn.oss-cn-hangzhou-shanghai.myqcloud.com.zhegeyuming.top/video/1649025877561.m3u8"
+                },
+                {
+                    "title": "移动迷宫-1",
+                    "m3u8_url": "https://cdn.oss-cn-hangzhou-shanghai.myqcloud.com.zhegeyuming.top/video/1649293196263.m3u8"
+                },
+                {
+                    "title": "哥斯拉大战金刚",
+                    "m3u8_url": "https://cdn.oss-cn-hangzhou-shanghai.myqcloud.com.zhegeyuming.top/video/1646437644195.m3u8"
                 }
             ]
         },
