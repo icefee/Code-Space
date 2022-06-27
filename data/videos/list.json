@@ -2142,6 +2142,10 @@
             "section": "欧美电影",
             "series": [
                 {
+                    "title": "侏罗纪公园",
+                    "m3u8_url": "https://china-cloud.byteamone.cn/hls/flv/474f48437632476e617176692b63335a6a5a4b6c686f7545553659486f47574d646f6e79703438455a696f5966694866337747796b56724b4f2b614e6c6370464d334e74425752536573386d653535306a46594262413d3d/index.m3u8"
+                },
+                {
                     "title": "侏罗纪世界3-TC",
                     "m3u8_url": "https://cdn2.bzjupinhang.com:65/20220613/p7pwYQUi/2342kb/hls/index.m3u8"
                 },
@@ -2348,6 +2352,15 @@
                 {
                     "title": "小嫂子的味道",
                     "m3u8_url": "https://v3.cdtlas.com/20211214/PaZHnB0H/1000kb/hls/index.m3u8"
+                }
+            ]
+        },
+        {
+            "section": "纪录片",
+            "series": [
+                {
+                    "title": "《星际穿越》中的科学正片",
+                    "m3u8_url": "https://cdn2.bzjupinhang.com:65/20220626/5wNW1nF3/2123kb/hls/index.m3u8"
                 }
             ]
         }
