@@ -1,0 +1,24 @@
+.container {
+    height: 100%;
+    padding: 20px;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.fields {
+    width: 100%;
+    display: flex;
+    column-gap: 10px;
+}
+
+.fields * {
+    flex-grow: 1;
+}
+
+.actions {
+    display: flex;
+    margin-top: 10px;
+    column-gap: 5px;
+}
