@@ -1565,74 +1565,88 @@
                 {
                     "title": "星汉灿烂",
                     "episodes": 14,
-                    "url_template": "https://cdn6.hnzycdn.com:65/{0}/{1}/{2}/hls/index.m3u8",
+                    "url_template": "https://{0}.com:65/{1}/{2}/{3}/hls/index.m3u8",
                     "m3u8_list": [
                         [
+                            "cdn7.caoliqi",
                             "20220705",
                             "SFA6q80b",
                             "1202kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220705",
                             "Ybf4IUEt",
                             "859kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220705",
                             "kq5dkspd",
                             "824kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220705",
                             "oPiXHwDo",
                             "895kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220706",
                             "b1gWyexp",
                             "1048kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220706",
                             "n83Je2vC",
                             "1332kb"
                         ],
                         [
+                            "cdn6.hnzycdn",
                             "20220707",
                             "FAV5fF0t",
                             "1001kb"
                         ],
                         [
+                            "cdn6.hnzycdn",
                             "20220707",
                             "EdjC6cWF",
                             "1158kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220708",
                             "iAHTV6Ds",
                             "996kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220708",
                             "IJxwzbld",
                             "1090kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220709",
                             "cZAyoghs",
                             "1502kb"
                         ],
                         [
+                            "cdn7.caoliqi",
                             "20220709",
                             "J6q5LXAx",
                             "1385kb"
                         ],
                         [
+                            "cdn6.hnzycdn",
                             "20220712",
                             "Ac3IoQyR",
                             "1234kb"
                         ],
                         [
+                            "cdn6.hnzycdn",
                             "20220712",
                             "pYMP6p5s",
                             "1277kb"
