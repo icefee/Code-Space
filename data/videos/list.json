@@ -1084,149 +1084,6 @@
                     ]
                 },
                 {
-                    "title": "仙剑奇侠传-1",
-                    "episodes": 34,
-                    "url_template": "https://b.baobuzz.com/m3u8/{0}.m3u8?sign={1}",
-                    "m3u8_list": [
-                        [
-                            514904,
-                            "5abc6b4dd26a7547d98fda21d75b1171"
-                        ],
-                        [
-                            514905,
-                            "28ea7cc77c210ee85cc29c36db3b676e"
-                        ],
-                        [
-                            514906,
-                            "258b882f1cbf70681ab47541e890c624"
-                        ],
-                        [
-                            514907,
-                            "9044164132834cd3f23fbe421d78b016"
-                        ],
-                        [
-                            514908,
-                            "1797a7a5ebd8c24b7b8e3c8596c79e0d"
-                        ],
-                        [
-                            514909,
-                            "c1c50a5db64ebbed8e38df1209b76b86"
-                        ],
-                        [
-                            514910,
-                            "168305e81abb93e8bd0f9b25fd946e05"
-                        ],
-                        [
-                            514911,
-                            "35323c06b3fa808ed82e5bb79b4246de"
-                        ],
-                        [
-                            514912,
-                            "0b4968fe8fa39c613238828deba7617e"
-                        ],
-                        [
-                            514913,
-                            "325bd8d569e1da472d439c20220669fb"
-                        ],
-                        [
-                            514914,
-                            "7c0a108a69fddf6953eb3e0c0752d9fc"
-                        ],
-                        [
-                            514915,
-                            "297e0eee40b55f8a2d5f197986d705e5"
-                        ],
-                        [
-                            514916,
-                            "f561c9f7cd8c0fee79b91ed23d9f69de"
-                        ],
-                        [
-                            514917,
-                            "13855466547c95b28770444225d95b72"
-                        ],
-                        [
-                            514918,
-                            "3db25e9886a06fb8f79b9e840edda3a2"
-                        ],
-                        [
-                            514919,
-                            "e8ddff3e2262cfd98dd85beca15e5a3d"
-                        ],
-                        [
-                            514920,
-                            "df7226a1e2aad593488972ba585c106b"
-                        ],
-                        [
-                            514921,
-                            "8f15eba8246a5ee4a65986ce4a861147"
-                        ],
-                        [
-                            514922,
-                            "fa729bbc086c7d3b28efb86df118b2e7"
-                        ],
-                        [
-                            514923,
-                            "95e5022a7202d5ae17dc16cd177f6b4d"
-                        ],
-                        [
-                            514924,
-                            "6b4ed936d0de46a734586346d716d7b7"
-                        ],
-                        [
-                            514925,
-                            "a3f985e924f897c651a5d7760062b29a"
-                        ],
-                        [
-                            514926,
-                            "da842d5a5ac8f5c8c0054cb1f432b68e"
-                        ],
-                        [
-                            514927,
-                            "48fafb978c889c1d378e749fe82498aa"
-                        ],
-                        [
-                            514928,
-                            "83582c7b777903551b489608906f92a8"
-                        ],
-                        [
-                            514929,
-                            "e595d496a52585b1b72ee4f8227bdf59"
-                        ],
-                        [
-                            514930,
-                            "decc7c86954c3622cb09604ffd62164d"
-                        ],
-                        [
-                            514931,
-                            "1915c2044532db5d775e762ada9deaa0"
-                        ],
-                        [
-                            514932,
-                            "5f1d4aef7acc24545257ac631311e1c5"
-                        ],
-                        [
-                            514933,
-                            "4a61e470b3090f3b08bbef6508aa2cdc"
-                        ],
-                        [
-                            514934,
-                            "457671fd470496fcf4ec4fe7a8ffef1d"
-                        ],
-                        [
-                            514935,
-                            "630aaf27442bdc189f408f93efd1bd30"
-                        ],
-                        [
-                            514936,
-                            "70d762bb03296de669ee93dab499abfc"
-                        ],
-                        [
-                            514937,
-                            "a470e39c2e3e0bbc3024bc232e571d34"
-                        ]
-                    ]
-                },
-                {
                     "title": "鬼吹灯之精绝古城",
                     "episodes": 21,
                     "url_template": "https://m3u8.taopianplay.com/taopian/54fdb532-e89b-4567-bc07-aa93a0c6a79b/a891bf2e-a823-4ae0-ac07-107cdf1703d8/42985/{0}/SD/playlist.m3u8",
@@ -1704,6 +1561,83 @@
                         ["T4saqXOa", "1100kb"],
                         ["VxqzW6dv", "1100kb"]
                     ]
+                },
+                {
+                    "title": "星汉灿烂",
+                    "episodes": 14,
+                    "url_template": "https://cdn6.hnzycdn.com:65/{0}/{1}/{2}/hls/index.m3u8",
+                    "m3u8_list": [
+                        [
+                            "20220705",
+                            "SFA6q80b",
+                            "1202kb"
+                        ],
+                        [
+                            "20220705",
+                            "Ybf4IUEt",
+                            "859kb"
+                        ],
+                        [
+                            "20220705",
+                            "kq5dkspd",
+                            "824kb"
+                        ],
+                        [
+                            "20220705",
+                            "oPiXHwDo",
+                            "895kb"
+                        ],
+                        [
+                            "20220706",
+                            "b1gWyexp",
+                            "1048kb"
+                        ],
+                        [
+                            "20220706",
+                            "n83Je2vC",
+                            "1332kb"
+                        ],
+                        [
+                            "20220707",
+                            "FAV5fF0t",
+                            "1001kb"
+                        ],
+                        [
+                            "20220707",
+                            "EdjC6cWF",
+                            "1158kb"
+                        ],
+                        [
+                            "20220708",
+                            "iAHTV6Ds",
+                            "996kb"
+                        ],
+                        [
+                            "20220708",
+                            "IJxwzbld",
+                            "1090kb"
+                        ],
+                        [
+                            "20220709",
+                            "cZAyoghs",
+                            "1502kb"
+                        ],
+                        [
+                            "20220709",
+                            "J6q5LXAx",
+                            "1385kb"
+                        ],
+                        [
+                            "20220712",
+                            "Ac3IoQyR",
+                            "1234kb"
+                        ],
+                        [
+                            "20220712",
+                            "pYMP6p5s",
+                            "1277kb"
+                        ]
+                    ]
                 }
             ]
         },
@@ -1959,12 +1893,8 @@
             "section": "欧美电影",
             "series": [
                 {
-                    "title": "侏罗纪公园",
-                    "m3u8_url": "https://china-cloud.byteamone.cn/hls/flv/474f48437632476e617176692b63335a6a5a4b6c686f7545553659486f47574d646f6e79703438455a696f5966694866337747796b56724b4f2b614e6c6370464d334e74425752536573386d653535306a46594262413d3d/index.m3u8"
-                },
-                {
-                    "title": "侏罗纪世界3-TC",
-                    "m3u8_url": "https://cdn2.bzjupinhang.com:65/20220613/p7pwYQUi/2342kb/hls/index.m3u8"
+                    "title": "侏罗纪世界3-HD",
+                    "m3u8_url": "https://new.qqaku.com/20220706/DlvlEbUc/1100kb/hls/playlist_up.m3u8"
                 },
                 {
                     "title": "变形金刚3",
@@ -2059,14 +1989,6 @@
                     "m3u8_url": "https://qq.sd-play.com/20220314/i3YOuIlR/hls/index.m3u8"
                 },
                 {
-                    "title": "劳拉性爱伴侣",
-                    "m3u8_url": "https://www.fhbf9.com/20200705/yd964usi/index.m3u8"
-                },
-                {
-                    "title": "我保护我的妈妈和嫂子",
-                    "m3u8_url": "https://b.baobuzz.com/ipfs/552834.m3u8?sign=0dda2080dcda8201a0626a952cdb9491"
-                },
-                {
                     "title": "交换:年轻夫妇",
                     "m3u8_url": "https://v3.cdtlas.com/20211214/OHKCn4D1/1000kb/hls/index.m3u8"
                 },
@@ -2075,24 +1997,12 @@
                     "m3u8_url": "https://v3.cdtlas.com/20211214/QDDnkeS8/1000kb/hls/index.m3u8"
                 },
                 {
-                    "title": "24岁尹律的性感乳房",
-                    "m3u8_url": "https://b.baobuzz.com/ipfs/553066.m3u8?sign=da15ad99f234eb4cd43352c7f4971a62"
-                },
-                {
                     "title": "驯服高傲女",
                     "m3u8_url": "https://v3.cdtlas.com/20211214/FYAszxe5/1000kb/hls/index.m3u8"
                 },
                 {
-                    "title": "21岁的胜夏的偶像秘密日记",
-                    "m3u8_url": "https://b.baobuzz.com/ipfs/552772.m3u8?sign=a5115765c994a77b6e41bb523f04e234"
-                },
-                {
                     "title": "美味的盛宴",
                     "m3u8_url": "https://v3.cdtlas.com/20211214/PbAdM9QX/1000kb/hls/index.m3u8"
-                },
-                {
-                    "title": "女大学生的红色日记",
-                    "m3u8_url": "https://b.baobuzz.com/ipfs/552774.m3u8?sign=87a0524f82ee2fea8fdf46c647b2a033"
                 },
                 {
                     "title": "美味婆婆",
@@ -2153,10 +2063,6 @@
                 {
                     "title": "高级娼妓",
                     "m3u8_url": "https://v3.cdtlas.com/20211214/SJllompD/1000kb/hls/index.m3u8"
-                },
-                {
-                    "title": "漂亮管家2",
-                    "m3u8_url": "https://b.baobuzz.com/ipfs/552925.m3u8?sign=8ef60ad01502c2dc3075d5f44b205a2e"
                 },
                 {
                     "title": "主妇丈夫倡导的户外生活",
