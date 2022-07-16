@@ -20,6 +20,7 @@ import type { PlayHistoryBaseProps } from 'components/PlayHistory'
 
 import VideoDownloadHelper from 'components/VideoDownloadHelper'
 import QuickAction from 'components/QuickAction'
+import UpdateLog from 'components/VideoUpdateLog'
 
 const ResponsiveHeader = dynamic(
     () => import('components/ResponsiveHeader'),
@@ -396,6 +397,7 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                 }
                                             />
                                             <VideoDownloadHelper open={this.state.downloadHelpderOpen} onClose={_ => this.setState({ downloadHelpderOpen: false })} />
+                                            <UpdateLog />
                                         </div>
                                     </SnackbarProvider>
                                 )
