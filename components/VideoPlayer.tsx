@@ -140,6 +140,8 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
     // private playerDestroyed: boolean = false
     private isAbort = false
 
+    private touchOriginOffset: number = 0
+
     constructor(props: VideoPlayerProps) {
         super(props)
 
@@ -268,6 +270,23 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
         }
     }
 
+    public handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+        const touchs = event.changedTouches;
+        // const bodyWidth = document.body.clientWidth;
+        const wrapWidth = (event.target as HTMLDivElement).clientWidth;
+        const totalDur = this.player.video.duration;
+        const playedDur = this.player.video.currentTime;
+        const nextPlayTime = Math.max(
+            0,
+            Math.min(
+                playedDur +
+                (touchs[0].clientX - this.touchOriginOffset) *
+                totalDur / wrapWidth,
+                totalDur));
+        this.player?.seek(nextPlayTime)
+        this.touchOriginOffset = touchs[0].clientX;
+    }
+
     private onSeeked(): void {
         this.prevPlayTime = this.player.video.currentTime
     }
@@ -310,7 +329,20 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
                                     zIndex: 1
                                 }}
                             >{this.playStatus}</Typography>
-                            <div id="player" ref={this.ref} style={{ height: '100%' }} />
+                            <div
+                                id="player"
+                                ref={this.ref}
+                                style={{ height: '100%' }}
+                                onTouchStart={
+                                    (event: React.TouchEvent<HTMLDivElement>) => {
+                                        this.touchOriginOffset = event.touches[0].clientX
+                                    }
+                                }
+                                onTouchMove={this.handleTouchMove.bind(this)}
+                                onDoubleClick={
+                                    (event: React.MouseEvent<HTMLDivElement>) => this.player?.toggle()
+                                }
+                            />
                         </Box>
                     ) : (
                         <Box sx={{
