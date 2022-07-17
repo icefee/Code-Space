@@ -9,18 +9,18 @@ type Log = {
 
 const updateLogs: Log[] = [
     {
+        updateTime: '2022-07-17 11:00',
+        log: [
+            '[播放器]增加触摸设备滑动控制播放进度',
+            '[播放器]增加双击播放/暂停'
+        ]
+    },
+    {
         updateTime: '2022-07-16 17:31',
         log: [
             '[欧美电影]增加加勒比海盗系列',
             '[国产剧]更新星汉灿烂、幸福到万家到最新剧集',
             '[国产电影]更新新封神姜子牙链接'
-        ]
-    },
-    {
-        updateTime: '2022-07-17 11:00',
-        log: [
-            '[播放器]增加触摸设备滑动控制播放进度',
-            '[播放器]增加双击播放/暂停'
         ]
     },
 ]
@@ -29,7 +29,7 @@ const UpdateLog: FunctionComponent = () => {
 
     const [open, setOpen] = useState(false);
 
-    const latestLog = useMemo(() => updateLogs[updateLogs.length - 1], [])
+    const latestLog = useMemo(() => updateLogs[0], [])
 
     const [logRead, setLogRead] = useLocalStorage<boolean>(latestLog.updateTime, false)
 
