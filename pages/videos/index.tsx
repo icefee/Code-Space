@@ -282,7 +282,8 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                 <title>视频文件夹</title>
                                                 <link rel="icon" href="/favicon.ico" />
                                                 <meta name="viewport" content="initial-scale=1, width=device-width" />
-                                                <script defer src="/hls.min.js"></script>
+                                                {/* ./hls.p2p.min */}
+                                                <script defer src="https://cdn.jsdelivr.net/npm/cdnbye@latest"></script>
                                             </Head>
                                             <ResponsiveHeader
                                                 show={this.state.showMenu}

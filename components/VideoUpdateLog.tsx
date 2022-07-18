@@ -9,6 +9,12 @@ type Log = {
 
 const updateLogs: Log[] = [
     {
+        updateTime: '2022-07-18 08:54',
+        log: [
+            '[播放器]更换Hls支持库, 解决部分视频无法播放的问题'
+        ]
+    },
+    {
         updateTime: '2022-07-17 11:00',
         log: [
             '[播放器]增加触摸设备滑动控制播放进度',

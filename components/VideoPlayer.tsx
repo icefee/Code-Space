@@ -168,12 +168,31 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
     }
 
     private initPlayer({ url, title, episode, played_time }: PlayingVideo): void {
+        var type = 'normal';
+        /* @ts-ignore */
+        if (Hls.isSupported() && Hls.WEBRTC_SUPPORT) {
+            type = 'hls';
+        }
         const player = new DPlayer({
             container: this.ref.current,
             autoplay: true,
             video: {
                 url,
-                type: 'hls',
+                type,
+                /* @ts-ignore */
+                customType: {
+                    hls: function(video: HTMLVideoElement, _player: DPlayer) {
+                        /* @ts-ignore */
+                        const hls = new Hls({
+                            debug: false,
+                            p2pConfig: {
+                                live: false
+                            }
+                        });
+                        hls.loadSource(video.src);
+                        hls.attachMedia(video);
+                    }
+                }
             },
             contextmenu: [
                 {
@@ -252,7 +271,14 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
         // this.destroyReloadTimeout()
     }
 
+    private get isVideoReady(): boolean {
+        return this.player.video.duration === 0
+    }
+
     private onTimeupdate(): void {
+        if (!this.isVideoReady) {
+            return;
+        }
         const currentTime = this.player.video.currentTime;
         if (currentTime > this.prevPlayTime + 3) {
             const { playing, playHistory, setPlayHistory } = this.props
@@ -271,6 +297,9 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
     }
 
     public handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+        if (!this.isVideoReady) {
+            return;
+        }
         const touchs = event.changedTouches;
         // const bodyWidth = document.body.clientWidth;
         const wrapWidth = (event.target as HTMLDivElement).clientWidth;
