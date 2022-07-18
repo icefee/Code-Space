@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { Paper, Dialog, AppBar, Toolbar, IconButton, Slide, ButtonBase, Typography } from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
 import type { TransitionProps } from '@mui/material/transitions'
-import Viewer from 'viewerjs'
+// import Viewer from 'viewerjs'
 import css from './style.module.css'
 
 const ImageViewer = dynamic(
@@ -72,11 +72,13 @@ export default function Gallery() {
         fetchData()
     }, [])
 
+    /*
     useEffect(() => {
         if (images.length > 0) {
             new Viewer(galleryWrap.current)
         }
     }, [images])
+    */
 
     const renderImages = useMemo(() => {
         return images.slice(0, pageSize * page)
