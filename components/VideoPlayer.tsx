@@ -272,7 +272,7 @@ class VideoPlayer extends React.Component<VideoPlayerProps> {
     }
 
     private get isVideoReady(): boolean {
-        return this.player.video.duration === 0
+        return this.player.video.duration > 0
     }
 
     private onTimeupdate(): void {
