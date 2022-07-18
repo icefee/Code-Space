@@ -28,6 +28,8 @@
 
 .imageView {
     display: flex;
-    height: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
     align-items: center;
+    justify-content: center;
 }

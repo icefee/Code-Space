@@ -3,7 +3,8 @@ import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { Paper, Dialog, AppBar, Toolbar, IconButton, Slide, ButtonBase, Typography } from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
-import type { TransitionProps } from '@mui/material/transitions';
+import type { TransitionProps } from '@mui/material/transitions'
+import Viewer from 'viewerjs'
 import css from './style.module.css'
 
 const ImageViewer = dynamic(
@@ -60,6 +61,7 @@ export default function Gallery() {
     const [activeImage, setActiveImage] = useState<string | null>(null)
     const [page, setPage] = useState(1)
     const pageSize = 20;
+    const galleryWrap = useRef<HTMLDivElement>()
 
     const fetchData = async () => {
         const images = await fetch('./gallery/ptumeng.json').then<string[]>(response => response.json())
@@ -69,6 +71,12 @@ export default function Gallery() {
     useEffect(() => {
         fetchData()
     }, [])
+
+    useEffect(() => {
+        if (images.length > 0) {
+            new Viewer(galleryWrap.current)
+        }
+    }, [images])
 
     const renderImages = useMemo(() => {
         return images.slice(0, pageSize * page)
@@ -91,7 +99,7 @@ export default function Gallery() {
                 {
                     renderImages.map(
                         (url, index) => (
-                            <div className={css.imageWrap} key={index}>
+                            <div className={css.imageWrap} key={index} ref={galleryWrap}>
                                 <Paper elevation={3} square>
                                     <ButtonBase sx={{
                                         width: '100%',
@@ -110,7 +118,7 @@ export default function Gallery() {
                 TransitionComponent={Transition}
             >
                 <AppBar color="transparent" sx={{ position: 'relative' }}>
-                    <Toolbar>
+                    <Toolbar variant="dense">
                         <IconButton
                             edge="start"
                             color="inherit"
