@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import { Paper, Dialog, AppBar, Toolbar, IconButton, Slide, ButtonBase, Typography } from '@mui/material'
+import { Dialog, AppBar, Toolbar, IconButton, Slide, ButtonBase, Typography } from '@mui/material'
 import { Close as CloseIcon } from '@mui/icons-material'
 import type { TransitionProps } from '@mui/material/transitions'
 // import Viewer from 'viewerjs'
@@ -17,7 +17,7 @@ const ImageItem: React.FunctionComponent<{ src: string }> = ({ src }) => {
     const [url, setUrl] = useState('')
     const [imageStyle, setImageStyle] = useState({})
     const wrapRef = useRef<HTMLDivElement>()
-    
+
     useEffect(() => {
         const image = new Image();
         image.src = src;
@@ -40,7 +40,8 @@ const ImageItem: React.FunctionComponent<{ src: string }> = ({ src }) => {
             alignItems: 'center',
             width: '100%',
             height: 300,
-            overflow: 'hidden'
+            overflow: 'hidden',
+            borderRadius: 8
         }} ref={wrapRef}>
             <img className={css.fitImage} style={imageStyle} src={url} />
         </div>
@@ -102,18 +103,35 @@ export default function Gallery() {
                     renderImages.map(
                         (url, index) => (
                             <div className={css.imageWrap} key={index} ref={galleryWrap}>
-                                <Paper elevation={3} square>
-                                    <ButtonBase sx={{
-                                        width: '100%',
-                                    }} onClick={() => setActiveImage(url)}>
-                                        <ImageItem src={url} />
-                                    </ButtonBase>
-                                </Paper>
+                                <ButtonBase sx={{
+                                    width: '100%',
+                                }} onClick={() => setActiveImage(url)}>
+                                    <ImageItem src={url} />
+                                </ButtonBase>
                             </div>
                         )
                     )
                 }
             </div>
+            {/* <div className={css.scroller} onScroll={handleScroll}>
+                <div className={css.gridContainer}>
+                    {
+                        renderImages.map(
+                            (url, index) => (
+                                <div className={css.gridItem} key={index}>
+                                    <Paper elevation={3} square>
+                                        <ButtonBase sx={{
+                                            width: '100%',
+                                        }} onClick={() => setActiveImage(url)}>
+                                            <ImageItem src={url} />
+                                        </ButtonBase>
+                                    </Paper>
+                                </div>
+                            )
+                        )
+                    }
+                </div>
+            </div> */}
             <Dialog
                 fullScreen
                 open={Boolean(activeImage)}
