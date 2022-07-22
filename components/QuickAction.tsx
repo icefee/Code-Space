@@ -4,14 +4,16 @@ import {
     EjectOutlined as EjectOutlinedIcon,
     CloseOutlined as CloseOutlinedIcon,
     SkipPrevious as SkipPreviousIcon,
-    SkipNext as SkipNextIcon
+    SkipNext as SkipNextIcon,
+    FastRewind as FastRewindIcon,
+    FastForward as FastForwardIcon
 } from '@mui/icons-material'
 
 interface QuickActionProps {
     hidden?: boolean;
     first?: boolean;
     last?: boolean;
-    onAction?: (key: string) => void;
+    onAction?: (key: string) => boolean | void;
 }
 
 const QuickAction: React.FunctionComponent<QuickActionProps> = (props = { hidden: false, first: false, last: false }) => {
@@ -19,8 +21,10 @@ const QuickAction: React.FunctionComponent<QuickActionProps> = (props = { hidden
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
     const handleAction = (key: string) => () => {
-        props.onAction?.(key)
-        handleClose()
+        const close = props.onAction?.(key)
+        if (close) {
+            handleClose()
+        }
     }
     return (
         <>
@@ -33,8 +37,20 @@ const QuickAction: React.FunctionComponent<QuickActionProps> = (props = { hidden
                 onClose={handleClose}
                 onOpen={handleOpen}
                 open={open}
-                FabProps={{size: 'medium'}}
+                FabProps={{ size: 'medium' }}
             >
+                <SpeedDialAction
+                    icon={<FastRewindIcon />}
+                    tooltipTitle="快退15秒"
+                    tooltipOpen
+                    onClick={handleAction('rewind')}
+                />
+                <SpeedDialAction
+                    icon={<FastForwardIcon />}
+                    tooltipTitle="快进15秒"
+                    tooltipOpen
+                    onClick={handleAction('forward')}
+                />
                 {
                     !props.last && (
                         <SpeedDialAction

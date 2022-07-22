@@ -19,7 +19,6 @@ import PlayHistory from 'components/PlayHistory'
 import type { PlayHistoryBaseProps } from 'components/PlayHistory'
 
 import VideoDownloadHelper from 'components/VideoDownloadHelper'
-import QuickAction from 'components/QuickAction'
 import UpdateLog from 'components/VideoUpdateLog'
 
 const ResponsiveHeader = dynamic(
@@ -238,36 +237,6 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
         }
     }
 
-    private handleQuickAction(key: string): void {
-        if (key === 'prev') {
-            this.playNext(-1)
-        }
-        else if (key === 'next') {
-            this.playNext(1)
-        }
-    }
-
-    private get quickAction() {
-        const { activeVideo, showMenu } = this.state
-        if (!activeVideo) {
-            return {
-                hidden: true
-            }
-        }
-        const { episode } = activeVideo
-        if (!episode) {
-            return {
-                hidden: true
-            }
-        }
-        const { episodes } = this.activeEpisode
-        return {
-            first: episode === 1,
-            last: episode === episodes,
-            hidden: showMenu
-        }
-    }
-
     public render(): JSX.Element {
         return (
             <ThemeStorager>
@@ -360,9 +329,12 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                 />
                                                 <Box sx={{ position: 'relative', width: '100%' }}>
                                                     <VideoPlayer
+                                                        currentEpisode={this.activeEpisode}
+                                                        onSwitch={this.playNext.bind(this)}
                                                         playHistory={playHistory}
                                                         setPlayHistory={setPlayHistory}
                                                         playing={this.state.activeVideo}
+                                                        hideHelper={this.state.showMenu}
                                                         onEnd={() => this.playNext(1)}
                                                         requestReload={
                                                             () => this.setState(({ activeVideo }) => {
@@ -378,7 +350,6 @@ export default class Videos extends React.PureComponent<{ videos: Section[]; }, 
                                                             })
                                                         }
                                                     />
-                                                    <QuickAction onAction={this.handleQuickAction.bind(this)} {...this.quickAction} />
                                                 </Box>
                                             </div>
                                             <PlayingStateRestorer
