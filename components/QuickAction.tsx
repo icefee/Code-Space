@@ -40,16 +40,16 @@ const QuickAction: React.FunctionComponent<QuickActionProps> = (props = { hidden
                 FabProps={{ size: 'medium' }}
             >
                 <SpeedDialAction
-                    icon={<FastRewindIcon />}
-                    tooltipTitle="快退15秒"
-                    tooltipOpen
-                    onClick={handleAction('rewind')}
-                />
-                <SpeedDialAction
                     icon={<FastForwardIcon />}
                     tooltipTitle="快进15秒"
                     tooltipOpen
                     onClick={handleAction('forward')}
+                />
+                <SpeedDialAction
+                    icon={<FastRewindIcon />}
+                    tooltipTitle="快退15秒"
+                    tooltipOpen
+                    onClick={handleAction('rewind')}
                 />
                 {
                     !props.last && (
